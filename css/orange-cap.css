@@ -1,0 +1,105 @@
+/* PAGE */
+.stats-page {
+    padding: 40px;
+    background: #f4f6fa;
+}
+
+/* TITLE */
+.stats-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: #1e293b;
+}
+
+/* TABLE WRAP */
+.stats-table-wrap {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+/* TABLE */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+/* HEADER */
+.stats-table thead {
+    background: #ff7a00;
+    color: #ffffff;
+}
+
+.stats-table th {
+    padding: 14px 16px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* BODY */
+.stats-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+/* PLAYER NAME */
+.player-cell {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* TEAM LOGO */
+.stats-table img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
+}
+
+/* RUNS STYLE */
+.runs {
+    font-weight: 800;
+    font-size: 16px;
+    color: #ff7a00;
+}
+
+/* HIGH STRIKE RATE */
+.sr.high {
+    font-weight: 700;
+    color: #0b2d5c;
+}
+
+/* TOP PLAYER HIGHLIGHT (Orange Cap holder) */
+.top-player {
+    background: #fff5e6;
+    font-weight: 700;
+}
+
+.top-player td:first-child {
+    color: #ff7a00;
+    font-weight: 800;
+}
+
+/* Hover effect on rows */
+.stats-table tbody tr:hover {
+    background: #fafafa;
+    transition: background 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-page {
+        padding: 20px;
+    }
+    
+    .stats-title {
+        font-size: 24px;
+    }
+}

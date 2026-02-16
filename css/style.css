@@ -1,0 +1,621 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f4f6fa;
+    color: #111;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #0b2d5c;
+    color: #fff;
+    padding: 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    height: 420px;
+    background:
+        linear-gradient(rgba(11,45,92,0.88), rgba(11,45,92,0.88)),
+        url("../assets/images/hero-bg.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: heroZoom 8s ease-in-out forwards;
+}
+
+.hero-content h1 {
+    color: #fff;
+    font-size: 44px;
+    font-weight: 800;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    animation: heroFadeUp 0.9s ease-out forwards;
+}
+
+.hero-content p {
+    color: #e3ebff;
+    font-size: 15px;
+    opacity: 0;
+    animation: heroFadeIn 0.8s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+/* ================= TOURNAMENT LOGO ================= */
+
+.tournament-logo-svg {
+    width: 78px;
+    stroke: #ffffff;
+    stroke-width: 3;
+    fill: none;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: logoFadeIn 0.8s ease forwards;
+    animation-delay: 0.25s;
+}
+
+/* ================= QUICK LINKS ================= */
+
+.quick-links {
+    background: #fff;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.quick-links h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.quick-links-row {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.quick-card {
+    width: 260px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    border: 2px solid #0b2d5c;
+    border-radius: 10px;
+    color: #0b2d5c;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.quick-card:hover {
+    background: #0b2d5c;
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(11,45,92,0.25);
+}
+
+.line-icon {
+    width: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+}
+
+/* ================= COMPACT IPL RECENT MATCH ================= */
+
+.recent-matches {
+    padding: 40px 30px;
+}
+
+.match-card-compact {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.match-status {
+    background: linear-gradient(90deg,#1e4fa3,#0b2d5c);
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.match-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 20px 24px;
+}
+
+.team-block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.team-block.right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.team-block img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.team-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.score {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.overs {
+    font-size: 12px;
+    color: #666;
+}
+
+.vs-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid #0b2d5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    color: #0b2d5c;
+}
+
+.match-btn-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 18px 0 22px;
+}
+
+.match-btn-small {
+    background: #0b2d5c;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.match-btn-small:hover {
+    background: #123b7a;
+}
+
+/* ================= POINTS PREVIEW ================= */
+
+.points-preview {
+    padding: 40px 30px;
+}
+
+.ipl-points-wrap {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.ipl-points-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 260px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.ipl-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ipl-team img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.ipl-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin-top: 18px;
+    text-align: center;
+}
+
+.ipl-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* ================= BUTTON ================= */
+
+.btn-angled {
+    position: relative;
+    padding: 12px 32px 12px 24px;
+    background: #0b2d5c;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-angled::after {
+    content: "";
+    position: absolute;
+    right: -16px;
+    top: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-left: 16px solid #0b2d5c;
+}
+
+.btn-angled:hover {
+    background: #123b7a;
+}
+
+.btn-angled:hover::after {
+    border-left-color: #123b7a;
+}
+
+/* ================= FOOTER ================= */
+
+.footer-bar {
+    background: #0b2d5c;
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+}
+
+/* ================= MOBILE FIXES ================= */
+
+@media (max-width:768px){
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .match-row {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        text-align: center;
+    }
+
+    .team-block,
+    .team-block.right {
+        justify-content: center;
+    }
+
+    .vs-circle {
+        margin: 0 auto;
+    }
+
+    .quick-links-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .quick-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes heroFadeUp {
+    from {opacity:0; transform:translateY(30px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes heroFadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@keyframes heroZoom {
+    from {background-size:100%;}
+    to {background-size:105%;}
+}
+
+@keyframes logoFadeIn {
+    from {opacity:0; transform:translateY(-6px) scale(0.9);}
+    to {opacity:1; transform:translateY(0) scale(1);}
+}
+/* ================= FIX FOR CURRENT RECENT MATCH STRUCTURE ================= */
+
+/* Layout */
+.match-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 20px 24px;
+}
+
+/* Team mini block */
+.team-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.team-mini:nth-child(3) {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+/* 🔥 FORCE SMALL LOGOS */
+.team-mini img {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain;
+}
+
+/* Score block */
+.mini-score {
+    display: flex;
+    flex-direction: column;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.mini-score small {
+    font-size: 11px;
+    font-weight: 500;
+    color: #666;
+}
+
+/* VS styling */
+.vs-mini {
+    font-weight: 800;
+    font-size: 13px;
+    color: #0b2d5c;
+    padding: 6px 10px;
+    border: 2px solid #0b2d5c;
+    border-radius: 20px;
+}
+
+/* Button */
+.mini-btn {
+    display: block;
+    width: fit-content;
+    margin: 18px auto 22px;
+    background: #0b2d5c;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.mini-btn:hover {
+    background: #123b7a;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .match-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .team-mini,
+    .team-mini:nth-child(3) {
+        justify-content: center;
+        text-align: center;
+    }
+}
+/* ================= HORIZONTAL SCROLL POINTS ================= */
+
+.points-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-behavior: smooth;
+}
+
+.points-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.points-scroll::-webkit-scrollbar-thumb {
+    background: #0b2d5c;
+    border-radius: 4px;
+}
+
+/* CARD */
+
+.points-mini-card {
+    min-width: 220px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    position: relative;
+    flex-shrink: 0;
+    transition: 0.3s ease;
+}
+
+.points-mini-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.15);
+}
+
+/* RANK */
+
+.mini-rank {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    font-weight: 800;
+    font-size: 18px;
+    color: #0b2d5c;
+}
+
+/* LOGO */
+
+.points-mini-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 10px 0;
+}
+
+/* TEAM NAME */
+
+.points-mini-card h4 {
+    margin: 8px 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* STATS */
+
+.mini-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mini-stats span {
+    opacity: 0.85;
+}
+
+.pos {
+    color: #1a8f1a;
+}
+
+.neg {
+    color: #c62828;
+}
+/* ================= NAVBAR FIX ================= */
+
+.navbar {
+    background: #0b2d5c;
+    color: #fff;
+    padding: 14px 60px; /* 🔥 more space left & right */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* spacing between buttons */
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+}
+
+
+/* ================= STATS DROPDOWN ================= */
+
+.stats-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Stats button */
+.stats-btn {
+    font-weight: 600;
+}
+
+/* Dropdown menu */
+.stats-menu {
+    position: absolute;
+    top: 100%; /* directly below button */
+    right: 0;  /* align properly */
+    background: #0b2d5c;
+    border-radius: 8px;
+    min-width: 180px;
+    padding: 8px 0;
+
+    display: none;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Menu links */
+.stats-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.25s;
+}
+
+.stats-menu a:hover {
+    background: #123b7a;
+}
+
+/* 🔥 IMPORTANT FIX */
+.stats-dropdown:hover .stats-menu {
+    display: block;
+}
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 14px 20px;
+    }
+
+    .nav-links {
+        gap: 18px;
+        font-size: 14px;
+    }
+
+    .stats-menu {
+        right: -10px;
+    }
+}

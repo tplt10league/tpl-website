@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Points Table | My Tournament</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- COMMON NAVBAR CSS -->
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
+
+    <!-- POINTS PAGE ONLY -->
+    <link rel="stylesheet" href="/tpl-website/css/points.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="nav-title">MY TOURNAMENT</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html" class="active">Points Table</a>
+
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="#">Most 6s</a>
+                <a href="#">Most 4s</a>
+                <a href="#">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- POINTS PAGE -->
+<main class="points-page">
+
+    <h1 class="points-title">Points Table</h1>
+
+    <div class="points-table-wrap">
+        <table class="points-table">
+
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Team</th>
+                    <th>P</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>Pts</th>
+                    <th>NRR</th>
+                </tr>
+            </thead>
+
+           <tbody>
+
+<!-- MI - Rank 1 -->
+<tr class="team-row mi">
+    <td>1</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+        Mumbai Indians
+    </td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>4</td>
+    <td class="nrr pos">+1.20</td>
+</tr>
+
+<!-- KKR - Rank 2 -->
+<tr class="team-row kkr">
+    <td>2</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+        Kolkata Knight Riders
+    </td>
+    <td>3</td>
+    <td>2</td>
+    <td>1</td>
+    <td>4</td>
+    <td class="nrr neg">-0.22</td>
+</tr>
+
+<!-- SRH - Rank 3 -->
+<tr class="team-row srh">
+    <td>3</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+        Sunrisers Hyderabad
+    </td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td class="nrr pos">+0.20</td>
+</tr>
+
+<!-- RR - Rank 4 -->
+<tr class="team-row rr">
+    <td>4</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+        Rajasthan Royals
+    </td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td class="nrr neg">-0.20</td>
+</tr>
+
+<!-- CSK - Rank 5 -->
+<tr class="team-row csk">
+    <td>5</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+        Chennai Super Kings
+    </td>
+    <td>3</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td class="nrr pos">0.00</td>
+</tr>
+
+<!-- RCB - Rank 6 -->
+<tr class="team-row rcb">
+    <td>6</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+        Royal Challengers Bengaluru
+    </td>
+    <td>2</td>
+    <td>0</td>
+    <td>2</td>
+    <td>0</td>
+    <td class="nrr neg">-1.70</td>
+</tr>
+
+</tbody>
+
+        </table>
+    </div>
+
+</main>
+
+</body>
+</html>

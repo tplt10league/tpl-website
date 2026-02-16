@@ -1,0 +1,321 @@
+/* ================= FIXTURES PAGE ================= */
+
+.fixtures-section {
+    padding: 40px;
+    background: #f4f6fa;
+}
+
+.fixtures-section h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: #0b2d5c;
+}
+
+/* Round Label */
+.round-label {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 30px 0 15px;
+    color: #0b2d5c;
+    border-left: 5px solid #ff7a00;
+    padding-left: 15px;
+}
+
+/* Fixtures Container */
+.fixtures-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+/* Fixture Card */
+.fixture-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.fixture-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+/* Completed matches */
+.fixture-card.completed {
+    border-left: 5px solid #18a558;
+}
+
+/* Match Number */
+.match-number {
+    font-weight: 700;
+    color: #666;
+    min-width: 70px;
+    font-size: 14px;
+}
+
+/* Team Blocks */
+.team {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.team.left {
+    justify-content: flex-start;
+}
+
+.team.right {
+    justify-content: flex-end;
+}
+
+.team img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.team span {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Team Scores */
+.team-score {
+    font-weight: 700;
+    color: #ff7a00;
+    background: #fff5e6;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+/* VS Circle */
+.vs {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #0b2d5c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    margin: 0 15px;
+}
+
+/* Match Result */
+.match-result {
+    width: 100%;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0b2d5c;
+    background: #eef2f7;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* Upcoming Badge */
+.match-status-badge {
+    background: #ff7a00;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .fixtures-section {
+        padding: 20px;
+    }
+
+    .fixture-card {
+        padding: 15px;
+    }
+
+    .team {
+        gap: 8px;
+    }
+
+    .team img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .team span {
+        font-size: 13px;
+    }
+
+    .vs {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+        margin: 0 8px;
+    }
+
+    .match-number {
+        min-width: 55px;
+        font-size: 12px;
+    }
+
+    .team-score {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+}
+/* Second Leg Label */
+.round-label.second-leg {
+    border-left-color: #ff7a00;
+    margin-top: 40px;
+}
+
+.round-label.second-leg::before {
+    content: "⚡ ";
+    color: #ff7a00;
+}
+/* ================= MOBILE FIXES FOR FIXTURES PAGE ================= */
+
+@media (max-width: 768px) {
+    .fixtures-section {
+        padding: 15px;
+    }
+
+    .fixtures-section h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .round-label {
+        font-size: 18px;
+        margin: 20px 0 10px;
+        padding-left: 10px;
+    }
+
+    .fixture-card {
+        padding: 12px;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    /* Reorder for mobile */
+    .match-number {
+        width: 100%;
+        margin-bottom: 10px;
+        color: #ff7a00;
+        font-size: 13px;
+    }
+
+    .team {
+        gap: 6px;
+    }
+
+    .team.left {
+        flex: 1.2;
+    }
+
+    .team.right {
+        flex: 1.2;
+    }
+
+    .team img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .team span {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .team-score {
+        font-size: 10px;
+        padding: 2px 5px;
+        margin-left: 4px;
+        white-space: nowrap;
+    }
+
+    .vs {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+        margin: 0 5px;
+        flex-shrink: 0;
+    }
+
+    .match-result {
+        font-size: 12px;
+        padding: 6px 10px;
+        margin-top: 10px;
+        order: 4;
+    }
+
+    .match-status-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 10px;
+        padding: 3px 8px;
+        margin-left: 0;
+    }
+
+    /* For completed matches */
+    .fixture-card.completed .team-score {
+        background: #fff5e6;
+    }
+
+    /* Ensure scores don't overflow */
+    .team.left .team-score {
+        margin-left: auto;
+    }
+
+    .team.right .team-score {
+        margin-right: auto;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .team img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .team span {
+        font-size: 12px;
+    }
+
+    .team-score {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+
+    .vs {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+    }
+
+    .match-number {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,110 @@
+/* ================= PAGE WRAPPER ================= */
+
+.points-page {
+    padding: 40px;
+    background: #f4f6fa;
+}
+
+.points-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+/* ================= TABLE WRAPPER ================= */
+
+.points-table-wrap {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow-x: auto;              /* horizontal scroll */
+}
+
+/* ================= TABLE ================= */
+
+.points-table {
+    width: 100%;
+    min-width: 720px;              /* forces scroll on mobile */
+    border-collapse: collapse;
+}
+
+/* ================= HEADER ================= */
+
+.points-table thead {
+    background: #0b2d5c;
+    color: #ffffff;
+}
+
+.points-table thead th {
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.points-table thead th:nth-child(2) {
+    text-align: left;              /* Team column left aligned */
+}
+
+/* ================= BODY ================= */
+
+.points-table tbody td {
+    padding: 16px;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.points-table tbody td:nth-child(2) {
+    text-align: left;              /* Team column */
+}
+
+/* ================= TEAM CELL ================= */
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.team-cell img {
+    width: 26px;                   /* controlled logo size */
+    height: 26px;
+    object-fit: contain;
+}
+
+/* ================= NRR COLORS ================= */
+
+.nrr.pos {
+    color: #18a558;
+    font-weight: 700;
+}
+
+.nrr.neg {
+    color: #e53935;
+    font-weight: 700;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+    .points-page {
+        padding: 20px;
+    }
+
+    .points-title {
+        font-size: 22px;
+    }
+
+    .team-cell img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .points-table tbody td {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
