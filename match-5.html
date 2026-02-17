@@ -80,8 +80,30 @@
     </div>
 </div>
 
-<!-- Note: JavaScript file commented out - create if needed -->
-<!-- <script src="/tpl-website/js/match.js"></script> -->
+<!-- JavaScript for tabs -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all scorecards
+                scorecards.forEach(card => card.classList.remove('active'));
+                
+                // Show the selected scorecard
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

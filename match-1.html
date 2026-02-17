@@ -42,11 +42,10 @@
 
 <!-- IPL STYLE TABS -->
 <div class="innings-tabs">
-    <button class="innings-btn active" onclick="showInnings('csk')">CSK Innings</button>
-    <button class="innings-btn" onclick="showInnings('rr')">RR Innings</button>
-    <button class="innings-btn" onclick="showInnings('super')">Super Over</button>
+    <button class="tab csk active" data-target="csk">CSK Innings</button>
+    <button class="tab rr" data-target="rr">RR Innings</button>
+    <button class="tab super" data-target="super">Super Over</button>
 </div>
-
 
 <!-- CSK -->
 <div class="scorecard csk active" id="csk">
@@ -99,31 +98,30 @@
     </div>
 </div>
 
-<!-- Note: JavaScript file commented out - create if needed -->
-<!-- <script src="/tpl-website/js/match.js"></script> -->
+<!-- JavaScript for tabs -->
 <script>
-function showInnings(id) {
-
-    // Remove active from all buttons
-    document.querySelectorAll('.innings-btn').forEach(btn => {
-        btn.classList.remove('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all scorecards
+                scorecards.forEach(card => card.classList.remove('active'));
+                
+                // Show the selected scorecard
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
     });
-
-    // Hide all innings sections
-    document.querySelectorAll('.innings-section').forEach(sec => {
-        sec.style.display = "none";
-    });
-
-    // Show selected section
-    document.getElementById(id).style.display = "block";
-
-    // Activate clicked button
-    event.target.classList.add('active');
-}
 </script>
 
 </body>
-
 </html>
-
-
