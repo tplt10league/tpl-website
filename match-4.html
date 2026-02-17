@@ -45,15 +45,17 @@
 
 <!-- CSK -->
 <div class="scorecard csk active" id="csk">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Ayush Mhatre</b><span>21</span><span>16</span><span>2</span><span>2</span><span>131.25</span></div>
-    <div class="score-row"><b>Sanju Samson</b><span>59</span><span>29</span><span>3</span><span>6</span><span>203.44</span></div>
-    <div class="score-row"><b>Ruturaj Gaikwad</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.66</span></div>
-    <div class="score-row"><b>MS Dhoni</b><span>11</span><span>10</span><span>0</span><span>1</span><span>110.00</span></div>
-    <div class="score-row"><b>Dewald Brevis</b><span>2</span><span>2</span><span>0</span><span>0</span><span>100.00</span></div>
+        <div class="score-row"><b>Ayush Mhatre</b><span>21</span><span>16</span><span>2</span><span>2</span><span>131.25</span></div>
+        <div class="score-row"><b>Sanju Samson</b><span>59</span><span>29</span><span>3</span><span>6</span><span>203.44</span></div>
+        <div class="score-row"><b>Ruturaj Gaikwad</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.66</span></div>
+        <div class="score-row"><b>MS Dhoni</b><span>11</span><span>10</span><span>0</span><span>1</span><span>110.00</span></div>
+        <div class="score-row"><b>Dewald Brevis</b><span>2</span><span>2</span><span>0</span><span>0</span><span>100.00</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -63,14 +65,16 @@
 
 <!-- MI -->
 <div class="scorecard mi" id="mi">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Rohit Sharma</b><span>41</span><span>21</span><span>3</span><span>4</span><span>195.23</span></div>
-    <div class="score-row"><b>Quinton de Kock</b><span>25</span><span>14</span><span>1</span><span>3</span><span>178.57</span></div>
-    <div class="score-row"><b>Suryakumar Yadav</b><span>12</span><span>7</span><span>0</span><span>1</span><span>171.42</span></div>
-    <div class="score-row"><b>Tilak Varma</b><span>15</span><span>10</span><span>2</span><span>1</span><span>150.00</span></div>
+        <div class="score-row"><b>Rohit Sharma</b><span>41</span><span>21</span><span>3</span><span>4</span><span>195.23</span></div>
+        <div class="score-row"><b>Quinton de Kock</b><span>25</span><span>14</span><span>1</span><span>3</span><span>178.57</span></div>
+        <div class="score-row"><b>Suryakumar Yadav</b><span>12</span><span>7</span><span>0</span><span>1</span><span>171.42</span></div>
+        <div class="score-row"><b>Tilak Varma</b><span>15</span><span>10</span><span>2</span><span>1</span><span>150.00</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -86,16 +90,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });

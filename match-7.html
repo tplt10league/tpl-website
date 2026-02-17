@@ -47,18 +47,20 @@
 
 <!-- KKR INNINGS -->
 <div class="scorecard kkr active" id="kkr">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Sunil Narine</b><span>23</span><span>9</span><span>2</span><span>2</span><span>255.55</span></div>
-    <div class="score-row"><b>Ajinkya Rahane</b><span>20</span><span>10</span><span>0</span><span>2</span><span>200.00</span></div>
-    <div class="score-row"><b>Cameron Green</b><span>1</span><span>3</span><span>0</span><span>0</span><span>33.33</span></div>
-    <div class="score-row"><b>Manish Pandey</b><span>50</span><span>21</span><span>3</span><span>6</span><span>238.09</span></div>
-    <div class="score-row"><b>Rinku Singh</b><span>26</span><span>7</span><span>2</span><span>3</span><span>371.42</span></div>
-    <div class="score-row"><b>Raghuvanshi</b><span>5</span><span>4</span><span>1</span><span>0</span><span>125.00</span></div>
-    <div class="score-row"><b>Rovman Powell</b><span>0</span><span>4</span><span>0</span><span>0</span><span>0.00</span></div>
-    <div class="score-row"><b>Harshit Rana*</b><span>6</span><span>3</span><span>0</span><span>1</span><span>200.00</span></div>
+        <div class="score-row"><b>Sunil Narine</b><span>23</span><span>9</span><span>2</span><span>2</span><span>255.55</span></div>
+        <div class="score-row"><b>Ajinkya Rahane</b><span>20</span><span>10</span><span>0</span><span>2</span><span>200.00</span></div>
+        <div class="score-row"><b>Cameron Green</b><span>1</span><span>3</span><span>0</span><span>0</span><span>33.33</span></div>
+        <div class="score-row"><b>Manish Pandey</b><span>50</span><span>21</span><span>3</span><span>6</span><span>238.09</span></div>
+        <div class="score-row"><b>Rinku Singh</b><span>26</span><span>7</span><span>2</span><span>3</span><span>371.42</span></div>
+        <div class="score-row"><b>Raghuvanshi</b><span>5</span><span>4</span><span>1</span><span>0</span><span>125.00</span></div>
+        <div class="score-row"><b>Rovman Powell</b><span>0</span><span>4</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Harshit Rana*</b><span>6</span><span>3</span><span>0</span><span>1</span><span>200.00</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -68,14 +70,16 @@
 
 <!-- CSK INNINGS -->
 <div class="scorecard csk" id="csk">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Ayush Mhatre</b><span>45</span><span>19</span><span>2</span><span>5</span><span>236.84</span></div>
-    <div class="score-row"><b>Sanju Samson</b><span>1</span><span>4</span><span>0</span><span>0</span><span>25.00</span></div>
-    <div class="score-row"><b>Ruturaj Gaikwad</b><span>53</span><span>19</span><span>4</span><span>6</span><span>278.94</span></div>
-    <div class="score-row"><b>Dewald Brevis*</b><span>40</span><span>11</span><span>1</span><span>6</span><span>363.63</span></div>
+        <div class="score-row"><b>Ayush Mhatre</b><span>45</span><span>19</span><span>2</span><span>5</span><span>236.84</span></div>
+        <div class="score-row"><b>Sanju Samson</b><span>1</span><span>4</span><span>0</span><span>0</span><span>25.00</span></div>
+        <div class="score-row"><b>Ruturaj Gaikwad</b><span>53</span><span>19</span><span>4</span><span>6</span><span>278.94</span></div>
+        <div class="score-row"><b>Dewald Brevis*</b><span>40</span><span>11</span><span>1</span><span>6</span><span>363.63</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -91,16 +95,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });

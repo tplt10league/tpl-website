@@ -45,13 +45,15 @@
 
 <!-- RCB Innings -->
 <div class="scorecard rcb active" id="rcb">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Virat Kohli</b><span>14</span><span>7</span><span>0</span><span>2</span><span>200.00</span></div>
-    <div class="score-row"><b>Phil Salt</b><span>63</span><span>38</span><span>1</span><span>9</span><span>165.78</span></div>
-    <div class="score-row"><b>Rajat Patidar</b><span>40</span><span>15</span><span>1</span><span>5</span><span>266.66</span></div>
+        <div class="score-row"><b>Virat Kohli</b><span>14</span><span>7</span><span>0</span><span>2</span><span>200.00</span></div>
+        <div class="score-row"><b>Phil Salt</b><span>63</span><span>38</span><span>1</span><span>9</span><span>165.78</span></div>
+        <div class="score-row"><b>Rajat Patidar</b><span>40</span><span>15</span><span>1</span><span>5</span><span>266.66</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -61,14 +63,16 @@
 
 <!-- SRH Innings -->
 <div class="scorecard srh" id="srh">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Abhishek Sharma</b><span>6</span><span>6</span><span>0</span><span>1</span><span>100.00</span></div>
-    <div class="score-row"><b>Travis Head</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
-    <div class="score-row"><b>Heinrich Klaasen</b><span>79</span><span>26</span><span>4</span><span>10</span><span>303.84</span></div>
-    <div class="score-row"><b>Nitish Kumar Reddy</b><span>39</span><span>21</span><span>3</span><span>4</span><span>185.71</span></div>
+        <div class="score-row"><b>Abhishek Sharma</b><span>6</span><span>6</span><span>0</span><span>1</span><span>100.00</span></div>
+        <div class="score-row"><b>Travis Head</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Heinrich Klaasen</b><span>79</span><span>26</span><span>4</span><span>10</span><span>303.84</span></div>
+        <div class="score-row"><b>Nitish Kumar Reddy</b><span>39</span><span>21</span><span>3</span><span>4</span><span>185.71</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -84,16 +88,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });

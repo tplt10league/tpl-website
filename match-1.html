@@ -49,15 +49,17 @@
 
 <!-- CSK -->
 <div class="scorecard csk active" id="csk">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Ayush Mhatre</b><span>0</span><span>3</span><span>0</span><span>0</span><span>0.00</span></div>
-    <div class="score-row"><b>Sanju Samson</b><span>26</span><span>11</span><span>1</span><span>3</span><span>236.36</span></div>
-    <div class="score-row"><b>Ruturaj Gaikwad*</b><span>33</span><span>22</span><span>1</span><span>4</span><span>150.00</span></div>
-    <div class="score-row"><b>Dewald Brevis</b><span>22</span><span>23</span><span>2</span><span>1</span><span>95.65</span></div>
-    <div class="score-row"><b>MS Dhoni*</b><span>0</span><span>2</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Ayush Mhatre</b><span>0</span><span>3</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Sanju Samson</b><span>26</span><span>11</span><span>1</span><span>3</span><span>236.36</span></div>
+        <div class="score-row"><b>Ruturaj Gaikwad*</b><span>33</span><span>22</span><span>1</span><span>4</span><span>150.00</span></div>
+        <div class="score-row"><b>Dewald Brevis</b><span>22</span><span>23</span><span>2</span><span>1</span><span>95.65</span></div>
+        <div class="score-row"><b>MS Dhoni*</b><span>0</span><span>2</span><span>0</span><span>0</span><span>0.00</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -67,15 +69,17 @@
 
 <!-- RR -->
 <div class="scorecard rr" id="rr">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Yashasvi Jaiswal</b><span>26</span><span>12</span><span>2</span><span>0</span><span>155.55</span></div>
-    <div class="score-row"><b>Vaibhav Suryavanshi</b><span>13</span><span>15</span><span>1</span><span>0</span><span>86.66</span></div>
-    <div class="score-row"><b>Riyan Parag</b><span>28</span><span>16</span><span>3</span><span>1</span><span>175.00</span></div>
-    <div class="score-row"><b>Ravindra Jadeja</b><span>0</span><span>2</span><span>0</span><span>0</span><span>0.00</span></div>
-    <div class="score-row"><b>Shimron Hetmyer*</b><span>14</span><span>12</span><span>1</span><span>1</span><span>116.66</span></div>
+        <div class="score-row"><b>Yashasvi Jaiswal</b><span>26</span><span>12</span><span>2</span><span>0</span><span>155.55</span></div>
+        <div class="score-row"><b>Vaibhav Suryavanshi</b><span>13</span><span>15</span><span>1</span><span>0</span><span>86.66</span></div>
+        <div class="score-row"><b>Riyan Parag</b><span>28</span><span>16</span><span>3</span><span>1</span><span>175.00</span></div>
+        <div class="score-row"><b>Ravindra Jadeja</b><span>0</span><span>2</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Shimron Hetmyer*</b><span>14</span><span>12</span><span>1</span><span>1</span><span>116.66</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -85,12 +89,14 @@
 
 <!-- SUPER OVER -->
 <div class="scorecard super" id="super">
-    <div class="table-head">
-        <span>Team</span><span>Runs</span><span>Balls</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Team</span><span>Runs</span><span>Balls</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Rajasthan Royals</b><span>19</span><span>5</span><span>0</span><span>2</span><span>380.00</span></div>
-    <div class="score-row"><b>Chennai Super Kings</b><span>10</span><span>6</span><span>0</span><span>1</span><span>166.66</span></div>
+        <div class="score-row"><b>Rajasthan Royals</b><span>19</span><span>5</span><span>0</span><span>2</span><span>380.00</span></div>
+        <div class="score-row"><b>Chennai Super Kings</b><span>10</span><span>6</span><span>0</span><span>1</span><span>166.66</span></div>
+    </div>
 
     <div class="total-row">
         <span>Result</span>
@@ -106,16 +112,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });

@@ -47,14 +47,16 @@
 
 <!-- KKR -->
 <div class="scorecard kkr active" id="kkr">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Sunil Narine</b><span>2</span><span>5</span><span>0</span><span>0</span><span>40.00</span></div>
-    <div class="score-row"><b>Ajinkya Rahane</b><span>17</span><span>22</span><span>1</span><span>2</span><span>77.27</span></div>
-    <div class="score-row"><b>Cameron Green</b><span>48</span><span>26</span><span>5</span><span>4</span><span>184.62</span></div>
-    <div class="score-row"><b>Rovman Powell</b><span>8</span><span>7</span><span>0</span><span>1</span><span>114.29</span></div>
+        <div class="score-row"><b>Sunil Narine</b><span>2</span><span>5</span><span>0</span><span>0</span><span>40.00</span></div>
+        <div class="score-row"><b>Ajinkya Rahane</b><span>17</span><span>22</span><span>1</span><span>2</span><span>77.27</span></div>
+        <div class="score-row"><b>Cameron Green</b><span>48</span><span>26</span><span>5</span><span>4</span><span>184.62</span></div>
+        <div class="score-row"><b>Rovman Powell</b><span>8</span><span>7</span><span>0</span><span>1</span><span>114.29</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -64,15 +66,17 @@
 
 <!-- RCB -->
 <div class="scorecard rcb" id="rcb">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Virat Kohli</b><span>12</span><span>16</span><span>1</span><span>1</span><span>75.00</span></div>
-    <div class="score-row"><b>Phil Salt</b><span>41</span><span>25</span><span>2</span><span>4</span><span>164.00</span></div>
-    <div class="score-row"><b>Romario Shepherd</b><span>0</span><span>4</span><span>0</span><span>0</span><span>0.00</span></div>
-    <div class="score-row"><b>Rajat Patidar</b><span>18</span><span>12</span><span>1</span><span>1</span><span>150.00</span></div>
-    <div class="score-row"><b>Venkatesh Iyer</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.67</span></div>
+        <div class="score-row"><b>Virat Kohli</b><span>12</span><span>16</span><span>1</span><span>1</span><span>75.00</span></div>
+        <div class="score-row"><b>Phil Salt</b><span>41</span><span>25</span><span>2</span><span>4</span><span>164.00</span></div>
+        <div class="score-row"><b>Romario Shepherd</b><span>0</span><span>4</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Rajat Patidar</b><span>18</span><span>12</span><span>1</span><span>1</span><span>150.00</span></div>
+        <div class="score-row"><b>Venkatesh Iyer</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.67</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -88,16 +92,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });

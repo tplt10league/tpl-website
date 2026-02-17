@@ -47,16 +47,18 @@
 
 <!-- SRH INNINGS -->
 <div class="scorecard srh active" id="srh">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Travis Head</b><span>1</span><span>4</span><span>0</span><span>0</span><span>25.00</span></div>
-    <div class="score-row"><b>Abhishek Sharma</b><span>1</span><span>2</span><span>0</span><span>0</span><span>50.00</span></div>
-    <div class="score-row"><b>Ishan Kishan</b><span>13</span><span>9</span><span>2</span><span>0</span><span>144.44</span></div>
-    <div class="score-row"><b>Heinrich Klaasen</b><span>46</span><span>24</span><span>3</span><span>3</span><span>191.66</span></div>
-    <div class="score-row"><b>Nitish Kumar Reddy*</b><span>39</span><span>18</span><span>2</span><span>3</span><span>216.66</span></div>
-    <div class="score-row"><b>Liam Livingstone*</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.66</span></div>
+        <div class="score-row"><b>Travis Head</b><span>1</span><span>4</span><span>0</span><span>0</span><span>25.00</span></div>
+        <div class="score-row"><b>Abhishek Sharma</b><span>1</span><span>2</span><span>0</span><span>0</span><span>50.00</span></div>
+        <div class="score-row"><b>Ishan Kishan</b><span>13</span><span>9</span><span>2</span><span>0</span><span>144.44</span></div>
+        <div class="score-row"><b>Heinrich Klaasen</b><span>46</span><span>24</span><span>3</span><span>3</span><span>191.66</span></div>
+        <div class="score-row"><b>Nitish Kumar Reddy*</b><span>39</span><span>18</span><span>2</span><span>3</span><span>216.66</span></div>
+        <div class="score-row"><b>Liam Livingstone*</b><span>2</span><span>3</span><span>0</span><span>0</span><span>66.66</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -66,16 +68,18 @@
 
 <!-- MI INNINGS -->
 <div class="scorecard mi" id="mi">
-    <div class="table-head">
-        <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-    </div>
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
 
-    <div class="score-row"><b>Rohit Sharma</b><span>43</span><span>16</span><span>0</span><span>7</span><span>268.75</span></div>
-    <div class="score-row"><b>Tilak Varma</b><span>16</span><span>6</span><span>2</span><span>1</span><span>266.66</span></div>
-    <div class="score-row"><b>Quinton de Kock</b><span>2</span><span>7</span><span>0</span><span>0</span><span>28.57</span></div>
-    <div class="score-row"><b>Suryakumar Yadav</b><span>1</span><span>10</span><span>0</span><span>0</span><span>10.00</span></div>
-    <div class="score-row"><b>Hardik Pandya*</b><span>32</span><span>18</span><span>2</span><span>2</span><span>177.77</span></div>
-    <div class="score-row"><b>Ryan Rickelton*</b><span>8</span><span>3</span><span>1</span><span>1</span><span>266.66</span></div>
+        <div class="score-row"><b>Rohit Sharma</b><span>43</span><span>16</span><span>0</span><span>7</span><span>268.75</span></div>
+        <div class="score-row"><b>Tilak Varma</b><span>16</span><span>6</span><span>2</span><span>1</span><span>266.66</span></div>
+        <div class="score-row"><b>Quinton de Kock</b><span>2</span><span>7</span><span>0</span><span>0</span><span>28.57</span></div>
+        <div class="score-row"><b>Suryakumar Yadav</b><span>1</span><span>10</span><span>0</span><span>0</span><span>10.00</span></div>
+        <div class="score-row"><b>Hardik Pandya*</b><span>32</span><span>18</span><span>2</span><span>2</span><span>177.77</span></div>
+        <div class="score-row"><b>Ryan Rickelton*</b><span>8</span><span>3</span><span>1</span><span>1</span><span>266.66</span></div>
+    </div>
 
     <div class="total-row">
         <span>Total</span>
@@ -91,16 +95,9 @@
         
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 this.classList.add('active');
-                
-                // Hide all scorecards
                 scorecards.forEach(card => card.classList.remove('active'));
-                
-                // Show the selected scorecard
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
             });
