@@ -286,69 +286,58 @@ body {
 /* Tab active colors */
 .tab.kkr.active { background: #3a225d; } /* KKR Purple */
 .tab.csk.active { background: #f9cd05; color: #111; } /* CSK Yellow */
-/* ================= SCROLLABLE TABLE WRAPPER ================= */
+/* ================= SCROLLABLE TABLE WRAPPER - MATCH PAGES ================= */
 
 .scorecard-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow-x: auto;              /* horizontal scroll - like points table */
     margin: 15px 0;
-    border-radius: 8px;
+    width: 100%;
 }
 
-/* Force table to be wider than container */
+/* Style the table inside wrapper - exactly like points table */
 .scorecard-table-wrapper .table-head,
 .scorecard-table-wrapper .score-row {
     display: grid;
     grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
-    min-width: 650px;  /* Forces horizontal scroll on mobile */
+    min-width: 700px;              /* forces scroll on mobile - like points-table min-width */
     width: 100%;
 }
 
-/* Style the scrollbar */
-.scorecard-table-wrapper::-webkit-scrollbar {
-    height: 6px;
+/* Keep existing table styles */
+.scorecard-table-wrapper .table-head {
+    font-weight: 800;
+    color: #0b2d5c;
+    border-bottom: 2px solid #0b2d5c;
+    padding: 10px 0;
 }
 
-.scorecard-table-wrapper::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
+.scorecard-table-wrapper .score-row {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+/* Mobile only adjustments */
+@media (max-width: 768px) {
+    .scorecard-table-wrapper {
+        overflow-x: auto;           /* same as points-table-wrap */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .scorecard-table-wrapper .table-head,
+    .scorecard-table-wrapper .score-row {
+        min-width: 700px;           /* same as points-table min-width */
+    }
+}
+
+/* Optional: Style scrollbar (like points table doesn't have this, but you can keep it) */
+.scorecard-table-wrapper::-webkit-scrollbar {
+    height: 6px;
 }
 
 .scorecard-table-wrapper::-webkit-scrollbar-thumb {
     background: #ff7a00;
     border-radius: 10px;
-}
-
-/* Mobile specific */
-@media (max-width: 768px) {
-    .scorecard-table-wrapper {
-        margin: 10px 0;
-        border: 1px solid #eee;  /* Light border to show scrollable area */
-        border-radius: 8px;
-    }
-    
-    .scorecard-table-wrapper .table-head,
-    .scorecard-table-wrapper .score-row {
-        min-width: 650px;  /* This ensures horizontal scroll appears */
-    }
-    
-    /* Add a subtle hint that it's scrollable */
-    .scorecard-table-wrapper::after {
-        content: "← Scroll →";
-        display: block;
-        text-align: center;
-        font-size: 12px;
-        color: #ff7a00;
-        padding: 5px;
-        opacity: 0.7;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .scorecard-table-wrapper .table-head,
-    .scorecard-table-wrapper .score-row {
-        min-width: 600px;
-    }
 }
