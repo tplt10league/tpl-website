@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <title>My Cricket Tournament</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- HOMEPAGE CSS ONLY -->
     <link rel="stylesheet" href="/tpl-website/css/style.css">
 </head>
 <body>
 
-<!-- ================= NAVBAR ================= -->
 <header class="navbar">
     <div class="nav-title">TPL</div>
     <nav class="nav-links">
         <a href="/tpl-website/index.html" class="active">Home</a>
         <a href="/tpl-website/fixtures.html">Fixtures</a>
         <a href="/tpl-website/points.html">Points Table</a>
-
         <div class="stats-dropdown">
             <span class="stats-btn">Stats ▾</span>
             <div class="stats-menu">
@@ -30,42 +26,25 @@
     </nav>
 </header>
 
-<!-- ================= HERO ================= -->
 <section class="hero">
     <div class="hero-content">
-
-<svg class="tournament-logo-svg" viewBox="0 0 120 120" aria-label="Tournament Logo">
-
-    <!-- STUMPS -->
-    <line x1="42" y1="30" x2="42" y2="80"></line>
-    <line x1="60" y1="30" x2="60" y2="80"></line>
-    <line x1="78" y1="30" x2="78" y2="80"></line>
-
-    <!-- BAILS (DISPLACED / FALLING) -->
-    <line x1="38" y1="28" x2="55" y2="20"></line>
-    <line x1="65" y1="20" x2="82" y2="28"></line>
-
-    <!-- CRICKET BALL (IMPACT POINT) -->
-    <circle cx="60" cy="90" r="10"></circle>
-
-    <!-- SEAM -->
-    <path d="M55 86 C60 90, 60 90, 65 94"></path>
-
-</svg>
-
+        <svg class="tournament-logo-svg" viewBox="0 0 120 120">
+            <line x1="42" y1="30" x2="42" y2="80"></line>
+            <line x1="60" y1="30" x2="60" y2="80"></line>
+            <line x1="78" y1="30" x2="78" y2="80"></line>
+            <line x1="38" y1="28" x2="55" y2="20"></line>
+            <line x1="65" y1="20" x2="82" y2="28"></line>
+            <circle cx="60" cy="90" r="10"></circle>
+            <path d="M55 86 C60 90, 60 90, 65 94"></path>
+        </svg>
         <h1>T10 PREMIER LEAGUE</h1>
         <p>Season 1 · T10 Format</p>
-
     </div>
 </section>
 
-<!-- ================= QUICK LINKS ================= -->
 <section class="quick-links">
     <h2>What Are You Looking For?</h2>
-
     <div class="quick-links-row">
-
-        <!-- Fixtures -->
         <a href="/tpl-website/fixtures.html" class="quick-card">
             <svg viewBox="0 0 24 24" class="line-icon">
                 <rect x="3" y="4" width="18" height="18" rx="2"></rect>
@@ -75,8 +54,6 @@
             </svg>
             <span>Fixtures & Results</span>
         </a>
-
-        <!-- Points Table -->
         <a href="/tpl-website/points.html" class="quick-card active">
             <svg viewBox="0 0 24 24" class="line-icon">
                 <line x1="4" y1="20" x2="4" y2="10"></line>
@@ -86,8 +63,6 @@
             </svg>
             <span>Points Table</span>
         </a>
-
-        <!-- All Teams (links to fixtures) -->
         <a href="/tpl-website/fixtures.html" class="quick-card">
             <svg viewBox="0 0 24 24" class="line-icon">
                 <circle cx="9" cy="8" r="3"></circle>
@@ -97,34 +72,62 @@
             </svg>
             <span>All Teams</span>
         </a>
-
     </div>
 </section>
 
-<!-- ================= RECENT MATCHES ================= -->
 <section class="recent-matches">
     <h2>Recent Matches</h2>
 
+    <!-- MATCH 9 - NEW -->
+    <div class="match-card-compact">
+        <div class="match-status">MATCH 9 · Rajasthan Royals won by 6 runs</div>
+        <div class="match-row">
+            <div class="team-mini">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span>RR</span>
+                <div class="mini-score">124/3 <small>(10 ov)</small></div>
+            </div>
+            <div class="vs-mini">VS</div>
+            <div class="team-mini">
+                <div class="mini-score">118/3 <small>(10 ov)</small></div>
+                <span>SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+        </div>
+        <a href="/tpl-website/match-9.html" class="mini-btn">Match Centre</a>
+    </div>
+
+    <!-- MATCH 8 -->
+    <div class="match-card-compact">
+        <div class="match-status">MATCH 8 · Mumbai Indians won by 2 runs</div>
+        <div class="match-row">
+            <div class="team-mini">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span>MI</span>
+                <div class="mini-score">120/2 <small>(10 ov)</small></div>
+            </div>
+            <div class="vs-mini">VS</div>
+            <div class="team-mini">
+                <div class="mini-score">118/2 <small>(10 ov)</small></div>
+                <span>RCB</span>
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+            </div>
+        </div>
+        <a href="/tpl-website/match-8.html" class="mini-btn">Match Centre</a>
+    </div>
+
     <!-- MATCH 7 -->
     <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 7 · Chennai Super Kings won by 8 wickets
-        </div>
+        <div class="match-status">MATCH 7 · Chennai Super Kings won by 8 wickets</div>
         <div class="match-row">
             <div class="team-mini">
                 <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
                 <span>KKR</span>
-                <div class="mini-score">
-                    136/6
-                    <small>(10 ov)</small>
-                </div>
+                <div class="mini-score">136/6 <small>(10 ov)</small></div>
             </div>
             <div class="vs-mini">VS</div>
             <div class="team-mini">
-                <div class="mini-score">
-                    139/2
-                    <small>(9 ov)</small>
-                </div>
+                <div class="mini-score">139/2 <small>(9 ov)</small></div>
                 <span>CSK</span>
                 <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
             </div>
@@ -134,24 +137,16 @@
 
     <!-- MATCH 6 -->
     <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 6 · Sunrisers Hyderabad won by 8 wickets
-        </div>
+        <div class="match-status">MATCH 6 · Sunrisers Hyderabad won by 8 wickets</div>
         <div class="match-row">
             <div class="team-mini">
                 <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
                 <span>RCB</span>
-                <div class="mini-score">
-                    122/1
-                    <small>(10 ov)</small>
-                </div>
+                <div class="mini-score">122/1 <small>(10 ov)</small></div>
             </div>
             <div class="vs-mini">VS</div>
             <div class="team-mini">
-                <div class="mini-score">
-                    124/2
-                    <small>(9 ov)</small>
-                </div>
+                <div class="mini-score">124/2 <small>(9 ov)</small></div>
                 <span>SRH</span>
                 <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
             </div>
@@ -159,233 +154,21 @@
         <a href="/tpl-website/match-6.html" class="mini-btn">Match Centre</a>
     </div>
 
-    <!-- MATCH 5 -->
-    <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 5 · Kolkata Knight Riders won by 6 runs
-        </div>
-        <div class="match-row">
-            <div class="team-mini">
-                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
-                <span>KKR</span>
-                <div class="mini-score">
-                    101/5
-                    <small>(10 ov)</small>
-                </div>
-            </div>
-            <div class="vs-mini">VS</div>
-            <div class="team-mini">
-                <div class="mini-score">
-                    95/4
-                    <small>(10 ov)</small>
-                </div>
-                <span>RR</span>
-                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
-            </div>
-        </div>
-        <a href="/tpl-website/match-5.html" class="mini-btn">Match Centre</a>
-    </div>
-
-    <!-- MATCH 4 -->
-    <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 4 · Mumbai Indians won by 8 wickets
-        </div>
-        <div class="match-row">
-            <div class="team-mini">
-                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
-                <span>CSK</span>
-                <div class="mini-score">
-                    96/4
-                    <small>(10 ov)</small>
-                </div>
-            </div>
-            <div class="vs-mini">VS</div>
-            <div class="team-mini">
-                <div class="mini-score">
-                    99/2
-                    <small>(9 ov)</small>
-                </div>
-                <span>MI</span>
-                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
-            </div>
-        </div>
-        <a href="/tpl-website/match-4.html" class="mini-btn">Match Centre</a>
-    </div>
-
-    <!-- MATCH 3 -->
-    <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 3 · Kolkata Knight Riders won by 2 runs
-        </div>
-        <div class="match-row">
-            <div class="team-mini">
-                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
-                <span>KKR</span>
-                <div class="mini-score">
-                    75/2
-                    <small>(10 ov)</small>
-                </div>
-            </div>
-            <div class="vs-mini">VS</div>
-            <div class="team-mini">
-                <div class="mini-score">
-                    74/3
-                    <small>(10 ov)</small>
-                </div>
-                <span>RCB</span>
-                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
-            </div>
-        </div>
-        <a href="/tpl-website/match-3.html" class="mini-btn">Match Centre</a>
-    </div>
-
-    <!-- MATCH 2 -->
-    <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 2 · Mumbai Indians won by 6 wickets
-        </div>
-        <div class="match-row">
-            <div class="team-mini">
-                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
-                <span>SRH</span>
-                <div class="mini-score">
-                    102/4
-                    <small>(10 ov)</small>
-                </div>
-            </div>
-            <div class="vs-mini">VS</div>
-            <div class="team-mini">
-                <div class="mini-score">
-                    103/4
-                    <small>(9.4 ov)</small>
-                </div>
-                <span>MI</span>
-                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
-            </div>
-        </div>
-        <a href="/tpl-website/match-2.html" class="mini-btn">Match Centre</a>
-    </div>
-
-    <!-- MATCH 1 -->
-    <div class="match-card-compact">
-        <div class="match-status">
-            MATCH 1 · Rajasthan Royals won via Super Over
-        </div>
-        <div class="match-row">
-            <div class="team-mini">
-                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
-                <span>CSK</span>
-                <div class="mini-score">
-                    84/3
-                    <small>(10 ov)</small>
-                </div>
-            </div>
-            <div class="vs-mini">VS</div>
-            <div class="team-mini">
-                <div class="mini-score">
-                    84/3
-                    <small>(10 ov)</small>
-                </div>
-                <span>RR</span>
-                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
-            </div>
-        </div>
-        <a href="/tpl-website/match-1.html" class="mini-btn">Match Centre</a>
-    </div>
-
 </section>
 
-<!-- ================= POINTS TABLE ================= -->
 <section class="points-preview">
     <h2>Points Table</h2>
     <div class="points-scroll">
-
-        <!-- MI -->
-        <div class="points-mini-card">
-            <div class="mini-rank">1</div>
-            <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
-            <h4>MI</h4>
-            <div class="mini-stats">
-                <span>4 Pts</span>
-                <span>2 P</span>
-                <span>2 W</span>
-                <span class="pos">+1.20</span>
-            </div>
-        </div>
-
-        <!-- KKR -->
-        <div class="points-mini-card">
-            <div class="mini-rank">2</div>
-            <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
-            <h4>KKR</h4>
-            <div class="mini-stats">
-                <span>4 Pts</span>
-                <span>3 P</span>
-                <span>2 W</span>
-                <span class="neg">-0.22</span>
-            </div>
-        </div>
-
-        <!-- SRH -->
-        <div class="points-mini-card">
-            <div class="mini-rank">3</div>
-            <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
-            <h4>SRH</h4>
-            <div class="mini-stats">
-                <span>2 Pts</span>
-                <span>2 P</span>
-                <span>1 W</span>
-                <span class="pos">+0.20</span>
-            </div>
-        </div>
-
-        <!-- RR -->
-        <div class="points-mini-card">
-            <div class="mini-rank">4</div>
-            <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
-            <h4>RR</h4>
-            <div class="mini-stats">
-                <span>2 Pts</span>
-                <span>2 P</span>
-                <span>1 W</span>
-                <span class="neg">-0.20</span>
-            </div>
-        </div>
-
-        <!-- CSK -->
-        <div class="points-mini-card">
-            <div class="mini-rank">5</div>
-            <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
-            <h4>CSK</h4>
-            <div class="mini-stats">
-                <span>2 Pts</span>
-                <span>3 P</span>
-                <span>1 W</span>
-                <span class="pos">0.00</span>
-            </div>
-        </div>
-
-        <!-- RCB -->
-        <div class="points-mini-card">
-            <div class="mini-rank">6</div>
-            <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
-            <h4>RCB</h4>
-            <div class="mini-stats">
-                <span>0 Pts</span>
-                <span>2 P</span>
-                <span>0 W</span>
-                <span class="neg">-1.70</span>
-            </div>
-        </div>
-
+        <div class="points-mini-card"><div class="mini-rank">1</div><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"><h4>MI</h4><div class="mini-stats"><span>6 Pts</span><span>3 P</span><span>3 W</span><span class="pos">+1.45</span></div></div>
+        <div class="points-mini-card"><div class="mini-rank">2</div><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"><h4>RCB</h4><div class="mini-stats"><span>4 Pts</span><span>4 P</span><span>2 W</span><span class="pos">+0.95</span></div></div>
+        <div class="points-mini-card"><div class="mini-rank">3</div><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"><h4>SRH</h4><div class="mini-stats"><span>4 Pts</span><span>4 P</span><span>2 W</span><span class="pos">+0.35</span></div></div>
+        <div class="points-mini-card"><div class="mini-rank">4</div><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"><h4>RR</h4><div class="mini-stats"><span>4 Pts</span><span>4 P</span><span>2 W</span><span class="pos">+0.15</span></div></div>
+        <div class="points-mini-card"><div class="mini-rank">5</div><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"><h4>KKR</h4><div class="mini-stats"><span>4 Pts</span><span>4 P</span><span>2 W</span><span class="neg">-0.28</span></div></div>
+        <div class="points-mini-card"><div class="mini-rank">6</div><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"><h4>CSK</h4><div class="mini-stats"><span>2 Pts</span><span>3 P</span><span>1 W</span><span class="neg">-0.95</span></div></div>
     </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer-bar">
-    MY TOURNAMENT · 2026
-</footer>
+<footer class="footer-bar">T10 PREMIER LEAGUE · 2026</footer>
 
 </body>
 </html>

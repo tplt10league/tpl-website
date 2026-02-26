@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RR vs SRH | Match Centre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/match.css">
+</head>
+<body>
+
+<div class="match-header-ipl rr-srh">
+    <div class="team-block left">
+        <img src="/tpl-website/assets/logos/teams/rr.png" class="team-logo" alt="RR">
+        <div class="score-box">
+            <h2>124/3</h2>
+            <span>(10 ov)</span>
+        </div>
+    </div>
+    <div class="vs-icon"><span></span>VS<span></span></div>
+    <div class="team-block right">
+        <div class="score-box">
+            <h2>118/3</h2>
+            <span>(10 ov)</span>
+        </div>
+        <img src="/tpl-website/assets/logos/teams/srh.png" class="team-logo" alt="SRH">
+    </div>
+</div>
+
+<div class="match-result">Rajasthan Royals won by 6 runs</div>
+
+<div class="innings-tabs">
+    <button class="tab rr active" data-target="rr">RR Innings</button>
+    <button class="tab srh" data-target="srh">SRH Innings</button>
+</div>
+
+<!-- RR INNINGS -->
+<div class="scorecard rr active" id="rr">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="score-row"><b>Yashasvi Jaiswal</b><span>28</span><span>15</span><span>0</span><span>4</span><span>186.66</span></div>
+        <div class="score-row"><b>Vaibhav Suryavanshi</b><span>83</span><span>38</span><span>5</span><span>9</span><span>218.42</span></div>
+        <div class="score-row"><b>Riyan Parag</b><span>8</span><span>7</span><span>0</span><span>0</span><span>114.28</span></div>
+        <div class="score-row"><b>Dhruv Jurel*</b><span>5</span><span>3</span><span>0</span><span>1</span><span>166.66</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>124/3 (10 overs)</span></div>
+</div>
+
+<!-- SRH INNINGS -->
+<div class="scorecard srh" id="srh">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="score-row"><b>Abhishek Sharma</b><span>39</span><span>25</span><span>2</span><span>5</span><span>156.00</span></div>
+        <div class="score-row"><b>Travis Head</b><span>59</span><span>26</span><span>1</span><span>8</span><span>226.92</span></div>
+        <div class="score-row"><b>Heinrich Klaasen</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Nitish Kumar Reddy*</b><span>19</span><span>8</span><span>0</span><span>3</span><span>237.50</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>118/3 (10 overs)</span></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                scorecards.forEach(card => card.classList.remove('active'));
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

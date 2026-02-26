@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MI vs RCB | Match Centre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/match.css">
+</head>
+<body>
+
+<div class="match-header-ipl mi-rcb">
+    <div class="team-block left">
+        <img src="/tpl-website/assets/logos/teams/mi.png" class="team-logo" alt="MI">
+        <div class="score-box">
+            <h2>120/2</h2>
+            <span>(10 ov)</span>
+        </div>
+    </div>
+    <div class="vs-icon"><span></span>VS<span></span></div>
+    <div class="team-block right">
+        <div class="score-box">
+            <h2>118/2</h2>
+            <span>(10 ov)</span>
+        </div>
+        <img src="/tpl-website/assets/logos/teams/rcb.png" class="team-logo" alt="RCB">
+    </div>
+</div>
+
+<div class="match-result">Mumbai Indians won by 2 runs</div>
+
+<div class="innings-tabs">
+    <button class="tab mi active" data-target="mi">MI Innings</button>
+    <button class="tab rcb" data-target="rcb">RCB Innings</button>
+</div>
+
+<!-- MI INNINGS -->
+<div class="scorecard mi active" id="mi">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="score-row"><b>Quinton de Kock</b><span>53</span><span>25</span><span>3</span><span>6</span><span>212.00</span></div>
+        <div class="score-row"><b>Rohit Sharma</b><span>38</span><span>20</span><span>2</span><span>5</span><span>190.00</span></div>
+        <div class="score-row"><b>Suryakumar Yadav</b><span>15</span><span>14</span><span>2</span><span>1</span><span>107.14</span></div>
+        <div class="score-row"><b>Hardik Pandya*</b><span>6</span><span>1</span><span>0</span><span>1</span><span>600.00</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>120/2 (10 overs)</span></div>
+</div>
+
+<!-- RCB INNINGS -->
+<div class="scorecard rcb" id="rcb">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="score-row"><b>Phil Salt</b><span>36</span><span>17</span><span>2</span><span>4</span><span>211.76</span></div>
+        <div class="score-row"><b>Virat Kohli</b><span>43</span><span>22</span><span>4</span><span>4</span><span>195.45</span></div>
+        <div class="score-row"><b>Rajat Patidar</b><span>21</span><span>8</span><span>0</span><span>3</span><span>262.50</span></div>
+        <div class="score-row"><b>Venkatesh Iyer*</b><span>14</span><span>11</span><span>0</span><span>2</span><span>127.27</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>118/2 (10 overs)</span></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                scorecards.forEach(card => card.classList.remove('active'));
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
