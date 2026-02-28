@@ -286,6 +286,11 @@ body {
 /* Tab active colors */
 .tab.kkr.active { background: #3a225d; } /* KKR Purple */
 .tab.csk.active { background: #f9cd05; color: #111; } /* CSK Yellow */
+/* Tab colors for new matches */
+.tab.mi.active { background: #1565c0; }  /* MI blue */
+.tab.rcb.active { background: #d71920; } /* RCB red */
+.tab.rr.active { background: #e91e63; }   /* RR pink */
+.tab.srh.active { background: #f57c00; }  /* SRH orange */
 /* ================= SCROLLABLE TABLE WRAPPER - MATCH PAGES ================= */
 
 .scorecard-table-wrapper {
@@ -340,4 +345,21 @@ body {
 .scorecard-table-wrapper::-webkit-scrollbar-thumb {
     background: #ff7a00;
     border-radius: 10px;
+}
+/* ========== NEW MATCH HEADER BACKGROUNDS ========== */
+
+/* Match 8 - MI vs RCB */
+.match-header-ipl.mi-rcb::before {
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
+}
+.match-header-ipl.mi-rcb::after {
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
+}
+
+/* Match 9 - RR vs SRH */
+.match-header-ipl.rr-srh::before {
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
+}
+.match-header-ipl.rr-srh::after {
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
 }
