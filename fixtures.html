@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fixtures | My Tournament</title>
+    <title>Fixtures | TPL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/tpl-website/css/style.css">
     <link rel="stylesheet" href="/tpl-website/css/fixtures.css">
@@ -10,7 +10,7 @@
 <body>
 
 <header class="navbar">
-    <div class="nav-title">MY TOURNAMENT</div>
+    <div class="nav-title">TPL</div>
     <nav class="nav-links">
         <a href="/tpl-website/index.html">Home</a>
         <a href="/tpl-website/fixtures.html" class="active">Fixtures</a>
@@ -19,44 +19,526 @@
             <span class="stats-btn">Stats ▾</span>
             <div class="stats-menu">
                 <a href="/tpl-website/orange-cap.html">Orange Cap</a>
-                <a href="#">Most 6s</a>
-                <a href="#">Most 4s</a>
-                <a href="#">Best Strike Rate</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/most-4s.html">Most 4s</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
             </div>
         </div>
     </nav>
 </header>
 
 <section class="fixtures-section">
-    <h1>Fixtures & Results</h1>
+    <h1 class="section-title">📋 Fixtures & Results</h1>
 
-    <!-- ROUND 1 -->
+    <!-- ========== FIRST LEG ========== -->
     <div class="round-label">First Leg · Round 1</div>
     <div class="fixtures-container">
-        <a href="/tpl-website/match-1.html" class="fixture-card completed"><span class="match-number">Match 1</span><div class="team left"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"><span>CSK</span><span class="team-score">84/3 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">84/3 (10)</span><span>RR</span><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"></div><div class="match-result">RR won via Super Over</div></a>
-        <a href="/tpl-website/match-2.html" class="fixture-card completed"><span class="match-number">Match 2</span><div class="team left"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"><span>SRH</span><span class="team-score">102/4 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">103/4 (9.4)</span><span>MI</span><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"></div><div class="match-result">MI won by 6 wickets</div></a>
-        <a href="/tpl-website/match-3.html" class="fixture-card completed"><span class="match-number">Match 3</span><div class="team left"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"><span>RCB</span><span class="team-score">74/3 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">75/2 (10)</span><span>KKR</span><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"></div><div class="match-result">KKR won by 2 runs</div></a>
+        <!-- MATCH 1 - Completed -->
+        <a href="/tpl-website/match-1.html" class="fixture-card completed">
+            <span class="match-number">Match 1</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+                <span class="team-name">CSK</span>
+                <span class="team-score">84/3 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">84/3 (10)</span>
+                <span class="team-name">RR</span>
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+            </div>
+            <div class="result-badge">RR won via Super Over</div>
+        </a>
+
+        <!-- MATCH 2 - Completed -->
+        <a href="/tpl-website/match-2.html" class="fixture-card completed">
+            <span class="match-number">Match 2</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+                <span class="team-name">SRH</span>
+                <span class="team-score">102/4 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">103/4 (9.4)</span>
+                <span class="team-name">MI</span>
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+            </div>
+            <div class="result-badge">MI won by 6 wickets</div>
+        </a>
+
+        <!-- MATCH 3 - Completed -->
+        <a href="/tpl-website/match-3.html" class="fixture-card completed">
+            <span class="match-number">Match 3</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+                <span class="team-score">74/3 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">75/2 (10)</span>
+                <span class="team-name">KKR</span>
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+            </div>
+            <div class="result-badge">KKR won by 2 runs</div>
+        </a>
     </div>
 
-    <!-- ROUND 2 -->
     <div class="round-label">First Leg · Round 2</div>
     <div class="fixtures-container">
-        <a href="/tpl-website/match-4.html" class="fixture-card completed"><span class="match-number">Match 4</span><div class="team left"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"><span>CSK</span><span class="team-score">96/4 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">99/2 (9)</span><span>MI</span><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"></div><div class="match-result">MI won by 8 wickets</div></a>
-        <a href="/tpl-website/match-5.html" class="fixture-card completed"><span class="match-number">Match 5</span><div class="team left"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"><span>RR</span><span class="team-score">95/4 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">101/5 (10)</span><span>KKR</span><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"></div><div class="match-result">KKR won by 6 runs</div></a>
-        <a href="/tpl-website/match-6.html" class="fixture-card completed"><span class="match-number">Match 6</span><div class="team left"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"><span>SRH</span><span class="team-score">124/2 (9)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">122/1 (10)</span><span>RCB</span><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"></div><div class="match-result">SRH won by 8 wickets</div></a>
+        <!-- MATCH 4 - Completed -->
+        <a href="/tpl-website/match-4.html" class="fixture-card completed">
+            <span class="match-number">Match 4</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+                <span class="team-name">CSK</span>
+                <span class="team-score">96/4 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">99/2 (9)</span>
+                <span class="team-name">MI</span>
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+            </div>
+            <div class="result-badge">MI won by 8 wickets</div>
+        </a>
+
+        <!-- MATCH 5 - Completed -->
+        <a href="/tpl-website/match-5.html" class="fixture-card completed">
+            <span class="match-number">Match 5</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span class="team-name">RR</span>
+                <span class="team-score">95/4 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">101/5 (10)</span>
+                <span class="team-name">KKR</span>
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+            </div>
+            <div class="result-badge">KKR won by 6 runs</div>
+        </a>
+
+        <!-- MATCH 6 - Completed -->
+        <a href="/tpl-website/match-6.html" class="fixture-card completed">
+            <span class="match-number">Match 6</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+                <span class="team-name">SRH</span>
+                <span class="team-score">124/2 (9)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">122/1 (10)</span>
+                <span class="team-name">RCB</span>
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+            </div>
+            <div class="result-badge">SRH won by 8 wickets</div>
+        </a>
     </div>
 
-    <!-- ROUND 3 -->
     <div class="round-label">First Leg · Round 3</div>
     <div class="fixtures-container">
-        <a href="/tpl-website/match-7.html" class="fixture-card completed"><span class="match-number">Match 7</span><div class="team left"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"><span>KKR</span><span class="team-score">136/6 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">139/2 (9)</span><span>CSK</span><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"></div><div class="match-result">CSK won by 8 wickets</div></a>
-        <a href="/tpl-website/match-8.html" class="fixture-card completed"><span class="match-number">Match 8</span><div class="team left"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"><span>MI</span><span class="team-score">120/2 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">118/2 (10)</span><span>RCB</span><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"></div><div class="match-result">MI won by 2 runs</div></a>
-        <a href="/tpl-website/match-9.html" class="fixture-card completed"><span class="match-number">Match 9</span><div class="team left"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"><span>RR</span><span class="team-score">124/3 (10)</span></div><div class="vs">VS</div><div class="team right"><span class="team-score">118/3 (10)</span><span>SRH</span><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"></div><div class="match-result">RR won by 6 runs</div></a>
+        <!-- MATCH 7 - Completed -->
+        <a href="/tpl-website/match-7.html" class="fixture-card completed">
+            <span class="match-number">Match 7</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+                <span class="team-score">136/6 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">139/2 (9)</span>
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <div class="result-badge">CSK won by 8 wickets</div>
+        </a>
+
+        <!-- MATCH 8 - Completed -->
+        <a href="/tpl-website/match-8.html" class="fixture-card completed">
+            <span class="match-number">Match 8</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span class="team-name">MI</span>
+                <span class="team-score">120/2 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">118/2 (10)</span>
+                <span class="team-name">RCB</span>
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+            </div>
+            <div class="result-badge">MI won by 2 runs</div>
+        </a>
+
+        <!-- MATCH 9 - Completed -->
+        <a href="/tpl-website/match-9.html" class="fixture-card completed">
+            <span class="match-number">Match 9</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span class="team-name">RR</span>
+                <span class="team-score">124/3 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">118/3 (10)</span>
+                <span class="team-name">SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+            <div class="result-badge">RR won by 6 runs</div>
+        </a>
     </div>
 
-    <!-- Continue with remaining matches as Upcoming... (keeping same as before) -->
+    <div class="round-label">First Leg · Round 4</div>
+    <div class="fixtures-container">
+        <!-- MATCH 10 - Completed -->
+        <a href="/tpl-website/match-10.html" class="fixture-card completed">
+            <span class="match-number">Match 10</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+                <span class="team-score">133/2 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">128/0 (10)</span>
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <div class="result-badge">RCB won by 5 runs</div>
+        </a>
+
+        <!-- MATCH 11 - Completed -->
+        <a href="/tpl-website/match-11.html" class="fixture-card completed">
+            <span class="match-number">Match 11</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+                <span class="team-score">138/3 (10)</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-score">107/7 (10)</span>
+                <span class="team-name">SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+            <div class="result-badge">KKR won by 31 runs</div>
+        </a>
+
+        <!-- MATCH 12 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 12</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span class="team-name">MI</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RR</span>
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <div class="round-label">First Leg · Round 5</div>
+    <div class="fixtures-container">
+        <!-- MATCH 13 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 13</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+                <span class="team-name">CSK</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 14 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 14</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RR</span>
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 15 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 15</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">MI</span>
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <!-- ========== SECOND LEG ========== -->
+    <div class="round-label second-leg">Second Leg · Round 6</div>
+    <div class="fixtures-container">
+        <!-- MATCH 16 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 16</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span class="team-name">RR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 17 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 17</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span class="team-name">MI</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 18 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 18</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RCB</span>
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <div class="round-label second-leg">Second Leg · Round 7</div>
+    <div class="fixtures-container">
+        <!-- MATCH 19 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 19</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span class="team-name">MI</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 20 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 20</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RR</span>
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 21 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 21</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">SRH</span>
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <div class="round-label second-leg">Second Leg · Round 8</div>
+    <div class="fixtures-container">
+        <!-- MATCH 22 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 22</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+                <span class="team-name">KKR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 23 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 23</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">MI</span>
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 24 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 24</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+                <span class="team-name">SRH</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RR</span>
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <div class="round-label second-leg">Second Leg · Round 9</div>
+    <div class="fixtures-container">
+        <!-- MATCH 25 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 25</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+                <span class="team-name">RCB</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 26 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 26</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+                <span class="team-name">SRH</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">KKR</span>
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 27 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 27</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span class="team-name">RR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">MI</span>
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
+
+    <div class="round-label second-leg">Second Leg · Round 10</div>
+    <div class="fixtures-container">
+        <!-- MATCH 28 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 28</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+                <span class="team-name">SRH</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">CSK</span>
+                <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 29 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 29</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
+                <span class="team-name">RR</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">RCB</span>
+                <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+
+        <!-- MATCH 30 - Upcoming -->
+        <a href="#" class="fixture-card upcoming">
+            <span class="match-number">Match 30</span>
+            <div class="team-block-left">
+                <img src="/tpl-website/assets/logos/teams/mi.png" alt="MI">
+                <span class="team-name">MI</span>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="team-block-right">
+                <span class="team-name">KKR</span>
+                <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+            </div>
+            <span class="upcoming-badge">Coming Soon</span>
+        </a>
+    </div>
 
 </section>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
 
 </body>
 </html>

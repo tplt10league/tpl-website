@@ -1,16 +1,109 @@
+/* ================= BASE STYLES ================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --blue-dark: #0b2d5c;
+    --blue-light: #1e4d91;
+    --blue-gradient: linear-gradient(90deg, #0b2d5c, #1e4d91);
+    --orange: #ff6a00;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: #f4f6fa;
+    background: 
+        linear-gradient(rgba(244,246,250,0.85), rgba(244,246,250,0.85)),
+        url("/tpl-website/assets/images/pattern.jpg");
+    background-size: 230px;
+    background-repeat: repeat;
+    padding-top: 90px;
 }
 
-/* =========================================
-   IPL STYLE MATCH HEADER (TOP SECTION)
-========================================= */
+/* ================= NAVBAR ================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: 
+        linear-gradient(rgba(244,246,250,0.85), rgba(244,246,250,0.85)),
+        url("/tpl-website/assets/images/pattern.jpg");
+    background-size: 230px;
+    background-repeat: repeat;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0b2d5c;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a,
+.stats-btn {
+    font-size: 18px;
+    font-weight: 500;
+    color: #0b2d5c;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-links a.active {
+    border-bottom: 3px solid #0b2d5c;
+    padding-bottom: 4px;
+}
+
+.stats-dropdown {
+    position: relative;
+}
+
+.stats-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    min-width: 200px;
+    padding: 8px 0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    display: none;
+}
+
+.stats-menu a {
+    display: block;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #0b2d5c;
+}
+
+.stats-menu a:hover {
+    background: #f2f4f8;
+}
+
+.stats-dropdown:hover .stats-menu {
+    display: block;
+}
+
+/* ================= MATCH HEADER ================= */
 
 .match-header-ipl {
     position: relative;
-    background: #0b2d5c;
+    background: var(--blue-gradient);
     color: #ffffff;
     padding: 40px 20px;
     display: flex;
@@ -18,49 +111,107 @@ body {
     align-items: center;
     gap: 60px;
     overflow: hidden;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(11, 45, 92, 0.2);
 }
 
-/* FADED BACKGROUND LOGOS BASE */
+/* FADED BACKGROUND LOGOS */
 .match-header-ipl::before,
 .match-header-ipl::after {
     content: "";
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     background-repeat: no-repeat;
     background-size: contain;
-    opacity: 0.12;
+    opacity: 0.15;
     pointer-events: none;
 }
 
-.match-header-ipl::before { left: -40px; }
-.match-header-ipl::after  { right: -40px; }
+.match-header-ipl::before { left: -30px; }
+.match-header-ipl::after  { right: -30px; }
 
 /* MATCH SPECIFIC BACKGROUNDS */
 .match-header-ipl.csk-rr::before {
-    background-image: url("../assets/logos/teams/csk.png");
+    background-image: url("/tpl-website/assets/logos/teams/csk.png");
 }
 .match-header-ipl.csk-rr::after {
-    background-image: url("../assets/logos/teams/rr.png");
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
 }
 
 .match-header-ipl.srh-mi::before {
-    background-image: url("../assets/logos/teams/srh.png");
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
 }
 .match-header-ipl.srh-mi::after {
-    background-image: url("../assets/logos/teams/mi.png");
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
 }
 
 .match-header-ipl.kkr-rcb::before {
-    background-image: url("../assets/logos/teams/kkr.png");
+    background-image: url("/tpl-website/assets/logos/teams/kkr.png");
 }
 .match-header-ipl.kkr-rcb::after {
-    background-image: url("../assets/logos/teams/rcb.png");
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
 }
 
-/* Ensure content above watermark */
+.match-header-ipl.csk-mi::before {
+    background-image: url("/tpl-website/assets/logos/teams/csk.png");
+}
+.match-header-ipl.csk-mi::after {
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
+}
+
+.match-header-ipl.kkr-rr::before {
+    background-image: url("/tpl-website/assets/logos/teams/kkr.png");
+}
+.match-header-ipl.kkr-rr::after {
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
+}
+
+.match-header-ipl.rcb-srh::before {
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
+}
+.match-header-ipl.rcb-srh::after {
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
+}
+
+.match-header-ipl.kkr-csk::before {
+    background-image: url("/tpl-website/assets/logos/teams/kkr.png");
+}
+.match-header-ipl.kkr-csk::after {
+    background-image: url("/tpl-website/assets/logos/teams/csk.png");
+}
+
+.match-header-ipl.mi-rcb::before {
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
+}
+.match-header-ipl.mi-rcb::after {
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
+}
+
+.match-header-ipl.rr-srh::before {
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
+}
+.match-header-ipl.rr-srh::after {
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
+}
+
+.match-header-ipl.rcb-csk::before {
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
+}
+.match-header-ipl.rcb-csk::after {
+    background-image: url("/tpl-website/assets/logos/teams/csk.png");
+}
+
+.match-header-ipl.kkr-srh::before {
+    background-image: url("/tpl-website/assets/logos/teams/kkr.png");
+}
+.match-header-ipl.kkr-srh::after {
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
+}
+
 .match-header-ipl > * {
     position: relative;
     z-index: 2;
@@ -77,6 +228,7 @@ body {
     width: 70px;
     height: 70px;
     object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
 .score-box h2 {
@@ -91,7 +243,6 @@ body {
     opacity: 0.9;
 }
 
-/* MODERN VS STYLE */
 .vs-icon {
     display: flex;
     align-items: center;
@@ -111,17 +262,18 @@ body {
 
 /* RESULT BAR */
 .match-result {
-    background: #0b2d5c;
+    background: var(--blue-gradient);
     color: #ffffff;
     text-align: center;
     padding: 14px;
     font-weight: 700;
     letter-spacing: 0.5px;
+    margin: 0 20px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(11,45,92,0.2);
 }
 
-/* =========================================
-   TABS
-========================================= */
+/* ================= TABS ================= */
 
 .innings-tabs {
     display: flex;
@@ -131,25 +283,28 @@ body {
 }
 
 .tab {
-    padding: 10px 22px;
-    border: 2px solid #cfd6e4;
-    background: #fff;
+    padding: 12px 28px;
+    border: none;
+    background: rgba(255,255,255,0.7);
     cursor: pointer;
     font-weight: 700;
-    border-radius: 4px;
+    border-radius: 50px;
     transition: all 0.25s ease;
+    font-size: 15px;
+    color: #0b2d5c;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .tab:hover {
-    background: #e9eef9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
 .tab.active {
     color: #fff;
-    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
-.tab.kkr.active { background: #3a225d; } /* You might already have this */
-.tab.csk.active { background: #f9cd05; color: #111; } /* CSK yellow */
 
 /* TEAM COLORS */
 .tab.csk.active { background: #f9cd05; color: #111; }
@@ -158,85 +313,134 @@ body {
 .tab.mi.active  { background: #1565c0; }
 .tab.kkr.active { background: #3a225d; }
 .tab.rcb.active { background: #d71920; }
-.tab.super.active { background: #111; }
 
-/* =========================================
-   SCORECARD
-========================================= */
+/* ================= SCORECARD ================= */
 
 .scorecard {
     display: none;
-    position: relative;
-    background: #ffffff;
-    margin: 0 22px 30px;
-    padding: 24px;
-    border-radius: 10px;
-    overflow: hidden;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    margin: 0 20px 30px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(11, 45, 92, 0.15);
+    border: 1px solid rgba(255,106,0,0.2);
 }
 
 .scorecard.active {
     display: block;
 }
 
-/* WATERMARK BACKGROUND */
-.scorecard::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: 320px;
-    opacity: 0.04;
-    pointer-events: none;
+/* ================= SCROLLABLE TABLE WRAPPER ================= */
+
+.scorecard-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 15px 0;
+    width: 100%;
+    border-radius: 12px;
 }
 
-.scorecard.csk::before { background-image: url("../assets/logos/teams/csk.png"); }
-.scorecard.rr::before  { background-image: url("../assets/logos/teams/rr.png"); }
-.scorecard.srh::before { background-image: url("../assets/logos/teams/srh.png"); }
-.scorecard.mi::before  { background-image: url("../assets/logos/teams/mi.png"); }
-.scorecard.kkr::before { background-image: url("../assets/logos/teams/kkr.png"); }
-.scorecard.rcb::before { background-image: url("../assets/logos/teams/rcb.png"); }
-
-/* TABLE */
+/* TABLE STYLES */
 .table-head,
 .score-row {
     display: grid;
     grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
-    padding: 10px 0;
+    min-width: 700px;
+    width: 100%;
+    padding: 12px 15px;
 }
 
 .table-head {
     font-weight: 800;
     color: #0b2d5c;
-    border-bottom: 2px solid #0b2d5c;
+    border-bottom: 2px solid #ff6a00;
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px 12px 0 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 .score-row {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(11,45,92,0.1);
     font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.score-row:hover {
+    background: rgba(255,106,0,0.05);
+}
+
+.score-row:last-child {
+    border-bottom: none;
+}
+
+.score-row b {
+    font-weight: 700;
+    color: #0b2d5c;
 }
 
 .total-row {
-    margin-top: 18px;
-    background: #0b2d5c;
+    margin-top: 20px;
+    background: var(--blue-gradient);
     color: #fff;
-    padding: 14px 18px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
-    border-radius: 8px;
+    border-radius: 12px;
     font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(11,45,92,0.2);
 }
 
-/* =========================================
-   MOBILE FIX
-========================================= */
+/* SCROLLBAR STYLING */
+.scorecard-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.scorecard-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.scorecard-table-wrapper::-webkit-scrollbar-thumb {
+    background: #ff6a00;
+    border-radius: 10px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer-bar {
+    background: var(--blue-gradient);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        padding: 12px 20px;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
 
     .match-header-ipl {
         flex-direction: column;
         gap: 20px;
         padding: 30px 15px;
+        margin: 10px;
     }
 
     .team-block {
@@ -244,12 +448,12 @@ body {
     }
 
     .team-block img {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
     }
 
     .score-box h2 {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .vs-icon {
@@ -261,105 +465,30 @@ body {
         width: 25px;
     }
 
-    .match-header-ipl::before,
-    .match-header-ipl::after {
-        width: 160px;
-        height: 160px;
-        opacity: 0.08;
+    .innings-tabs {
+        flex-wrap: wrap;
+        padding: 10px;
     }
-}
-/* Add this with the other match header backgrounds */
-.match-header-ipl.kkr-csk::before {
-    background-image: url("../assets/logos/teams/kkr.png");
-}
-.match-header-ipl.kkr-csk::after {
-    background-image: url("../assets/logos/teams/csk.png");
-}
-/* Add this with the other match header backgrounds */
-.match-header-ipl.kkr-csk::before {
-    background-image: url("../assets/logos/teams/kkr.png");
-}
-.match-header-ipl.kkr-csk::after {
-    background-image: url("../assets/logos/teams/csk.png");
-}
 
-/* Tab active colors */
-.tab.kkr.active { background: #3a225d; } /* KKR Purple */
-.tab.csk.active { background: #f9cd05; color: #111; } /* CSK Yellow */
-/* Tab colors for new matches */
-.tab.mi.active { background: #1565c0; }  /* MI blue */
-.tab.rcb.active { background: #d71920; } /* RCB red */
-.tab.rr.active { background: #e91e63; }   /* RR pink */
-.tab.srh.active { background: #f57c00; }  /* SRH orange */
-/* ================= SCROLLABLE TABLE WRAPPER - MATCH PAGES ================= */
-
-.scorecard-table-wrapper {
-    background: #ffffff;
-    border-radius: 10px;
-    overflow-x: auto;              /* horizontal scroll - like points table */
-    margin: 15px 0;
-    width: 100%;
-}
-
-/* Style the table inside wrapper - exactly like points table */
-.scorecard-table-wrapper .table-head,
-.scorecard-table-wrapper .score-row {
-    display: grid;
-    grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
-    min-width: 700px;              /* forces scroll on mobile - like points-table min-width */
-    width: 100%;
-}
-
-/* Keep existing table styles */
-.scorecard-table-wrapper .table-head {
-    font-weight: 800;
-    color: #0b2d5c;
-    border-bottom: 2px solid #0b2d5c;
-    padding: 10px 0;
-}
-
-.scorecard-table-wrapper .score-row {
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    padding: 10px 0;
-}
-
-/* Mobile only adjustments */
-@media (max-width: 768px) {
-    .scorecard-table-wrapper {
-        overflow-x: auto;           /* same as points-table-wrap */
-        -webkit-overflow-scrolling: touch;
+    .tab {
+        padding: 8px 16px;
+        font-size: 13px;
     }
-    
+
+    .scorecard {
+        padding: 15px;
+        margin: 0 10px 20px;
+    }
+
     .scorecard-table-wrapper .table-head,
     .scorecard-table-wrapper .score-row {
-        min-width: 700px;           /* same as points-table min-width */
+        min-width: 650px;
+        padding: 10px;
+        font-size: 13px;
     }
-}
 
-/* Optional: Style scrollbar (like points table doesn't have this, but you can keep it) */
-.scorecard-table-wrapper::-webkit-scrollbar {
-    height: 6px;
-}
-
-.scorecard-table-wrapper::-webkit-scrollbar-thumb {
-    background: #ff7a00;
-    border-radius: 10px;
-}
-/* ========== NEW MATCH HEADER BACKGROUNDS ========== */
-
-/* Match 8 - MI vs RCB */
-.match-header-ipl.mi-rcb::before {
-    background-image: url("/tpl-website/assets/logos/teams/mi.png");
-}
-.match-header-ipl.mi-rcb::after {
-    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
-}
-
-/* Match 9 - RR vs SRH */
-.match-header-ipl.rr-srh::before {
-    background-image: url("/tpl-website/assets/logos/teams/rr.png");
-}
-.match-header-ipl.rr-srh::after {
-    background-image: url("/tpl-website/assets/logos/teams/srh.png");
+    .total-row {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
 }

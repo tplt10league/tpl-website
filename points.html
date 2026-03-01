@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Points Table | My Tournament</title>
+    <title>Points Table | TPL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- COMMON NAVBAR CSS -->
@@ -15,7 +15,7 @@
 
 <!-- NAVBAR -->
 <header class="navbar">
-    <div class="nav-title">MY TOURNAMENT</div>
+    <div class="nav-title">TPL</div>
     <nav class="nav-links">
         <a href="/tpl-website/index.html">Home</a>
         <a href="/tpl-website/fixtures.html">Fixtures</a>
@@ -25,9 +25,9 @@
             <span class="stats-btn">Stats ▾</span>
             <div class="stats-menu">
                 <a href="/tpl-website/orange-cap.html">Orange Cap</a>
-                <a href="#">Most 6s</a>
-                <a href="#">Most 4s</a>
-                <a href="#">Best Strike Rate</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/most-4s.html">Most 4s</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
             </div>
         </div>
     </nav>
@@ -36,7 +36,7 @@
 <!-- POINTS PAGE -->
 <main class="points-page">
 
-    <h1 class="points-title">Points Table</h1>
+    <h1 class="points-title">🏆 Points Table</h1>
 
     <div class="points-table-wrap">
         <table class="points-table">
@@ -55,7 +55,7 @@
 
            <tbody>
 
-<!-- MI - Rank 1 (6 points) -->
+<!-- MI - Rank 1 (6 points, NRR +0.70) -->
 <tr class="team-row mi">
     <td>1</td>
     <td class="team-cell">
@@ -65,13 +65,27 @@
     <td>3</td>
     <td>3</td>
     <td>0</td>
-    <td>6</td>
+    <td><strong>6</strong></td>
     <td class="nrr pos">+0.70</td>
 </tr>
 
-<!-- RR - Rank 2 (4 points, NRR 0.00) -->
-<tr class="team-row rr">
+<!-- KKR - Rank 2 (6 points, NRR +0.61) -->
+<tr class="team-row kkr">
     <td>2</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
+        KKR
+    </td>
+    <td>4</td>
+    <td>3</td>
+    <td>1</td>
+    <td><strong>6</strong></td>
+    <td class="nrr pos">+0.61</td>
+</tr>
+
+<!-- RR - Rank 3 (4 points, NRR 0.00) -->
+<tr class="team-row rr">
+    <td>3</td>
     <td class="team-cell">
         <img src="/tpl-website/assets/logos/teams/rr.png" alt="RR">
         RR
@@ -79,64 +93,50 @@
     <td>3</td>
     <td>2</td>
     <td>1</td>
-    <td>4</td>
+    <td><strong>4</strong></td>
     <td class="nrr pos">0.00</td>
 </tr>
 
-<!-- KKR - Rank 3 (4 points, NRR -0.22) -->
-<tr class="team-row kkr">
-    <td>3</td>
-    <td class="team-cell">
-        <img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR">
-        KKR
-    </td>
-    <td>3</td>
-    <td>2</td>
-    <td>1</td>
-    <td>4</td>
-    <td class="nrr neg">-0.22</td>
-</tr>
-
-<!-- SRH - Rank 4 (2 points, NRR +0.10) -->
-<tr class="team-row srh">
-    <td>4</td>
-    <td class="team-cell">
-        <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
-        SRH
-    </td>
-    <td>3</td>
-    <td>1</td>
-    <td>2</td>
-    <td>2</td>
-    <td class="nrr pos">+0.10</td>
-</tr>
-
-<!-- CSK - Rank 5 (2 points, NRR 0.00) -->
+<!-- CSK - Rank 4 (2 points, NRR -0.13) -->
 <tr class="team-row csk">
-    <td>5</td>
+    <td>4</td>
     <td class="team-cell">
         <img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK">
         CSK
     </td>
-    <td>3</td>
+    <td>4</td>
     <td>1</td>
-    <td>2</td>
-    <td>2</td>
-    <td class="nrr pos">0.00</td>
+    <td>3</td>
+    <td><strong>2</strong></td>
+    <td class="nrr neg">-0.13</td>
 </tr>
 
-<!-- RCB - Rank 6 (0 points) -->
+<!-- RCB - Rank 5 (2 points, NRR -0.29) -->
 <tr class="team-row rcb">
-    <td>6</td>
+    <td>5</td>
     <td class="team-cell">
         <img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB">
         RCB
     </td>
+    <td>4</td>
+    <td>1</td>
     <td>3</td>
-    <td>0</td>
+    <td><strong>2</strong></td>
+    <td class="nrr neg">-0.29</td>
+</tr>
+
+<!-- SRH - Rank 6 (2 points, NRR -0.72) -->
+<tr class="team-row srh">
+    <td>6</td>
+    <td class="team-cell">
+        <img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH">
+        SRH
+    </td>
+    <td>4</td>
+    <td>1</td>
     <td>3</td>
-    <td>0</td>
-    <td class="nrr neg">-0.53</td>
+    <td><strong>2</strong></td>
+    <td class="nrr neg">-0.72</td>
 </tr>
 
 </tbody>

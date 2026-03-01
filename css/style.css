@@ -16,59 +16,32 @@ body{
     font-family:'Montserrat',sans-serif;
     background:
         linear-gradient(rgba(244,246,250,0.85),rgba(244,246,250,0.85)),
-        url("../assets/images/pattern.jpg");
+        url("/tpl-website/assets/images/pattern.jpg");
     background-size:230px;
     background-repeat:repeat;
+    padding-top:90px;
 }
-body{
-    margin:0;
-    padding-top:70px;   /* space for fixed header */
-}
-body{
-    padding-top:90px;  /* adjust if needed */
-}
+
 /* ================= NAVBAR ================= */
 
 .navbar{
-    position:fixed;   /* stays at top */
+    position:fixed;
     top:0;
     left:0;
     width:100%;
     z-index:1000;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:18px 0;
-
-    background:
-        linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
-        url("../assets/images/pattern.jpg");
-
-    background-size:230px;
-    background-repeat:repeat;
-}
-
-/* ================= SIMPLE NAVBAR ================= */
-
-.navbar{
     background:
         linear-gradient(rgba(244,246,250,0.85), rgba(244,246,250,0.85)),
-        url("../assets/images/pattern.jpg");
-
+        url("/tpl-website/assets/images/pattern.jpg");
     background-size:230px;
     background-repeat:repeat;
-
     padding:16px 40px;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
 /* TPL Title */
-
 .nav-title{
     font-size:20px;
     font-weight:600;
@@ -76,7 +49,6 @@ body{
 }
 
 /* Nav Links */
-
 .nav-links{
     display:flex;
     align-items:center;
@@ -93,7 +65,6 @@ body{
 }
 
 /* Active underline */
-
 .nav-links a.active{
     border-bottom:3px solid #0b2d5c;
     padding-bottom:4px;
@@ -219,7 +190,7 @@ body{
     background:#eef2f7;
     border-radius:18px;
     margin-bottom:30px;
-    padding-bottom: 25px; 
+    padding-bottom:25px; 
     overflow:hidden;
 }
 
@@ -278,7 +249,7 @@ body{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    padding:8px 18px;   /* reduced side padding */
+    padding:8px 18px;
     font-size:13px;
     border-radius:30px;
     border:2px solid var(--blue-dark);
@@ -286,7 +257,7 @@ body{
     background:#eef2f7;
     text-decoration:none;
     transition:.25s ease;
-    gap:6px;            /* proper spacing between text and arrow */
+    gap:6px;
 }
 
 .match-btn:hover{
@@ -308,84 +279,18 @@ body{
     background:var(--orange);
 }
 
-/* ================= UPCOMING MATCHES (HOMEPAGE) ================= */
+/* ================= UPCOMING BADGE ================= */
 
-.round-label{
-    font-size:22px;
-    font-weight:700;
-    margin:60px 80px 20px;
-    color:var(--blue-dark);
-    border-left:5px solid var(--orange);
-    padding-left:15px;
-}
-
-.fixtures-container{
-    padding:0 80px 60px;
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.fixture-card{
-    background:#fff;
-    border-radius:14px;
-    padding:20px 30px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow:0 8px 20px rgba(0,0,0,0.06);
-    position:relative;
-}
-
-.fixture-card.upcoming{
-    border-left:5px solid var(--blue-dark);
-}
-
-.match-number{
-    font-weight:700;
-    font-size:14px;
-    color:#666;
-    min-width:80px;
-}
-
-.team{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex:1;
-}
-
-.team.right{
-    justify-content:flex-end;
-}
-
-.team img{
-    width:35px;
-    height:35px;
-    object-fit:contain;
-}
-
-.vs{
-    background:var(--blue-dark);
-    color:#fff;
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-}
-
-.upcoming-badge{
-    position:absolute;
-    top:15px;
-    right:20px;
-    background:var(--blue-dark);
-    color:#fff;
-    font-size:11px;
-    padding:4px 12px;
-    border-radius:20px;
+.upcoming-badge {
+    display: inline-block;
+    background: var(--blue-dark);
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* ================= FOOTER ================= */
@@ -398,29 +303,6 @@ body{
 }
 
 /* ================= MOBILE ================= */
-
-@media(max-width:768px){
-
-    .recent-matches,
-    .fixtures-container{
-        padding:40px 20px;
-    }
-
-    .round-label{
-        margin:40px 20px 15px;
-    }
-
-    .fixture-card{
-        flex-direction:column;
-        gap:15px;
-        text-align:center;
-    }
-
-    .team.right{
-        justify-content:center;
-    }
-}
-/* ================= MOBILE NAVBAR FIX ================= */
 
 @media(max-width:768px){
 
@@ -440,10 +322,6 @@ body{
     .nav-title{
         font-size:20px;
     }
-}
-/* ================= MOBILE RECENT MATCH FIX ================= */
-
-@media(max-width:768px){
 
     .recent-matches{
         padding:40px 20px;
@@ -470,16 +348,16 @@ body{
         font-size:20px;
     }
 
-.vs-mini{
-    margin:12px auto;
-    padding:8px 40px;   /* controlled spacing */
-    border:1.2px solid var(--blue-dark);
-    background:#eef2f7;
-    width:auto;         /* important */
-}
+    .vs-mini{
+        margin:12px auto;
+        padding:8px 40px;
+        border:1.2px solid var(--blue-dark);
+        background:#eef2f7;
+        width:auto;
+    }
 
-.match-btn{
-    width:auto;           /* shrink to content */
-    padding:10px 28px;    /* balanced spacing */
-}
+    .match-btn{
+        width:auto;
+        padding:10px 28px;
+    }
 }

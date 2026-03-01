@@ -4,13 +4,30 @@
     <meta charset="UTF-8">
     <title>KKR vs CSK | Match Centre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
     <link rel="stylesheet" href="/tpl-website/css/match.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="match-header-ipl kkr-csk">
+<header class="navbar">
+    <div class="nav-title">TPL</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html">Points Table</a>
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/most-4s.html">Most 4s</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
+<div class="match-header-ipl kkr-csk">
     <div class="team-block left">
         <img src="/tpl-website/assets/logos/teams/kkr.png" class="team-logo" alt="KKR">
         <div class="score-box">
@@ -18,13 +35,7 @@
             <span>(10 ov)</span>
         </div>
     </div>
-
-    <div class="vs-icon">
-        <span></span>
-        VS
-        <span></span>
-    </div>
-
+    <div class="vs-icon"><span></span>VS<span></span></div>
     <div class="team-block right">
         <div class="score-box">
             <h2>139/2</h2>
@@ -32,14 +43,10 @@
         </div>
         <img src="/tpl-website/assets/logos/teams/csk.png" class="team-logo" alt="CSK">
     </div>
-
 </div>
 
-<div class="match-result">
-    Chennai Super Kings won by 8 wickets
-</div>
+<div class="match-result">Chennai Super Kings won by 8 wickets</div>
 
-<!-- TABS -->
 <div class="innings-tabs">
     <button class="tab kkr active" data-target="kkr">KKR Innings</button>
     <button class="tab csk" data-target="csk">CSK Innings</button>
@@ -51,7 +58,6 @@
         <div class="table-head">
             <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
         </div>
-
         <div class="score-row"><b>Sunil Narine</b><span>23</span><span>9</span><span>2</span><span>2</span><span>255.55</span></div>
         <div class="score-row"><b>Ajinkya Rahane</b><span>20</span><span>10</span><span>0</span><span>2</span><span>200.00</span></div>
         <div class="score-row"><b>Cameron Green</b><span>1</span><span>3</span><span>0</span><span>0</span><span>33.33</span></div>
@@ -61,11 +67,7 @@
         <div class="score-row"><b>Rovman Powell</b><span>0</span><span>4</span><span>0</span><span>0</span><span>0.00</span></div>
         <div class="score-row"><b>Harshit Rana*</b><span>6</span><span>3</span><span>0</span><span>1</span><span>200.00</span></div>
     </div>
-
-    <div class="total-row">
-        <span>Total</span>
-        <span>136/6 (10 overs)</span>
-    </div>
+    <div class="total-row"><span>Total</span><span>136/6 (10 overs)</span></div>
 </div>
 
 <!-- CSK INNINGS -->
@@ -74,25 +76,18 @@
         <div class="table-head">
             <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
         </div>
-
         <div class="score-row"><b>Ayush Mhatre</b><span>45</span><span>19</span><span>2</span><span>5</span><span>236.84</span></div>
         <div class="score-row"><b>Sanju Samson</b><span>1</span><span>4</span><span>0</span><span>0</span><span>25.00</span></div>
         <div class="score-row"><b>Ruturaj Gaikwad</b><span>53</span><span>19</span><span>4</span><span>6</span><span>278.94</span></div>
         <div class="score-row"><b>Dewald Brevis*</b><span>40</span><span>11</span><span>1</span><span>6</span><span>363.63</span></div>
     </div>
-
-    <div class="total-row">
-        <span>Total</span>
-        <span>139/2 (9 overs)</span>
-    </div>
+    <div class="total-row"><span>Total</span><span>139/2 (9 overs)</span></div>
 </div>
 
-<!-- JavaScript for tabs -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const tabs = document.querySelectorAll('.tab');
         const scorecards = document.querySelectorAll('.scorecard');
-        
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -104,6 +99,10 @@
         });
     });
 </script>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
 
 </body>
 </html>

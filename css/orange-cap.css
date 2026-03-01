@@ -1,105 +1,216 @@
-/* PAGE */
+/* ================= PAGE WRAPPER ================= */
+
 .stats-page {
     padding: 40px;
-    background: #f4f6fa;
+    background: 
+        linear-gradient(rgba(244,246,250,0.85), rgba(244,246,250,0.85)),
+        url("/tpl-website/assets/images/pattern.jpg");
+    background-size: 230px;
+    background-repeat: repeat;
+    min-height: 100vh;
 }
 
-/* TITLE */
 .stats-title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 800;
-    margin-bottom: 24px;
-    color: #1e293b;
+    margin-bottom: 30px;
+    color: #0b2d5c;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
 }
 
-/* TABLE WRAP */
+.stats-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: #ff6a00;
+    border-radius: 2px;
+}
+
+/* ================= TABLE WRAPPER ================= */
+
 .stats-table-wrap {
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    background: transparent;
+    border-radius: 20px;
     overflow-x: auto;
+    box-shadow: 0 15px 35px rgba(11, 45, 92, 0.15);
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
+
 .stats-table {
     width: 100%;
+    min-width: 900px;
     border-collapse: collapse;
-    min-width: 800px;
+    background: transparent;
+    table-layout: fixed;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 .stats-table thead {
-    background: #ff7a00;
+    background: rgba(11, 45, 92, 0.92);
     color: #ffffff;
+    backdrop-filter: blur(2px);
 }
 
-.stats-table th {
-    padding: 14px 16px;
+.stats-table thead th {
+    padding: 18px 8px;
     font-size: 14px;
-    text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+    text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* BODY */
-.stats-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #eee;
+/* FIXED COLUMN WIDTHS - NO WASTED SPACE */
+.stats-table thead th:nth-child(1) { width: 50px; }  /* Pos - compact */
+.stats-table thead th:nth-child(2) { width: 160px; text-align: left; }  /* Player */
+.stats-table thead th:nth-child(3) { width: 70px; text-align: left; }   /* Team */
+.stats-table thead th:nth-child(4) { width: 50px; }  /* Mat */
+.stats-table thead th:nth-child(5) { width: 60px; }  /* Runs */
+.stats-table thead th:nth-child(6) { width: 60px; }  /* Balls */
+.stats-table thead th:nth-child(7) { width: 45px; }  /* 4s */
+.stats-table thead th:nth-child(8) { width: 45px; }  /* 6s */
+.stats-table thead th:nth-child(9) { width: 70px; text-align: right; padding-right: 15px; }  /* SR - right aligned */
+
+/* ================= BODY ================= */
+
+.stats-table tbody tr {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(2px);
+}
+
+.stats-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.stats-table tbody td {
+    padding: 14px 8px;
     font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid rgba(11, 45, 92, 0.2);
+    color: #1e2b3c;
+    white-space: nowrap;
 }
 
-/* PLAYER NAME */
-.player-cell {
+.stats-table tbody td:nth-child(2) {
+    text-align: left;
     font-weight: 600;
-    color: #0f172a;
 }
 
-/* TEAM LOGO */
-.stats-table img {
-    width: 26px;
-    height: 26px;
+.stats-table tbody td:nth-child(3) {
+    text-align: left;
+}
+
+/* SR column - right aligned */
+.stats-table tbody td:nth-child(9) {
+    text-align: right;
+    padding-right: 15px;
+    font-weight: 600;
+}
+
+.stats-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ================= PLAYER CELL ================= */
+
+.player-cell {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+/* ================= TEAM CELL IN TABLE ================= */
+
+.team-cell-table {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.team-cell-table img {
+    width: 22px;
+    height: 22px;
     object-fit: contain;
-    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
-/* RUNS STYLE */
+/* ================= RUNS STYLE ================= */
+
 .runs {
     font-weight: 800;
-    font-size: 16px;
-    color: #ff7a00;
+    font-size: 15px;
+    color: #ff6a00;
 }
 
-/* HIGH STRIKE RATE */
+/* ================= STRIKE RATE HIGHLIGHT ================= */
+
 .sr.high {
-    font-weight: 700;
-    color: #0b2d5c;
+    color: #ff6a00;
+    font-weight: 800;
 }
 
-/* TOP PLAYER HIGHLIGHT (Orange Cap holder) */
+/* ================= TOP PLAYER HIGHLIGHT ================= */
+
 .top-player {
-    background: #fff5e6;
+    background: rgba(255, 106, 0, 0.15) !important;
     font-weight: 700;
 }
 
 .top-player td:first-child {
-    color: #ff7a00;
+    color: #ff6a00;
     font-weight: 800;
 }
 
-/* Hover effect on rows */
-.stats-table tbody tr:hover {
-    background: #fafafa;
-    transition: background 0.2s ease;
-}
+/* ================= MOBILE ================= */
 
-/* Responsive */
 @media (max-width: 768px) {
+
     .stats-page {
         padding: 20px;
     }
-    
+
     .stats-title {
-        font-size: 24px;
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+
+    .stats-table thead th {
+        padding: 14px 5px;
+        font-size: 12px;
+    }
+
+    .stats-table tbody td {
+        padding: 12px 5px;
+        font-size: 12px;
+    }
+
+    .stats-table thead th:nth-child(2) { width: 140px; }
+    .stats-table thead th:nth-child(3) { width: 60px; }
+    
+    .team-cell-table img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .runs {
+        font-size: 13px;
+    }
+    
+    .stats-table tbody td:nth-child(9) {
+        padding-right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-table-wrap {
+        border-radius: 16px;
     }
 }

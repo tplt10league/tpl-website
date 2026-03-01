@@ -4,9 +4,28 @@
     <meta charset="UTF-8">
     <title>RR vs SRH | Match Centre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
     <link rel="stylesheet" href="/tpl-website/css/match.css">
 </head>
 <body>
+
+<header class="navbar">
+    <div class="nav-title">TPL</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html">Points Table</a>
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/most-4s.html">Most 4s</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
 <div class="match-header-ipl rr-srh">
     <div class="team-block left">
@@ -36,7 +55,9 @@
 <!-- RR INNINGS -->
 <div class="scorecard rr active" id="rr">
     <div class="scorecard-table-wrapper">
-        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
         <div class="score-row"><b>Yashasvi Jaiswal</b><span>28</span><span>15</span><span>0</span><span>4</span><span>186.66</span></div>
         <div class="score-row"><b>Vaibhav Suryavanshi</b><span>83</span><span>38</span><span>5</span><span>9</span><span>218.42</span></div>
         <div class="score-row"><b>Riyan Parag</b><span>8</span><span>7</span><span>0</span><span>0</span><span>114.28</span></div>
@@ -48,7 +69,9 @@
 <!-- SRH INNINGS -->
 <div class="scorecard srh" id="srh">
     <div class="scorecard-table-wrapper">
-        <div class="table-head"><span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span></div>
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
         <div class="score-row"><b>Abhishek Sharma</b><span>39</span><span>25</span><span>2</span><span>5</span><span>156.00</span></div>
         <div class="score-row"><b>Travis Head</b><span>59</span><span>26</span><span>1</span><span>8</span><span>226.92</span></div>
         <div class="score-row"><b>Heinrich Klaasen</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
@@ -72,6 +95,10 @@
         });
     });
 </script>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
 
 </body>
 </html>

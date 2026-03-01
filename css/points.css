@@ -2,61 +2,100 @@
 
 .points-page {
     padding: 40px;
-    background: #f4f6fa;
+    background: 
+        linear-gradient(rgba(244,246,250,0.85), rgba(244,246,250,0.85)),
+        url("/tpl-website/assets/images/pattern.jpg");
+    background-size: 230px;
+    background-repeat: repeat;
+    min-height: 100vh;
 }
 
 .points-title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 800;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+    color: #0b2d5c;
+    position: relative;
+    display: inline-block;
+}
+
+.points-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: #ff6a00;
+    border-radius: 2px;
 }
 
 /* ================= TABLE WRAPPER ================= */
 
 .points-table-wrap {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    overflow-x: auto;              /* horizontal scroll */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(11, 45, 92, 0.15);
 }
 
 /* ================= TABLE ================= */
 
 .points-table {
     width: 100%;
-    min-width: 720px;              /* forces scroll on mobile */
     border-collapse: collapse;
 }
 
 /* ================= HEADER ================= */
 
 .points-table thead {
-    background: #0b2d5c;
+    background: #274472;
     color: #ffffff;
 }
 
 .points-table thead th {
-    padding: 16px;
-    font-size: 14px;
+    padding: 16px 16px;
+    font-size: 13px;
     font-weight: 700;
-    text-align: center;
-}
-
-.points-table thead th:nth-child(2) {
-    text-align: left;              /* Team column left aligned */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* ================= BODY ================= */
 
-.points-table tbody td {
-    padding: 16px;
-    font-size: 14px;
-    text-align: center;
-    border-bottom: 1px solid #eeeeee;
+.points-table tbody tr {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(11, 45, 92, 0.08);
+    transition: 0.2s ease;
 }
 
-.points-table tbody td:nth-child(2) {
-    text-align: left;              /* Team column */
+.points-table tbody tr:hover {
+    background: #ffffff;
+}
+
+.points-table tbody td {
+    padding: 16px 16px;
+    font-size: 14px;
+    color: #1e2b3c;
+}
+
+/* ================= COLUMN ALIGNMENT ================= */
+
+/* Position column centered */
+.points-table th:nth-child(1),
+.points-table td:nth-child(1) {
+    text-align: center;
+}
+
+/* Team column left aligned */
+.points-table th:nth-child(2),
+.points-table td:nth-child(2) {
+    text-align: left;
+}
+
+/* All numeric columns right aligned */
+.points-table th:nth-child(n+3),
+.points-table td:nth-child(n+3) {
+    text-align: right;
 }
 
 /* ================= TEAM CELL ================= */
@@ -64,13 +103,13 @@
 .team-cell {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-weight: 600;
 }
 
 .team-cell img {
-    width: 26px;                   /* controlled logo size */
-    height: 26px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
 }
 
@@ -96,15 +135,25 @@
 
     .points-title {
         font-size: 22px;
+        margin-bottom: 20px;
     }
 
-    .team-cell img {
-        width: 22px;
-        height: 22px;
+    .points-table thead th {
+        padding: 12px 10px;
+        font-size: 12px;
     }
 
     .points-table tbody td {
-        padding: 12px;
+        padding: 12px 10px;
         font-size: 13px;
+    }
+
+    .team-cell {
+        gap: 8px;
+    }
+
+    .team-cell img {
+        width: 18px;
+        height: 18px;
     }
 }
