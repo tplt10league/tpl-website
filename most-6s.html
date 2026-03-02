@@ -12,28 +12,47 @@
     <link rel="stylesheet" href="/tpl-website/css/orange-cap.css">
     
     <style>
-        /* Adjust column widths for rearranged columns */
+        /* Compact table - minimal scroll if needed */
         .stats-table {
-            min-width: 800px;
+            min-width: 100%;
+            width: 100%;
+            table-layout: auto;
         }
         
-        /* New column order: Pos | Team | Player | 6s | Mat | Runs | SR */
-        .stats-table thead th:nth-child(1) { width: 60px; }                                   /* Pos */
-        .stats-table thead th:nth-child(2) { width: 80px; text-align: left; }                /* Team - decreased size */
-        .stats-table thead th:nth-child(3) { width: 180px; text-align: left; }               /* Player */
-        .stats-table thead th:nth-child(4) { width: 70px; }                                   /* 6s - highlighted */
-        .stats-table thead th:nth-child(5) { width: 60px; }                                   /* Mat */
-        .stats-table thead th:nth-child(6) { width: 80px; }                                   /* Runs */
-        .stats-table thead th:nth-child(7) { width: 90px; text-align: right; padding-right: 15px; }  /* SR */
+        /* Column order: Pos | Player | Team | 6s | Mat */
+        .stats-table thead th:nth-child(1) { width: 12%; }                                   /* Pos */
+        .stats-table thead th:nth-child(2) { width: 40%; text-align: left; }                /* Player */
+        .stats-table thead th:nth-child(3) { width: 18%; text-align: left; }                /* Team */
+        .stats-table thead th:nth-child(4) { width: 15%; }                                   /* 6s - highlighted */
+        .stats-table thead th:nth-child(5) { width: 15%; }                                   /* Mat */
         
-        /* Team column - decreased size */
-        .stats-table thead th:nth-child(2) {
+        /* Reduce padding */
+        .stats-table thead th {
+            padding: 12px 6px;
+            font-size: 12px;
+        }
+        
+        .stats-table tbody td {
+            padding: 10px 6px;
+            font-size: 13px;
+        }
+        
+        /* Player left aligned */
+        .stats-table tbody td:nth-child(2) {
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        /* Team left aligned */
+        .stats-table tbody td:nth-child(3) {
             text-align: left;
         }
         
-        /* Player column */
-        .stats-table thead th:nth-child(3) {
-            text-align: left;
+        /* Center align pos, 6s and Mat */
+        .stats-table tbody td:nth-child(1),
+        .stats-table tbody td:nth-child(4),
+        .stats-table tbody td:nth-child(5) {
+            text-align: center;
         }
         
         /* Highlight 6s column */
@@ -42,7 +61,6 @@
             color: #ff6a00;
             background: rgba(255, 106, 0, 0.1);
             border-radius: 20px;
-            text-align: center;
         }
         
         .stats-table th:nth-child(4) {
@@ -53,7 +71,6 @@
         /* Top player highlight */
         .top-player {
             background: rgba(255, 106, 0, 0.15) !important;
-            font-weight: 700;
         }
         
         .top-player td:first-child {
@@ -61,46 +78,76 @@
             font-weight: 800;
         }
         
-        /* SR column right aligned */
-        .stats-table tbody td:nth-child(7) {
-            text-align: right;
-            padding-right: 15px;
-            font-weight: 600;
-        }
-        
-        .stats-table thead th:nth-child(7) {
-            text-align: right;
-            padding-right: 15px;
-        }
-        
-        /* Team and Player left aligned */
-        .stats-table tbody td:nth-child(2),
-        .stats-table tbody td:nth-child(3) {
-            text-align: left;
-        }
-        
-        /* Center align other columns */
-        .stats-table tbody td:nth-child(1),
-        .stats-table tbody td:nth-child(4),
-        .stats-table tbody td:nth-child(5),
-        .stats-table tbody td:nth-child(6) {
-            text-align: center;
-        }
-        
         /* Team cell styling */
         .team-cell-table {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-weight: 600;
             white-space: nowrap;
         }
         
         .team-cell-table img {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        /* Remove borders */
+        .stats-table tbody td {
+            border-bottom: none !important;
+        }
+        
+        .stats-table tbody tr {
+            border-bottom: 1px solid rgba(11, 45, 92, 0.08);
+        }
+        
+        .stats-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        /* Mobile specific overrides */
+        @media (max-width: 768px) {
+            .stats-table thead th {
+                padding: 10px 4px;
+                font-size: 11px;
+            }
+            
+            .stats-table tbody td {
+                padding: 8px 4px;
+                font-size: 12px;
+            }
+            
+            .team-cell-table img {
+                width: 16px;
+                height: 16px;
+            }
+            
+            /* Adjust column widths for mobile */
+            .stats-table thead th:nth-child(2) { width: 38%; }
+            .stats-table thead th:nth-child(4) { width: 14%; }
+            .stats-table thead th:nth-child(5) { width: 14%; }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-table thead th {
+                padding: 8px 2px;
+                font-size: 10px;
+            }
+            
+            .stats-table tbody td {
+                padding: 6px 2px;
+                font-size: 11px;
+            }
+            
+            .team-cell-table img {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .team-cell-table {
+                gap: 2px;
+            }
         }
     </style>
 </head>
@@ -118,7 +165,7 @@
             <div class="stats-menu">
                 <a href="/tpl-website/orange-cap.html">Orange Cap</a>
                 <a href="/tpl-website/most-6s.html" class="active">Most 6s</a>
-                <a href="highest-score.html">Highest Score</a>
+                <a href="/tpl-website/highest-score.html">Highest Score</a>
                 <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
             </div>
         </div>
@@ -127,7 +174,7 @@
 
 <main class="stats-page">
 
-    <h1 class="stats-title">Most Sixes Leaderboard</h1>
+    <h1 class="stats-title">Most Sixes</h1>
 
     <div class="stats-table-wrap">
         <table class="stats-table">
@@ -135,212 +182,102 @@
             <thead>
                 <tr>
                     <th>Pos</th>
-                    <th>Team</th>
                     <th>Player</th>
+                    <th>Team</th>
                     <th>6s</th>
                     <th>Mat</th>
-                    <th>Runs</th>
-                    <th>SR</th>
                 </tr>
             </thead>
 
             <tbody>
-                <!-- 1 Vaibhav Suryavanshi - RR (21 sixes) -->
+                <!-- 1 Vaibhav Suryavanshi - RR (21 sixes, 4 matches) -->
                 <tr class="top-player">
                     <td>1</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
                     <td class="player-cell">Vaibhav Suryavanshi</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
                     <td>21</td>
                     <td>4</td>
-                    <td class="runs">184</td>
-                    <td class="sr">204.44</td>
                 </tr>
 
-                <!-- 2 Sanju Samson - CSK (18 sixes) -->
+                <!-- 2 Sanju Samson - CSK (18 sixes, 4 matches) -->
                 <tr>
                     <td>2</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
                     <td class="player-cell">Sanju Samson</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
                     <td>18</td>
                     <td>4</td>
-                    <td class="runs">157</td>
-                    <td class="sr">203.89</td>
                 </tr>
 
-                <!-- 3 Phil Salt - RCB (17 sixes) -->
+                <!-- 3 Phil Salt - RCB (17 sixes, 4 matches) -->
                 <tr>
                     <td>3</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
                     <td class="player-cell">Phil Salt</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
                     <td>17</td>
                     <td>4</td>
-                    <td class="runs">140</td>
-                    <td class="sr">172.84</td>
                 </tr>
 
-                <!-- 4 Rohit Sharma - MI (16 sixes) -->
+                <!-- 4 Rohit Sharma - MI (16 sixes, 4 matches) -->
                 <tr>
                     <td>4</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
                     <td class="player-cell">Rohit Sharma</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
                     <td>16</td>
                     <td>4</td>
-                    <td class="runs">126</td>
-                    <td class="sr">203.22</td>
                 </tr>
 
-                <!-- 5 Ayush Mhatre - CSK (14 sixes) -->
+                <!-- 5 Ayush Mhatre - CSK (14 sixes, 4 matches) -->
                 <tr>
                     <td>5</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
                     <td class="player-cell">Ayush Mhatre</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
                     <td>14</td>
                     <td>4</td>
-                    <td class="runs">119</td>
-                    <td class="sr">183.07</td>
                 </tr>
 
-                <!-- 6 Heinrich Klaasen - SRH (13 sixes) -->
+                <!-- 6 Heinrich Klaasen - SRH (13 sixes, 4 matches) -->
                 <tr>
                     <td>6</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
                     <td class="player-cell">Heinrich Klaasen</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
                     <td>13</td>
                     <td>4</td>
-                    <td class="runs">125</td>
-                    <td class="sr">240.38</td>
                 </tr>
 
-                <!-- 7 Quinton de Kock - MI (11 sixes, SR 178.57) -->
+                <!-- 7 Quinton de Kock - MI (11 sixes, 4 matches) -->
                 <tr>
                     <td>7</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
                     <td class="player-cell">Quinton de Kock</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
                     <td>11</td>
                     <td>4</td>
-                    <td class="runs">100</td>
-                    <td class="sr">178.57</td>
                 </tr>
 
-                <!-- 8 Abhishek Sharma - SRH (11 sixes, SR 162.74) -->
+                <!-- 8 Abhishek Sharma - SRH (11 sixes, 4 matches) -->
                 <tr>
                     <td>8</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
                     <td class="player-cell">Abhishek Sharma</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
                     <td>11</td>
                     <td>4</td>
-                    <td class="runs">83</td>
-                    <td class="sr">162.74</td>
                 </tr>
 
-                <!-- 9 Devdutt Padikkal - RCB (10 sixes, SR 280.76) -->
+                <!-- 9 Devdutt Padikkal - RCB (10 sixes, 1 match) -->
                 <tr>
                     <td>9</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
                     <td class="player-cell">Devdutt Padikkal</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
                     <td>10</td>
                     <td>1</td>
-                    <td class="runs">73</td>
-                    <td class="sr">280.76</td>
                 </tr>
 
-                <!-- 10 Manish Pandey - KKR (10 sixes, SR 219.44) -->
+                <!-- 10 Nitish Kumar Reddy - SRH (10 sixes, 4 matches) -->
                 <tr>
                     <td>10</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Manish Pandey</td>
-                    <td>10</td>
-                    <td>3</td>
-                    <td class="runs">79</td>
-                    <td class="sr">219.44</td>
-                </tr>
-
-                <!-- 11 Nitish Kumar Reddy - SRH (10 sixes, SR 204.00) -->
-                <tr>
-                    <td>11</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
                     <td class="player-cell">Nitish Kumar Reddy</td>
-                    <td>10</td>
-                    <td>4</td>
-                    <td class="runs">102</td>
-                    <td class="sr">204.00</td>
-                </tr>
-
-                <!-- 12 Ruturaj Gaikwad - CSK (10 sixes, SR 200.00) -->
-                <tr>
-                    <td>12</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
-                    <td class="player-cell">Ruturaj Gaikwad</td>
-                    <td>10</td>
-                    <td>3</td>
-                    <td class="runs">88</td>
-                    <td class="sr">200.00</td>
-                </tr>
-
-                <!-- 13 Rinku Singh - KKR (8 sixes, SR 246.66) -->
-                <tr>
-                    <td>13</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Rinku Singh</td>
-                    <td>8</td>
-                    <td>3</td>
-                    <td class="runs">74</td>
-                    <td class="sr">246.66</td>
-                </tr>
-
-                <!-- 14 Suryakumar Yadav - MI (8 sixes, SR 211.62) -->
-                <tr>
-                    <td>14</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Suryakumar Yadav</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td class="runs">91</td>
-                    <td class="sr">211.62</td>
-                </tr>
-
-                <!-- 15 Sunil Narine - KKR (8 sixes, SR 197.43) -->
-                <tr>
-                    <td>15</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Sunil Narine</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td class="runs">77</td>
-                    <td class="sr">197.43</td>
-                </tr>
-
-                <!-- 16 Travis Head - SRH (8 sixes, SR 187.50) -->
-                <tr>
-                    <td>16</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Travis Head</td>
-                    <td>8</td>
+                    <td>10</td>
                     <td>4</td>
-                    <td class="runs">60</td>
-                    <td class="sr">187.50</td>
-                </tr>
-
-                <!-- 17 Virat Kohli - RCB (8 sixes, SR 155.40) -->
-                <tr>
-                    <td>17</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
-                    <td class="player-cell">Virat Kohli</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td class="runs">115</td>
-                    <td class="sr">155.40</td>
-                </tr>
-
-                <!-- 18 Ajinkya Rahane - KKR (8 sixes, SR 151.56) -->
-                <tr>
-                    <td>18</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Ajinkya Rahane</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td class="runs">97</td>
-                    <td class="sr">151.56</td>
                 </tr>
             </tbody>
 

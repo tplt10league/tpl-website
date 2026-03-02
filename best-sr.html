@@ -4,35 +4,51 @@
     <meta charset="UTF-8">
     <title>Best Strike Rate | TPL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- COMMON STYLES -->
     <link rel="stylesheet" href="/tpl-website/css/style.css">
-
-    <!-- ORANGE CAP STYLES (reusing same table styles) -->
     <link rel="stylesheet" href="/tpl-website/css/orange-cap.css">
     
     <style>
-        /* Adjust column widths for rearranged columns */
+        /* Compact table - minimal scroll if needed */
         .stats-table {
-            min-width: 700px;
+            min-width: 100%;
+            width: 100%;
+            table-layout: auto;
         }
         
-        /* Column order: Pos | Team | Player | SR | Mat | Runs */
-        .stats-table thead th:nth-child(1) { width: 60px; }                                   /* Pos */
-        .stats-table thead th:nth-child(2) { width: 80px; text-align: left; }                /* Team - decreased size */
-        .stats-table thead th:nth-child(3) { width: 200px; text-align: left; }               /* Player */
-        .stats-table thead th:nth-child(4) { width: 100px; }                                  /* SR - highlighted */
-        .stats-table thead th:nth-child(5) { width: 60px; }                                   /* Mat */
-        .stats-table thead th:nth-child(6) { width: 80px; }                                   /* Runs */
+        /* Column order: Pos | Player | Team | SR | Mat */
+        .stats-table thead th:nth-child(1) { width: 12%; }                                   /* Pos */
+        .stats-table thead th:nth-child(2) { width: 40%; text-align: left; }                /* Player */
+        .stats-table thead th:nth-child(3) { width: 18%; text-align: left; }                /* Team */
+        .stats-table thead th:nth-child(4) { width: 18%; }                                   /* SR - highlighted */
+        .stats-table thead th:nth-child(5) { width: 12%; }                                   /* Mat */
         
-        /* Team column - decreased size */
-        .stats-table thead th:nth-child(2) {
+        /* Reduce padding */
+        .stats-table thead th {
+            padding: 12px 6px;
+            font-size: 12px;
+        }
+        
+        .stats-table tbody td {
+            padding: 10px 6px;
+            font-size: 13px;
+        }
+        
+        /* Player left aligned */
+        .stats-table tbody td:nth-child(2) {
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        /* Team left aligned */
+        .stats-table tbody td:nth-child(3) {
             text-align: left;
         }
         
-        /* Player column */
-        .stats-table thead th:nth-child(3) {
-            text-align: left;
+        /* Center align pos, SR and Mat */
+        .stats-table tbody td:nth-child(1),
+        .stats-table tbody td:nth-child(4),
+        .stats-table tbody td:nth-child(5) {
+            text-align: center;
         }
         
         /* Highlight SR column */
@@ -41,7 +57,6 @@
             color: #ff6a00;
             background: rgba(255, 106, 0, 0.1);
             border-radius: 20px;
-            text-align: center;
         }
         
         .stats-table th:nth-child(4) {
@@ -49,10 +64,9 @@
             color: #fff;
         }
         
-        /* Top player highlight */
+        /* Top SR highlight */
         .top-player {
             background: rgba(255, 106, 0, 0.15) !important;
-            font-weight: 700;
         }
         
         .top-player td:first-child {
@@ -60,34 +74,75 @@
             font-weight: 800;
         }
         
-        /* Team and Player left aligned */
-        .stats-table tbody td:nth-child(2),
-        .stats-table tbody td:nth-child(3) {
-            text-align: left;
-        }
-        
-        /* Center align other columns */
-        .stats-table tbody td:nth-child(1),
-        .stats-table tbody td:nth-child(4),
-        .stats-table tbody td:nth-child(5),
-        .stats-table tbody td:nth-child(6) {
-            text-align: center;
-        }
-        
         /* Team cell styling */
         .team-cell-table {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-weight: 600;
             white-space: nowrap;
         }
         
         .team-cell-table img {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        /* Remove borders */
+        .stats-table tbody td {
+            border-bottom: none !important;
+        }
+        
+        .stats-table tbody tr {
+            border-bottom: 1px solid rgba(11, 45, 92, 0.08);
+        }
+        
+        .stats-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        /* Mobile specific overrides */
+        @media (max-width: 768px) {
+            .stats-table thead th {
+                padding: 10px 4px;
+                font-size: 11px;
+            }
+            
+            .stats-table tbody td {
+                padding: 8px 4px;
+                font-size: 12px;
+            }
+            
+            .team-cell-table img {
+                width: 16px;
+                height: 16px;
+            }
+            
+            /* Slightly adjust column widths for mobile */
+            .stats-table thead th:nth-child(2) { width: 38%; }
+            .stats-table thead th:nth-child(4) { width: 16%; }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-table thead th {
+                padding: 8px 2px;
+                font-size: 10px;
+            }
+            
+            .stats-table tbody td {
+                padding: 6px 2px;
+                font-size: 11px;
+            }
+            
+            .team-cell-table img {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .team-cell-table {
+                gap: 2px;
+            }
         }
     </style>
 </head>
@@ -105,7 +160,7 @@
             <div class="stats-menu">
                 <a href="/tpl-website/orange-cap.html">Orange Cap</a>
                 <a href="/tpl-website/most-6s.html">Most 6s</a>
-                <a href="highest-score.html">Highest Score</a>
+                <a href="/tpl-website/highest-score.html">Highest Score</a>
                 <a href="/tpl-website/best-sr.html" class="active">Best Strike Rate</a>
             </div>
         </div>
@@ -114,7 +169,7 @@
 
 <main class="stats-page">
 
-    <h1 class="stats-title">Best Strike Rate Leaderboard</h1>
+    <h1 class="stats-title">Best Strike Rate</h1>
 
     <div class="stats-table-wrap">
         <table class="stats-table">
@@ -122,293 +177,102 @@
             <thead>
                 <tr>
                     <th>Pos</th>
-                    <th>Team</th>
                     <th>Player</th>
+                    <th>Team</th>
                     <th>SR</th>
                     <th>Mat</th>
-                    <th>Runs</th>
                 </tr>
             </thead>
 
             <tbody>
-                <!-- 1 Ryan Rickelton - MI (SR 316.66, 2 matches) -->
+                <!-- 1 Ryan Rickelton - MI (316.66, 2 matches) -->
                 <tr class="top-player">
                     <td>1</td>
+                    <td>Ryan Rickelton</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Ryan Rickelton</td>
                     <td>316.66</td>
                     <td>2</td>
-                    <td class="runs">38</td>
                 </tr>
 
-                <!-- 2 Devdutt Padikkal - RCB (SR 280.76, 1 match) -->
+                <!-- 2 Devdutt Padikkal - RCB (280.76, 1 match) -->
                 <tr>
                     <td>2</td>
+                    <td>Devdutt Padikkal</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
-                    <td class="player-cell">Devdutt Padikkal</td>
                     <td>280.76</td>
                     <td>1</td>
-                    <td class="runs">73</td>
                 </tr>
 
-                <!-- 3 Rinku Singh - KKR (SR 246.66, 3 matches) -->
+                <!-- 3 Rinku Singh - KKR (246.66, 3 matches) -->
                 <tr>
                     <td>3</td>
+                    <td>Rinku Singh</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Rinku Singh</td>
                     <td>246.66</td>
                     <td>3</td>
-                    <td class="runs">74</td>
                 </tr>
 
-                <!-- 4 Heinrich Klaasen - SRH (SR 240.38, 4 matches) -->
+                <!-- 4 Heinrich Klaasen - SRH (240.38, 4 matches) -->
                 <tr>
                     <td>4</td>
+                    <td>Heinrich Klaasen</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Heinrich Klaasen</td>
                     <td>240.38</td>
                     <td>4</td>
-                    <td class="runs">125</td>
                 </tr>
 
-                <!-- 5 Rajat Patidar - RCB (SR 225.71, 3 matches) -->
+                <!-- 5 Rajat Patidar - RCB (225.71, 3 matches) -->
                 <tr>
                     <td>5</td>
+                    <td>Rajat Patidar</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
-                    <td class="player-cell">Rajat Patidar</td>
                     <td>225.71</td>
                     <td>3</td>
-                    <td class="runs">79</td>
                 </tr>
 
-                <!-- 6 Manish Pandey - KKR (SR 219.44, 3 matches) -->
+                <!-- 6 Manish Pandey - KKR (219.44, 3 matches) -->
                 <tr>
                     <td>6</td>
+                    <td>Manish Pandey</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Manish Pandey</td>
                     <td>219.44</td>
                     <td>3</td>
-                    <td class="runs">79</td>
                 </tr>
 
-                <!-- 7 Suryakumar Yadav - MI (SR 211.62, 4 matches) -->
+                <!-- 7 Suryakumar Yadav - MI (211.62, 4 matches) -->
                 <tr>
                     <td>7</td>
+                    <td>Suryakumar Yadav</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Suryakumar Yadav</td>
                     <td>211.62</td>
                     <td>4</td>
-                    <td class="runs">91</td>
                 </tr>
 
-                <!-- 8 Vaibhav Suryavanshi - RR (SR 204.44, 4 matches) -->
+                <!-- 8 Vaibhav Suryavanshi - RR (204.44, 4 matches) -->
                 <tr>
                     <td>8</td>
+                    <td>Vaibhav Suryavanshi</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
-                    <td class="player-cell">Vaibhav Suryavanshi</td>
                     <td>204.44</td>
                     <td>4</td>
-                    <td class="runs">184</td>
                 </tr>
 
-                <!-- 9 Nitish Kumar Reddy - SRH (SR 204.00, 4 matches) -->
+                <!-- 9 Nitish Kumar Reddy - SRH (204.00, 4 matches) -->
                 <tr>
                     <td>9</td>
+                    <td>Nitish Kumar Reddy</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Nitish Kumar Reddy</td>
                     <td>204.00</td>
                     <td>4</td>
-                    <td class="runs">102</td>
                 </tr>
 
-                <!-- 10 Sanju Samson - CSK (SR 203.89, 4 matches) -->
+                <!-- 10 Sanju Samson - CSK (203.89, 4 matches) -->
                 <tr>
                     <td>10</td>
+                    <td>Sanju Samson</td>
                     <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
-                    <td class="player-cell">Sanju Samson</td>
                     <td>203.89</td>
                     <td>4</td>
-                    <td class="runs">157</td>
-                </tr>
-
-                <!-- 11 Rohit Sharma - MI (SR 203.22, 4 matches) -->
-                <tr>
-                    <td>11</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Rohit Sharma</td>
-                    <td>203.22</td>
-                    <td>4</td>
-                    <td class="runs">126</td>
-                </tr>
-
-                <!-- 12 Harshit Rana - KKR (SR 200.00, 1 match) -->
-                <tr>
-                    <td>12</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Harshit Rana</td>
-                    <td>200.00</td>
-                    <td>1</td>
-                    <td class="runs">6</td>
-                </tr>
-
-                <!-- 13 Ruturaj Gaikwad - CSK (SR 200.00, 3 matches) -->
-                <tr>
-                    <td>13</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
-                    <td class="player-cell">Ruturaj Gaikwad</td>
-                    <td>200.00</td>
-                    <td>3</td>
-                    <td class="runs">88</td>
-                </tr>
-
-                <!-- 14 Hardik Pandya - MI (SR 200.00, 3 matches) -->
-                <tr>
-                    <td>14</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Hardik Pandya</td>
-                    <td>200.00</td>
-                    <td>3</td>
-                    <td class="runs">42</td>
-                </tr>
-
-                <!-- 15 Sunil Narine - KKR (SR 197.43, 4 matches) -->
-                <tr>
-                    <td>15</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Sunil Narine</td>
-                    <td>197.43</td>
-                    <td>4</td>
-                    <td class="runs">77</td>
-                </tr>
-
-                <!-- 16 Cameron Green - KKR (SR 195.34, 4 matches) -->
-                <tr>
-                    <td>16</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Cameron Green</td>
-                    <td>195.34</td>
-                    <td>4</td>
-                    <td class="runs">84</td>
-                </tr>
-
-                <!-- 17 Ishan Kishan - SRH (SR 222.72, 2 matches) -->
-                <tr>
-                    <td>17</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Ishan Kishan</td>
-                    <td>222.72</td>
-                    <td>2</td>
-                    <td class="runs">49</td>
-                </tr>
-
-                <!-- 18 Ravindra Jadeja - RR (SR 188.88, 3 matches) -->
-                <tr>
-                    <td>18</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
-                    <td class="player-cell">Ravindra Jadeja</td>
-                    <td>188.88</td>
-                    <td>3</td>
-                    <td class="runs">17</td>
-                </tr>
-
-                <!-- 19 Travis Head - SRH (SR 187.50, 4 matches) -->
-                <tr>
-                    <td>19</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Travis Head</td>
-                    <td>187.50</td>
-                    <td>4</td>
-                    <td class="runs">60</td>
-                </tr>
-
-                <!-- 20 Tilak Varma - MI (SR 184.21, 3 matches) -->
-                <tr>
-                    <td>20</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Tilak Varma</td>
-                    <td>184.21</td>
-                    <td>3</td>
-                    <td class="runs">35</td>
-                </tr>
-
-                <!-- 21 Ayush Mhatre - CSK (SR 183.07, 4 matches) -->
-                <tr>
-                    <td>21</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
-                    <td class="player-cell">Ayush Mhatre</td>
-                    <td>183.07</td>
-                    <td>4</td>
-                    <td class="runs">119</td>
-                </tr>
-
-                <!-- 22 Quinton de Kock - MI (SR 178.57, 4 matches) -->
-                <tr>
-                    <td>22</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
-                    <td class="player-cell">Quinton de Kock</td>
-                    <td>178.57</td>
-                    <td>4</td>
-                    <td class="runs">100</td>
-                </tr>
-
-                <!-- 23 Phil Salt - RCB (SR 172.84, 4 matches) -->
-                <tr>
-                    <td>23</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
-                    <td class="player-cell">Phil Salt</td>
-                    <td>172.84</td>
-                    <td>4</td>
-                    <td class="runs">140</td>
-                </tr>
-
-                <!-- 24 Abhishek Sharma - SRH (SR 162.74, 4 matches) -->
-                <tr>
-                    <td>24</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
-                    <td class="player-cell">Abhishek Sharma</td>
-                    <td>162.74</td>
-                    <td>4</td>
-                    <td class="runs">83</td>
-                </tr>
-
-                <!-- 25 Riyan Parag - RR (SR 161.53, 4 matches) -->
-                <tr>
-                    <td>25</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
-                    <td class="player-cell">Riyan Parag</td>
-                    <td>161.53</td>
-                    <td>4</td>
-                    <td class="runs">63</td>
-                </tr>
-
-                <!-- 26 Virat Kohli - RCB (SR 155.40, 4 matches) -->
-                <tr>
-                    <td>26</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
-                    <td class="player-cell">Virat Kohli</td>
-                    <td>155.40</td>
-                    <td>4</td>
-                    <td class="runs">115</td>
-                </tr>
-
-                <!-- 27 Ajinkya Rahane - KKR (SR 151.56, 4 matches) -->
-                <tr>
-                    <td>27</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
-                    <td class="player-cell">Ajinkya Rahane</td>
-                    <td>151.56</td>
-                    <td>4</td>
-                    <td class="runs">97</td>
-                </tr>
-
-                <!-- 28 Yashasvi Jaiswal - RR (SR 150.00, 4 matches) -->
-                <tr>
-                    <td>28</td>
-                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
-                    <td class="player-cell">Yashasvi Jaiswal</td>
-                    <td>150.00</td>
-                    <td>4</td>
-                    <td class="runs">78</td>
                 </tr>
             </tbody>
 
