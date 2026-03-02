@@ -492,3 +492,10 @@ body {
         font-size: 14px;
     }
 }
+/* Match 12 - MI vs RR */
+.match-header-ipl.mi-rr::before {
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
+}
+.match-header-ipl.mi-rr::after {
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
+}

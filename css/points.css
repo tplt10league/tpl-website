@@ -125,6 +125,56 @@
     font-weight: 700;
 }
 
+/* ================= POSITION CHANGE INDICATORS ================= */
+
+/* Up arrow - green */
+.pos-up {
+    position: relative;
+    color: #18a558;
+    font-weight: 700;
+}
+
+.pos-up::after {
+    content: "▲";
+    color: #18a558;
+    font-size: 14px;
+    margin-left: 4px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Down arrow - red */
+.pos-down {
+    position: relative;
+    color: #e53935;
+    font-weight: 700;
+}
+
+.pos-down::after {
+    content: "▼";
+    color: #e53935;
+    font-size: 14px;
+    margin-left: 4px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* No change - gray dash */
+.pos-same {
+    position: relative;
+    color: #888;
+    font-weight: 700;
+}
+
+.pos-same::after {
+    content: "–";
+    color: #888;
+    font-size: 16px;
+    margin-left: 4px;
+    display: inline-block;
+    font-weight: 700;
+}
+
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
@@ -155,5 +205,13 @@
     .team-cell img {
         width: 18px;
         height: 18px;
+    }
+
+    /* Adjust indicators on mobile */
+    .pos-up::after,
+    .pos-down::after,
+    .pos-same::after {
+        font-size: 12px;
+        margin-left: 3px;
     }
 }
