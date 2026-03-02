@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Highest Score | TPL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- COMMON STYLES -->
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
+
+    <!-- ORANGE CAP STYLES (reusing same table styles) -->
+    <link rel="stylesheet" href="/tpl-website/css/orange-cap.css">
+    
+    <style>
+        /* Adjust column widths for rearranged columns */
+        .stats-table {
+            min-width: 850px;
+        }
+        
+        /* Column order: Pos | Team | Player | High Score | Mat | SR | Runs */
+        .stats-table thead th:nth-child(1) { width: 60px; }                                   /* Pos */
+        .stats-table thead th:nth-child(2) { width: 80px; text-align: left; }                /* Team - decreased size */
+        .stats-table thead th:nth-child(3) { width: 200px; text-align: left; }               /* Player */
+        .stats-table thead th:nth-child(4) { width: 150px; }                                  /* High Score - highlighted */
+        .stats-table thead th:nth-child(5) { width: 60px; }                                   /* Mat */
+        .stats-table thead th:nth-child(6) { width: 90px; text-align: right; padding-right: 15px; }  /* SR */
+        .stats-table thead th:nth-child(7) { width: 80px; }                                   /* Runs */
+        
+        /* Team column - decreased size */
+        .stats-table thead th:nth-child(2) {
+            text-align: left;
+        }
+        
+        /* Player column */
+        .stats-table thead th:nth-child(3) {
+            text-align: left;
+        }
+        
+        /* Highlight High Score column */
+        .stats-table td:nth-child(4) {
+            font-weight: 800;
+            color: #ff6a00;
+            background: rgba(255, 106, 0, 0.1);
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .stats-table th:nth-child(4) {
+            background: #ff6a00;
+            color: #fff;
+        }
+        
+        /* Top player highlight */
+        .top-player {
+            background: rgba(255, 106, 0, 0.15) !important;
+            font-weight: 700;
+        }
+        
+        .top-player td:first-child {
+            color: #ff6a00;
+            font-weight: 800;
+        }
+        
+        /* SR column right aligned */
+        .stats-table tbody td:nth-child(6) {
+            text-align: right;
+            padding-right: 15px;
+            font-weight: 600;
+        }
+        
+        .stats-table thead th:nth-child(6) {
+            text-align: right;
+            padding-right: 15px;
+        }
+        
+        /* Team and Player left aligned */
+        .stats-table tbody td:nth-child(2),
+        .stats-table tbody td:nth-child(3) {
+            text-align: left;
+        }
+        
+        /* Center align other columns */
+        .stats-table tbody td:nth-child(1),
+        .stats-table tbody td:nth-child(5),
+        .stats-table tbody td:nth-child(7) {
+            text-align: center;
+        }
+        
+        /* Team cell styling */
+        .team-cell-table {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .team-cell-table img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        /* Style for opponent text */
+        .vs-opponent {
+            font-size: 11px;
+            color: #666;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-title">TPL</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html">Points Table</a>
+
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/highest-score.html" class="active">Highest Score</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="stats-page">
+
+    <h1 class="stats-title">Highest Individual Score</h1>
+
+    <div class="stats-table-wrap">
+        <table class="stats-table">
+
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Team</th>
+                    <th>Player</th>
+                    <th>High Score</th>
+                    <th>Mat</th>
+                    <th>SR</th>
+                    <th>Runs</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- 1 Vaibhav Suryavanshi - RR (83 vs SRH) -->
+                <tr class="top-player">
+                    <td>1</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
+                    <td class="player-cell">Vaibhav Suryavanshi</td>
+                    <td>83 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>204.44</td>
+                    <td class="runs">184</td>
+                </tr>
+
+                <!-- 2 Sanju Samson - CSK (71 vs RCB) -->
+                <tr>
+                    <td>2</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
+                    <td class="player-cell">Sanju Samson</td>
+                    <td>71 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>203.89</td>
+                    <td class="runs">157</td>
+                </tr>
+
+                <!-- 3 Devdutt Padikkal - RCB (73 vs CSK) -->
+                <tr>
+                    <td>3</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
+                    <td class="player-cell">Devdutt Padikkal</td>
+                    <td>73 <span class="vs-opponent">(vs CSK)</span></td>
+                    <td>1</td>
+                    <td>280.76</td>
+                    <td class="runs">73</td>
+                </tr>
+
+                <!-- 4 Heinrich Klaasen - SRH (79 vs RCB) -->
+                <tr>
+                    <td>4</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
+                    <td class="player-cell">Heinrich Klaasen</td>
+                    <td>79 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>240.38</td>
+                    <td class="runs">125</td>
+                </tr>
+
+                <!-- 5 Suryakumar Yadav - MI (63 vs RR) -->
+                <tr>
+                    <td>5</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
+                    <td class="player-cell">Suryakumar Yadav</td>
+                    <td>63 <span class="vs-opponent">(vs RR)</span></td>
+                    <td>4</td>
+                    <td>211.62</td>
+                    <td class="runs">91</td>
+                </tr>
+
+                <!-- 6 Ajinkya Rahane - KKR (59 vs SRH) -->
+                <tr>
+                    <td>6</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
+                    <td class="player-cell">Ajinkya Rahane</td>
+                    <td>59 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>151.56</td>
+                    <td class="runs">97</td>
+                </tr>
+
+                <!-- 7 Ruturaj Gaikwad - CSK (53 vs KKR) -->
+                <tr>
+                    <td>7</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
+                    <td class="player-cell">Ruturaj Gaikwad</td>
+                    <td>53 <span class="vs-opponent">(vs KKR)</span></td>
+                    <td>3</td>
+                    <td>200.00</td>
+                    <td class="runs">88</td>
+                </tr>
+
+                <!-- 8 Phil Salt - RCB (63 vs SRH) -->
+                <tr>
+                    <td>8</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
+                    <td class="player-cell">Phil Salt</td>
+                    <td>63 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>172.84</td>
+                    <td class="runs">140</td>
+                </tr>
+
+                <!-- 9 Quinton de Kock - MI (53 vs RCB) -->
+                <tr>
+                    <td>9</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
+                    <td class="player-cell">Quinton de Kock</td>
+                    <td>53 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>178.57</td>
+                    <td class="runs">100</td>
+                </tr>
+
+                <!-- 10 Ayush Mhatre - CSK (53 vs RCB) -->
+                <tr>
+                    <td>10</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/csk.png" alt="CSK"> CSK</td>
+                    <td class="player-cell">Ayush Mhatre</td>
+                    <td>53 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>183.07</td>
+                    <td class="runs">119</td>
+                </tr>
+
+                <!-- 11 Manish Pandey - KKR (50 vs CSK) -->
+                <tr>
+                    <td>11</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
+                    <td class="player-cell">Manish Pandey</td>
+                    <td>50 <span class="vs-opponent">(vs CSK)</span></td>
+                    <td>3</td>
+                    <td>219.44</td>
+                    <td class="runs">79</td>
+                </tr>
+
+                <!-- 12 Cameron Green - KKR (48 vs RCB) -->
+                <tr>
+                    <td>12</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
+                    <td class="player-cell">Cameron Green</td>
+                    <td>48 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>195.34</td>
+                    <td class="runs">84</td>
+                </tr>
+
+                <!-- 13 Virat Kohli - RCB (46 vs CSK) -->
+                <tr>
+                    <td>13</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rcb.png" alt="RCB"> RCB</td>
+                    <td class="player-cell">Virat Kohli</td>
+                    <td>46 <span class="vs-opponent">(vs CSK)</span></td>
+                    <td>4</td>
+                    <td>155.40</td>
+                    <td class="runs">115</td>
+                </tr>
+
+                <!-- 14 Rohit Sharma - MI (43 vs SRH) -->
+                <tr>
+                    <td>14</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/mi.png" alt="MI"> MI</td>
+                    <td class="player-cell">Rohit Sharma</td>
+                    <td>43 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>203.22</td>
+                    <td class="runs">126</td>
+                </tr>
+
+                <!-- 15 Nitish Kumar Reddy - SRH (39 vs RCB) -->
+                <tr>
+                    <td>15</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
+                    <td class="player-cell">Nitish Kumar Reddy</td>
+                    <td>39 <span class="vs-opponent">(vs RCB)</span></td>
+                    <td>4</td>
+                    <td>204.00</td>
+                    <td class="runs">102</td>
+                </tr>
+
+                <!-- 16 Abhishek Sharma - SRH (39 vs RR) -->
+                <tr>
+                    <td>16</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/srh.png" alt="SRH"> SRH</td>
+                    <td class="player-cell">Abhishek Sharma</td>
+                    <td>39 <span class="vs-opponent">(vs RR)</span></td>
+                    <td>4</td>
+                    <td>162.74</td>
+                    <td class="runs">83</td>
+                </tr>
+
+                <!-- 17 Sunil Narine - KKR (39 vs SRH) -->
+                <tr>
+                    <td>17</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
+                    <td class="player-cell">Sunil Narine</td>
+                    <td>39 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>197.43</td>
+                    <td class="runs">77</td>
+                </tr>
+
+                <!-- 18 Rinku Singh - KKR (36 vs RR) -->
+                <tr>
+                    <td>18</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/kkr.png" alt="KKR"> KKR</td>
+                    <td class="player-cell">Rinku Singh</td>
+                    <td>36 <span class="vs-opponent">(vs RR)</span></td>
+                    <td>3</td>
+                    <td>246.66</td>
+                    <td class="runs">74</td>
+                </tr>
+
+                <!-- 19 Yashasvi Jaiswal - RR (28 vs SRH) -->
+                <tr>
+                    <td>19</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
+                    <td class="player-cell">Yashasvi Jaiswal</td>
+                    <td>28 <span class="vs-opponent">(vs SRH)</span></td>
+                    <td>4</td>
+                    <td>150.00</td>
+                    <td class="runs">78</td>
+                </tr>
+
+                <!-- 20 Riyan Parag - RR (28 vs CSK) -->
+                <tr>
+                    <td>20</td>
+                    <td class="team-cell-table"><img src="/tpl-website/assets/logos/teams/rr.png" alt="RR"> RR</td>
+                    <td class="player-cell">Riyan Parag</td>
+                    <td>28 <span class="vs-opponent">(vs CSK)</span></td>
+                    <td>4</td>
+                    <td>161.53</td>
+                    <td class="runs">63</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</main>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
+
+</body>
+</html>
