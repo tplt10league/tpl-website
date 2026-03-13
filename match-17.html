@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SRH vs MI | Match Centre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
+    <link rel="stylesheet" href="/tpl-website/css/match.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-title">TPL</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html">Points Table</a>
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/highest-score.html">Highest Score</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="match-header-ipl srh-mi">
+    <div class="team-block left">
+        <img src="/tpl-website/assets/logos/teams/srh.png" class="team-logo" alt="SRH">
+        <div class="score-box">
+            <h2>106/4</h2>
+            <span>(10 ov)</span>
+        </div>
+    </div>
+    <div class="vs-icon"><span></span>VS<span></span></div>
+    <div class="team-block right">
+        <div class="score-box">
+            <h2>103/1</h2>
+            <span>(10 ov)</span>
+        </div>
+        <img src="/tpl-website/assets/logos/teams/mi.png" class="team-logo" alt="MI">
+    </div>
+</div>
+
+<div class="match-result">Sunrisers Hyderabad won by 3 runs</div>
+
+<div class="innings-tabs">
+    <button class="tab srh active" data-target="srh">SRH Innings</button>
+    <button class="tab mi" data-target="mi">MI Innings</button>
+</div>
+
+<!-- SRH INNINGS -->
+<div class="scorecard srh active" id="srh">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
+        <div class="score-row"><b>Abhishek Sharma</b><span>45</span><span>25</span><span>4</span><span>4</span><span>180.00</span></div>
+        <div class="score-row"><b>Travis Head</b><span>33</span><span>16</span><span>1</span><span>4</span><span>206.25</span></div>
+        <div class="score-row"><b>Ishan Kishan</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Heinrich Klaasen</b><span>24</span><span>10</span><span>3</span><span>1</span><span>240.00</span></div>
+        <div class="score-row"><b>Liam Livingstone</b><span>6</span><span>6</span><span>0</span><span>1</span><span>100.00</span></div>
+        <div class="score-row"><b>Nitish Kumar Reddy</b><span>0</span><span>1</span><span>0</span><span>0</span><span>0.00</span></div>
+        <div class="score-row"><b>Extras</b><span>-2</span><span>-</span><span>0</span><span>0</span><span>-</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>106/4 (10 overs)</span></div>
+</div>
+
+<!-- MI INNINGS -->
+<div class="scorecard mi" id="mi">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
+        <div class="score-row"><b>Rohit Sharma</b><span>46</span><span>26</span><span>3</span><span>5</span><span>176.92</span></div>
+        <div class="score-row"><b>Quinton de Kock</b><span>12</span><span>7</span><span>0</span><span>2</span><span>171.43</span></div>
+        <div class="score-row"><b>Suryakumar Yadav</b><span>31</span><span>21</span><span>3</span><span>3</span><span>147.62</span></div>
+        <div class="score-row"><b>Extras</b><span>14</span><span>-</span><span>0</span><span>0</span><span>-</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>103/1 (10 overs)</span></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                scorecards.forEach(card => card.classList.remove('active'));
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
+
+</body>
+</html>

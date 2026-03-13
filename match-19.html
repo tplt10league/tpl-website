@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSK vs MI | Match Centre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tpl-website/css/style.css">
+    <link rel="stylesheet" href="/tpl-website/css/match.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-title">TPL</div>
+    <nav class="nav-links">
+        <a href="/tpl-website/index.html">Home</a>
+        <a href="/tpl-website/fixtures.html">Fixtures</a>
+        <a href="/tpl-website/points.html">Points Table</a>
+        <div class="stats-dropdown">
+            <span class="stats-btn">Stats ▾</span>
+            <div class="stats-menu">
+                <a href="/tpl-website/orange-cap.html">Orange Cap</a>
+                <a href="/tpl-website/most-6s.html">Most 6s</a>
+                <a href="/tpl-website/highest-score.html">Highest Score</a>
+                <a href="/tpl-website/best-sr.html">Best Strike Rate</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="match-header-ipl csk-mi">
+    <div class="team-block left">
+        <img src="/tpl-website/assets/logos/teams/csk.png" class="team-logo" alt="CSK">
+        <div class="score-box">
+            <h2>129/1</h2>
+            <span>(10 ov)</span>
+        </div>
+    </div>
+    <div class="vs-icon"><span></span>VS<span></span></div>
+    <div class="team-block right">
+        <div class="score-box">
+            <h2>108/2</h2>
+            <span>(10 ov)</span>
+        </div>
+        <img src="/tpl-website/assets/logos/teams/mi.png" class="team-logo" alt="MI">
+    </div>
+</div>
+
+<div class="match-result">Chennai Super Kings won by 21 runs</div>
+
+<div class="innings-tabs">
+    <button class="tab csk active" data-target="csk">CSK Innings</button>
+    <button class="tab mi" data-target="mi">MI Innings</button>
+</div>
+
+<!-- CSK INNINGS -->
+<div class="scorecard csk active" id="csk">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
+        <div class="score-row"><b>Sanju Samson</b><span>55</span><span>30</span><span>2</span><span>7</span><span>183.33</span></div>
+        <div class="score-row"><b>Ayush Mhatre</b><span>45</span><span>22</span><span>3</span><span>5</span><span>204.55</span></div>
+        <div class="score-row"><b>Ruturaj Gaikwad</b><span>26</span><span>9</span><span>2</span><span>3</span><span>288.89</span></div>
+        <div class="score-row"><b>Extras</b><span>3</span><span>-</span><span>0</span><span>0</span><span>-</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>129/1 (10 overs)</span></div>
+</div>
+
+<!-- MI INNINGS -->
+<div class="scorecard mi" id="mi">
+    <div class="scorecard-table-wrapper">
+        <div class="table-head">
+            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+        </div>
+        <div class="score-row"><b>Rohit Sharma</b><span>59</span><span>30</span><span>7</span><span>5</span><span>196.67</span></div>
+        <div class="score-row"><b>Quinton de Kock</b><span>17</span><span>11</span><span>2</span><span>1</span><span>154.55</span></div>
+        <div class="score-row"><b>Suryakumar Yadav</b><span>28</span><span>11</span><span>4</span><span>2</span><span>254.55</span></div>
+        <div class="score-row"><b>Hardik Pandya</b><span>1</span><span>8</span><span>0</span><span>0</span><span>12.50</span></div>
+        <div class="score-row"><b>Extras</b><span>3</span><span>-</span><span>0</span><span>0</span><span>-</span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span>108/2 (10 overs)</span></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const scorecards = document.querySelectorAll('.scorecard');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                scorecards.forEach(card => card.classList.remove('active'));
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+<footer class="footer-bar">
+    T10 PREMIER LEAGUE · 2026
+</footer>
+
+</body>
+</html>

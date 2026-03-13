@@ -499,3 +499,26 @@ body {
 .match-header-ipl.mi-rr::after {
     background-image: url("/tpl-website/assets/logos/teams/rr.png");
 }
+/* Match 13 - SRH vs CSK */
+.match-header-ipl.srh-csk::before {
+    background-image: url("/tpl-website/assets/logos/teams/srh.png");
+}
+.match-header-ipl.srh-csk::after {
+    background-image: url("/tpl-website/assets/logos/teams/csk.png");
+}
+
+/* Match 14 - RCB vs RR */
+.match-header-ipl.rcb-rr::before {
+    background-image: url("/tpl-website/assets/logos/teams/rcb.png");
+}
+.match-header-ipl.rcb-rr::after {
+    background-image: url("/tpl-website/assets/logos/teams/rr.png");
+}
+
+/* Match 15 - KKR vs MI */
+.match-header-ipl.kkr-mi::before {
+    background-image: url("/tpl-website/assets/logos/teams/kkr.png");
+}
+.match-header-ipl.kkr-mi::after {
+    background-image: url("/tpl-website/assets/logos/teams/mi.png");
+}
