@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule & Results — TPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+        :root {
+            --bg-color: #f2f2f2;
+            --text-main: #1a1a1a;
+            --grid-line: rgba(0,0,0,0.08);
+            --tpl-blue: #0f172a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Grid Overlay */
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-left: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        .hero-title {
+            font-weight: 900;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+        }
+
+        .section-divider {
+            border-top: 1px solid var(--text-main);
+            margin-top: 4rem;
+            padding-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* List Row Design */
+        .list-row {
+            display: grid;
+            grid-template-columns: 60px 1.8fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--grid-line);
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        .list-row:hover { opacity: 0.6; }
+
+        .fixture-teams {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .team-unit {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            position: relative;
+            min-width: 60px;
+            justify-content: center;
+        }
+
+        .team-logo-small {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+        }
+
+        .watermark-logo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .team-abbr {
+            font-size: 1.6rem;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vs-divider {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #ccc;
+            font-style: italic;
+            text-transform: lowercase;
+            margin: 0 0.1rem;
+        }
+
+        .match-meta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #888;
+        }
+
+        .result-text {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        @media (max-width: 768px) {
+            .list-row { 
+                grid-template-columns: 40px 1fr 100px; 
+                gap: 0.75rem; 
+                padding: 1.2rem 0; 
+            }
+            .hide-mobile { display: none; }
+            .team-abbr { font-size: 1.1rem; }
+            .team-unit { min-width: 45px; }
+            .vs-divider { font-size: 0.8rem; }
+            .watermark-logo { width: 30px; height: 30px; }
+            .team-logo-small { width: 16px; height: 16px; }
+            .match-meta { font-size: 0.6rem; }
+            .result-text { font-size: 0.65rem; }
+        }
+
+        @media (max-width: 480px) {
+            .list-row {
+                grid-template-columns: 35px 1fr 80px;
+                gap: 0.5rem;
+            }
+            .fixture-teams { gap: 0.25rem; }
+            .team-unit { gap: 0.2rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav class="relative z-20 flex justify-between items-start mb-16 md:mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / SEASON 01</div>
+        <div class="flex flex-col items-end gap-1 md:gap-2 uppercase text-[10px] md:text-sm font-medium text-right">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="teams.html" class="nav-link">Teams</a>
+            <a href="fixtures.html" class="nav-link font-bold">Fixtures</a>
+            <a href="points.html" class="nav-link">Standings</a>
+            <a href="stats.html" class="nav-link">Stats</a>
+        </div>
+    </nav>
+
+    <header class="relative z-10 mb-12">
+        <h1 class="hero-title">Schedule<br>& Results</h1>
+    </header>
+
+    <main>
+        <!-- UPCOMING FIXTURES (Ascending Order) -->
+        <section>
+            <div class="section-divider mb-8">
+                <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">Upcoming (07)</h2>
+            </div>
+
+            <!-- M24 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M24</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 21</div>
+                <div class="text-right match-meta">Wankhede</div>
+            </div>
+
+            <!-- M25 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M25</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 22</div>
+                <div class="text-right match-meta">Chinnaswamy</div>
+            </div>
+
+            <!-- M26 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M26</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 23</div>
+                <div class="text-right match-meta">Eden Gardens</div>
+            </div>
+
+            <!-- M27 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M27</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 24</div>
+                <div class="text-right match-meta">Sawai Mansingh</div>
+            </div>
+
+            <!-- M28 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M28</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 25</div>
+                <div class="text-right match-meta">Uppal</div>
+            </div>
+
+            <!-- M29 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M29</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 26</div>
+                <div class="text-right match-meta">Sawai Mansingh</div>
+            </div>
+
+            <!-- M30 -->
+            <div class="list-row">
+                <div class="match-meta font-bold">M30</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                </div>
+                <div class="match-meta hide-mobile">March 27</div>
+                <div class="text-right match-meta">Wankhede</div>
+            </div>
+        </section>
+
+        <!-- COMPLETED RESULTS (Descending Order) -->
+        <section class="mt-24">
+            <div class="section-divider mb-8">
+                <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">Results (23)</h2>
+            </div>
+
+            <!-- M23 -->
+            <a href="matches/match.html?id=23" class="list-row">
+                <div class="match-meta font-bold">M23</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">RCB won by 7 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M22 -->
+            <a href="matches/match.html?id=22" class="list-row">
+                <div class="match-meta font-bold">M22</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                </div>
+                <div class="result-text hide-mobile">KKR won by 6 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M21 -->
+            <a href="matches/match.html?id=21" class="list-row">
+                <div class="match-meta font-bold">M21</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                </div>
+                <div class="result-text hide-mobile">RCB won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M20 -->
+            <a href="matches/match.html?id=20" class="list-row">
+                <div class="match-meta font-bold">M20</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">RR won by 49 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M19 -->
+            <a href="matches/match.html?id=19" class="list-row">
+                <div class="match-meta font-bold">M19</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">CSK won by 21 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M18 -->
+            <a href="matches/match.html?id=18" class="list-row">
+                <div class="match-meta font-bold">M18</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                </div>
+                <div class="result-text hide-mobile">KKR won by 9 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M17 -->
+            <a href="matches/match.html?id=17" class="list-row">
+                <div class="match-meta font-bold">M17</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">SRH won by 3 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M16 -->
+            <a href="matches/match.html?id=16" class="list-row">
+                <div class="match-meta font-bold">M16</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">CSK won by 12 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M15 -->
+            <a href="matches/match.html?id=15" class="list-row">
+                <div class="match-meta font-bold">M15</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">MI won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M14 -->
+            <a href="matches/match.html?id=14" class="list-row">
+                <div class="match-meta font-bold">M14</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">RR won by 9 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M13 -->
+            <a href="matches/match.html?id=13" class="list-row">
+                <div class="match-meta font-bold">M13</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                </div>
+                <div class="result-text hide-mobile">CSK won by 6 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M12 -->
+            <a href="matches/match.html?id=12" class="list-row">
+                <div class="match-meta font-bold">M12</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">RR won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M11 -->
+            <a href="matches/match.html?id=11" class="list-row">
+                <div class="match-meta font-bold">M11</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                </div>
+                <div class="result-text hide-mobile">KKR won by 31 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M10 -->
+            <a href="matches/match.html?id=10" class="list-row">
+                <div class="match-meta font-bold">M10</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                </div>
+                <div class="result-text hide-mobile">RCB won by 5 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M09 -->
+            <a href="matches/match.html?id=9" class="list-row">
+                <div class="match-meta font-bold">M09</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                </div>
+                <div class="result-text hide-mobile">RR won by 6 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M08 -->
+            <a href="matches/match.html?id=8" class="list-row">
+                <div class="match-meta font-bold">M08</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                </div>
+                <div class="result-text hide-mobile">MI won by 2 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M07 -->
+            <a href="matches/match.html?id=7" class="list-row">
+                <div class="match-meta font-bold">M07</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                </div>
+                <div class="result-text hide-mobile">CSK won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M06 -->
+            <a href="matches/match.html?id=6" class="list-row">
+                <div class="match-meta font-bold">M06</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                </div>
+                <div class="result-text hide-mobile">SRH won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M05 -->
+            <a href="matches/match.html?id=5" class="list-row">
+                <div class="match-meta font-bold">M05</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">KKR won by 6 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M04 -->
+            <a href="matches/match.html?id=4" class="list-row">
+                <div class="match-meta font-bold">M04</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">MI won by 8 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M03 -->
+            <a href="matches/match.html?id=3" class="list-row">
+                <div class="match-meta font-bold">M03</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="watermark-logo"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="watermark-logo"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                </div>
+                <div class="result-text hide-mobile">KKR won by 2 runs</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M02 -->
+            <a href="matches/match.html?id=2" class="list-row">
+                <div class="match-meta font-bold">M02</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="watermark-logo"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="watermark-logo"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                </div>
+                <div class="result-text hide-mobile">MI won by 6 wickets</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+
+            <!-- M01 -->
+            <a href="matches/match.html?id=1" class="list-row">
+                <div class="match-meta font-bold">M01</div>
+                <div class="fixture-teams">
+                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="watermark-logo"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                    <span class="vs-divider">vs</span>
+                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="watermark-logo"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                </div>
+                <div class="result-text hide-mobile">RR won (Super Over)</div>
+                <div class="text-right match-meta">Scorecard →</div>
+            </a>
+        </section>
+    </main>
+
+    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Official Match Center</div>
+    </footer>
+</body>
+</html>

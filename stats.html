@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Stats — TPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        :root { 
+            --bg-color: #f2f2f2; 
+            --text-main: #1a1a1a; 
+            --grid-line: rgba(0,0,0,0.08); 
+            --tpl-blue: #0f172a;
+            
+            /* Team Colors for Card Gradients */
+            --csk-bg: linear-gradient(180deg, #fdb913 0%, #f2f2f2 100%);
+            --rcb-bg: linear-gradient(180deg, #ec1c24 0%, #f2f2f2 100%);
+            --mi-bg: linear-gradient(180deg, #004ba0 0%, #f2f2f2 100%);
+            --rr-bg: linear-gradient(180deg, #ea1a85 0%, #f2f2f2 100%);
+            --kkr-bg: linear-gradient(180deg, #3a225d 0%, #f2f2f2 100%);
+            --srh-bg: linear-gradient(180deg, #f26522 0%, #f2f2f2 100%);
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        .grid-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 1; display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            border-left: 1px solid var(--grid-line); 
+            border-right: 1px solid var(--grid-line); 
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        .hero-title { 
+            font-weight: 900; 
+            font-size: clamp(2.5rem, 10vw, 6rem); 
+            line-height: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: -0.05em; 
+            color: var(--text-main);
+        }
+
+        /* Stats Cards Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        .stat-card:hover { transform: translateY(-8px); }
+
+        .card-header {
+            height: 240px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .team-logo-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 42px;
+            height: 42px;
+            background: white;
+            border-radius: 50%;
+            padding: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        /* Player Image Styling */
+        .player-img {
+            height: 220px;
+            width: auto;
+            object-fit: contain;
+            z-index: 2;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.25));
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover .player-img { transform: scale(1.05); }
+
+        .category-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #e62117;
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            z-index: 5;
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .card-body {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .p-name {
+            color: #004ba0;
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: -0.02em;
+        }
+
+        .p-val {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.05em;
+        }
+
+        .p-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .view-list-btn {
+            border-top: 1px solid #f0f0f0;
+            padding: 1.25rem;
+            text-align: center;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .view-list-btn:hover {
+            background: #f8f8f8;
+            color: var(--tpl-blue);
+        }
+
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; padding: 0 1rem; }
+            .card-header { height: 200px; }
+            .player-img { height: 180px; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav class="relative z-20 flex justify-between items-start mb-16 md:mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / SEASON 01</div>
+        <div class="flex flex-col items-end gap-1 md:gap-2 uppercase text-[10px] md:text-sm font-medium text-right">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="teams.html" class="nav-link">Teams</a>
+            <a href="fixtures.html" class="nav-link">Fixtures</a>
+            <a href="points.html" class="nav-link">Standings</a>
+            <a href="stats.html" class="nav-link font-bold">Stats</a>
+        </div>
+    </nav>
+
+    <header class="relative z-10 mb-6">
+        <h1 class="hero-title">Tournament<br>Leaders</h1>
+    </header>
+
+    <main class="stats-grid">
+        
+        <!-- ORANGE CAP (Sanju Samson) -->
+        <div class="stat-card">
+            <div class="card-header" style="background: var(--csk-bg);">
+                <img src="assets/logos/teams/csk.png" class="team-logo-badge" alt="CSK">
+                <img src="assets/players/sanjusamson.png" class="player-img" alt="Sanju Samson" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">
+                <div class="category-banner" style="background: #fdb913; color: #000;">Orange Cap</div>
+            </div>
+            <div class="card-body">
+                <div class="p-name">Sanju Samson</div>
+                <div class="p-val">325</div>
+                <div class="p-label">Runs</div>
+            </div>
+            <a href="leaderboard.html?type=orange-cap" class="view-list-btn">View Full List</a>
+        </div>
+
+        <!-- MOST SIXES (Phil Salt) -->
+        <div class="stat-card">
+            <div class="card-header" style="background: var(--rcb-bg);">
+                <img src="assets/logos/teams/rcb.png" class="team-logo-badge" alt="RCB">
+                <img src="assets/players/philsalt.png" class="player-img" alt="Phil Salt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">
+                <div class="category-banner" style="background: #1a1a1a; color: #fff;">Most Sixes</div>
+            </div>
+            <div class="card-body">
+                <div class="p-name">Phil Salt</div>
+                <div class="p-val">39</div>
+                <div class="p-label">Sixes</div>
+            </div>
+            <a href="leaderboard.html?type=most-sixes" class="view-list-btn">View Full List</a>
+        </div>
+
+        <!-- HIGHEST SCORE (Vaibhav Suryavanshi) -->
+        <div class="stat-card">
+            <div class="card-header" style="background: var(--rr-bg);">
+                <img src="assets/logos/teams/rr.png" class="team-logo-badge" alt="RR">
+                <img src="assets/players/vaibhavsuryavanshi.png" class="player-img" alt="V. Suryavanshi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">
+                <div class="category-banner" style="background: #ea1a85; color: #fff;">Highest Score</div>
+            </div>
+            <div class="card-body">
+                <div class="p-name">V. Suryavanshi</div>
+                <div class="p-val">83</div>
+                <div class="p-label">Runs (38 Balls)</div>
+            </div>
+            <a href="leaderboard.html?type=highest-score" class="view-list-btn">View Full List</a>
+        </div>
+
+        <!-- MOST FOURS (Rohit Sharma) -->
+        <div class="stat-card">
+            <div class="card-header" style="background: var(--mi-bg);">
+                <img src="assets/logos/teams/mi.png" class="team-logo-badge" alt="MI">
+                <img src="assets/players/rohitsharma.png" class="player-img" alt="Rohit Sharma" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">
+                <div class="category-banner" style="background: #1a1a1a; color: #fff;">Most Fours</div>
+            </div>
+            <div class="card-body">
+                <div class="p-name">Rohit Sharma</div>
+                <div class="p-val">21</div>
+                <div class="p-label">Fours</div>
+            </div>
+            <a href="leaderboard.html?type=most-fours" class="view-list-btn">View Full List</a>
+        </div>
+
+        <!-- BEST STRIKE RATE (Rinku Singh) -->
+        <div class="stat-card">
+            <div class="card-header" style="background: var(--kkr-bg);">
+                <img src="assets/logos/teams/kkr.png" class="team-logo-badge" alt="KKR">
+                <img src="assets/players/rinkusingh.png" class="player-img" alt="Rinku Singh" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">
+                <div class="category-banner" style="background: #3a225d; color: #fff;">Best Strike Rate</div>
+            </div>
+            <div class="card-body">
+                <div class="p-name">Rinku Singh</div>
+                <div class="p-val">246.6</div>
+                <div class="p-label">Strike Rate</div>
+            </div>
+            <a href="leaderboard.html?type=best-sr" class="view-list-btn">View Full List</a>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 border-t border-black mt-16 py-8 flex flex-col md:flex-row justify-between items-start gap-4">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Performance Hub<br>Data Updated After Match 23</div>
+    </footer>
+</body>
+</html>

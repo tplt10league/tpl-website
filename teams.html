@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams — TPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        :root { 
+            --bg-color: #f2f2f2; 
+            --text-main: #1a1a1a; 
+            --grid-line: rgba(0,0,0,0.08); 
+            --tpl-blue: #0f172a;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        .grid-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 1; display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            border-left: 1px solid var(--grid-line); 
+            border-right: 1px solid var(--grid-line); 
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        .hero-title { 
+            font-weight: 900; 
+            font-size: clamp(2.5rem, 10vw, 6rem); 
+            line-height: 0.9; 
+            letter-spacing: -0.05em; 
+            color: var(--text-main);
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 12px;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            background-image: linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 25% 100%;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .card-content {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .card-position {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .team-card:hover .card-content {
+            opacity: 0;
+        }
+
+        .team-card:hover .card-position {
+            opacity: 1;
+        }
+
+        /* SVG Rank Styling with solid fill */
+        .rank-svg {
+            width: 100%;
+            height: 100%;
+            max-height: 240px;
+        }
+
+        .rank-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 100px;
+            fill: currentColor; /* Inherit from inline style */
+        }
+
+        .team-logo-main {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            margin: 0 auto 1.5rem;
+        }
+
+        .team-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        .captain-tag {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #888;
+            margin-top: 0.75rem;
+        }
+
+        /* Squad Modal - Optimized for Mobile Scrolling */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(242, 242, 242, 0.98);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 5rem 1.5rem 2rem; /* Top padding for close button space */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .squad-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .player-item {
+            background: white;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .role-badge {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #fff;
+            font-weight: 900;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            background: white;
+            padding: 0.6rem 1rem;
+            border-radius: 100px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 110;
+            text-transform: uppercase;
+        }
+
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        @media (max-width: 768px) {
+            .squad-list { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
+            .team-card { height: 320px; }
+            .modal { padding-top: 4rem; }
+            .team-title { font-size: 1.5rem; }
+            .player-item { padding: 0.75rem 0.85rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav class="relative z-20 flex justify-between items-start mb-16 md:mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / Season 01</div>
+        <div class="flex flex-col items-end gap-1 md:gap-2 text-[10px] md:text-sm font-medium text-right">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="teams.html" class="nav-link font-bold">Teams</a>
+            <a href="fixtures.html" class="nav-link">Fixtures</a>
+            <a href="points.html" class="nav-link">Standings</a>
+            <a href="stats.html" class="nav-link">Stats</a>
+        </div>
+    </nav>
+
+    <header class="relative z-10 mb-6">
+        <h1 class="hero-title">The Contenders</h1>
+    </header>
+
+    <main class="teams-grid">
+        <!-- CSK (Rank 4) -->
+        <div class="team-card" onclick="showSquad('csk')" style="border-bottom: 4px solid #fdb913;">
+            <div class="card-content">
+                <img src="assets/logos/teams/csk.png" class="team-logo-main" alt="CSK">
+                <div class="team-info">
+                    <div class="team-title" style="color: #fdb913;">Chennai Super Kings</div>
+                    <div class="captain-tag">Captain: Ruturaj Gaikwad</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="color: #fdb913;">4</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- RR (Rank 1) -->
+        <div class="team-card" onclick="showSquad('rr')" style="border-bottom: 4px solid #ea1a85;">
+            <div class="card-content">
+                <img src="assets/logos/teams/rr.png" class="team-logo-main" alt="RR">
+                <div class="team-info">
+                    <div class="team-title" style="color: #ea1a85;">Rajasthan Royals</div>
+                    <div class="captain-tag">Captain: Riyan Parag</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="color: #ea1a85;">1</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- MI (Rank 3) -->
+        <div class="team-card" onclick="showSquad('mi')" style="border-bottom: 4px solid #004ba0;">
+            <div class="card-content">
+                <img src="assets/logos/teams/mi.png" class="team-logo-main" alt="MI">
+                <div class="team-info">
+                    <div class="team-title" style="color: #004ba0;">Mumbai Indians</div>
+                    <div class="captain-tag">Captain: Hardik Pandya</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="color: #004ba0;">3</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- RCB (Rank 5) -->
+        <div class="team-card" onclick="showSquad('rcb')" style="border-bottom: 4px solid #ec1c24;">
+            <div class="card-content">
+                <img src="assets/logos/teams/rcb.png" class="team-logo-main" alt="RCB">
+                <div class="team-info">
+                    <div class="team-title" style="color: #ec1c24;">Royal Challengers Bengaluru</div>
+                    <div class="captain-tag">Captain: Rajat Patidar</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="color: #ec1c24;">5</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- KKR (Rank 2) -->
+        <div class="team-card" onclick="showSquad('kkr')" style="border-bottom: 4px solid #3a225d;">
+            <div class="card-content">
+                <img src="assets/logos/teams/kkr.png" class="team-logo-main" alt="KKR">
+                <div class="team-info">
+                    <div class="team-title" style="color: #3a225d;">Kolkata Knight Riders</div>
+                    <div class="captain-tag">Captain: Ajinkya Rahane</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="stroke: #3a225d;">2</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- SRH (Rank 6) -->
+        <div class="team-card" onclick="showSquad('srh')" style="border-bottom: 4px solid #f26522;">
+            <div class="card-content">
+                <img src="assets/logos/teams/srh.png" class="team-logo-main" alt="SRH">
+                <div class="team-info">
+                    <div class="team-title" style="color: #f26522;">Sunrisers Hyderabad</div>
+                    <div class="captain-tag">Captain: Pat Cummins</div>
+                </div>
+            </div>
+            <div class="card-position">
+                <svg viewBox="0 0 100 100" class="rank-svg">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="rank-text" style="color: #f26522;">6</text>
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <!-- Squad Modal -->
+    <div id="squadModal" class="modal">
+        <div class="close-btn" onclick="closeSquad()">Close [X]</div>
+        <div class="modal-content">
+            <img id="modalLogo" src="" class="w-24 md:w-32 mx-auto mb-6" alt="">
+            <h2 id="modalTeamName" class="text-3xl md:text-5xl font-black tracking-tighter"></h2>
+            <div id="modalSquadList" class="squad-list">
+                <!-- Players injected here -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">Official Team Directory</div>
+    </footer>
+
+    <script>
+        const squadsData = {
+            csk: {
+                name: "Chennai Super Kings",
+                players: [
+                    {n: "Ruturaj Gaikwad", r: "C"},
+                    {n: "MS Dhoni", r: "WK"},
+                    {n: "Sanju Samson", r: ""},
+                    {n: "Ayush Mahtre", r: ""},
+                    {n: "Dewald Brevis", r: ""},
+                    {n: "Shivam Dube", r: ""},
+                    {n: "Sarfaraz Khan", r: ""},
+                    {n: "Nathan Ellis", r: ""},
+                    {n: "Noor Ahmad", r: ""},
+                    {n: "Khaleel Ahmed", r: ""},
+                    {n: "Akeel Hosein", r: ""},
+                    {n: "Rahul Chahar", r: ""}
+                ]
+            },
+            mi: {
+                name: "Mumbai Indians",
+                players: [
+                    {n: "Hardik Pandya", r: "C"},
+                    {n: "Quinton de Kock", r: "WK"},
+                    {n: "Ryan Rickelton", r: ""},
+                    {n: "Rohit Sharma", r: ""},
+                    {n: "Suryakumar Yadav", r: ""},
+                    {n: "Tilak Varma", r: ""},
+                    {n: "Mitchell Santner", r: ""},
+                    {n: "Will Jacks", r: ""},
+                    {n: "Deepak Chahar", r: ""},
+                    {n: "Trent Boult", r: ""},
+                    {n: "Jasprit Bumrah", r: ""}
+                ]
+            },
+            rcb: {
+                name: "Royal Challengers Bengaluru",
+                players: [
+                    {n: "Rajat Patidar", r: "C"},
+                    {n: "Jitesh Sharma", r: "WK"},
+                    {n: "Virat Kohli", r: ""},
+                    {n: "Phil Salt", r: ""},
+                    {n: "Devdutt Padikkal", r: ""},
+                    {n: "Romario Shepherd", r: ""},
+                    {n: "Tim David", r: ""},
+                    {n: "Jacob Bethell", r: ""},
+                    {n: "Krunal Pandya", r: ""},
+                    {n: "Venkatesh Iyer", r: ""},
+                    {n: "Bhuvaneshwar Kumar", r: ""},
+                    {n: "Josh Hazlewood", r: ""},
+                    {n: "Sandeep Sharma", r: ""},
+                    {n: "Nuwan Thushara", r: ""}
+                ]
+            },
+            kkr: {
+                name: "Kolkata Knight Riders",
+                players: [
+                    {n: "Ajinkya Rahane", r: "C"},
+                    {n: "Finn Allen", r: "WK"},
+                    {n: "Cameron Green", r: ""},
+                    {n: "Tim Seifert", r: ""},
+                    {n: "Angkrish Raghuvanshi", r: ""},
+                    {n: "Manish Pandey", r: ""},
+                    {n: "Rinku Singh", r: ""},
+                    {n: "Rovman Powell", r: ""},
+                    {n: "Rachin Ravindra", r: ""},
+                    {n: "Matheesha Pathirana", r: ""},
+                    {n: "Harshit Rana", r: ""},
+                    {n: "Sunil Narine", r: ""},
+                    {n: "Varun Chakravarthy", r: ""},
+                    {n: "Umran Malik", r: ""}
+                ]
+            },
+            rr: {
+                name: "Rajasthan Royals",
+                players: [
+                    {n: "Riyan Parag", r: "C"},
+                    {n: "Dhruv Jurel", r: "WK"},
+                    {n: "Yashasvi Jaiswal", r: ""},
+                    {n: "Vaibhav Suryavanshi", r: ""},
+                    {n: "Shimron Hetmyer", r: ""},
+                    {n: "Ravindra Jadeja", r: ""},
+                    {n: "Sam Curran", r: ""},
+                    {n: "Jofra Archer", r: ""},
+                    {n: "Ravi Bishnoi", r: ""},
+                    {n: "Sandeep Sharma", r: ""}
+                ]
+            },
+            srh: {
+                name: "Sunrisers Hyderabad",
+                players: [
+                    {n: "Pat Cummins", r: "C"},
+                    {n: "Ishan Kishan", r: "WK"},
+                    {n: "Abhishek Sharma", r: ""},
+                    {n: "Travis Head", r: ""},
+                    {n: "Heinrich Klaasen", r: ""},
+                    {n: "Nitish Kumar Reddy", r: ""},
+                    {n: "Liam Livingstone", r: ""},
+                    {n: "Jaydev Unadkat", r: ""},
+                    {n: "Kusal Mendis", r: ""},
+                    {n: "Harshal Patel", r: ""}
+                ]
+            }
+        };
+
+        function showSquad(teamId) {
+            const data = squadsData[teamId];
+            document.getElementById('modalTeamName').innerText = data.name;
+            document.getElementById('modalLogo').src = `assets/logos/teams/${teamId}.png`;
+            
+            const listHtml = data.players.map(p => `
+                <div class="player-item">
+                    <span>${p.n}</span>
+                    ${p.r ? `<span class="role-badge">${p.r}</span>` : ''}
+                </div>
+            `).join('');
+            
+            document.getElementById('modalSquadList').innerHTML = listHtml;
+            document.getElementById('squadModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSquad() {
+            document.getElementById('squadModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>

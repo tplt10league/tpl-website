@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPL — T10 Premier League</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+        :root {
+            --bg-color: #f2f2f2;
+            --text-main: #1a1a1a;
+            --grid-line: rgba(0,0,0,0.08);
+            --tpl-gold: #fdb913;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fixed Background Golden Lines */
+        .gold-line-bg {
+            position: fixed;
+            top: 0;
+            left: 8%;
+            width: 1px;
+            height: 100%;
+            background: var(--tpl-gold);
+            opacity: 0.12;
+            z-index: -1;
+        }
+        .gold-line-bg-2 {
+            position: fixed;
+            top: 0;
+            right: 12%;
+            width: 1px;
+            height: 100%;
+            background: var(--tpl-gold);
+            opacity: 0.08;
+            z-index: -1;
+        }
+
+        /* Fixed Background Watermark - Strictly Centered */
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180vw;
+            height: 180vw;
+            max-width: 2500px;
+            max-height: 2500px;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: -2;
+            object-fit: contain;
+        }
+
+        /* Hero Container - Strictly Centered Alignment */
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Hero Logo Styling - Strictly Centered */
+        .hero-logo {
+            height: clamp(10rem, 35vw, 22rem);
+            width: auto;
+            margin-bottom: 1rem;
+            object-fit: contain;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Heading Styles with Golden Stroke BEHIND the text */
+        .hero-title, 
+        .section-header, 
+        .match-title, 
+        .view-all-cta {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+            line-height: 0.85;
+            position: relative;
+            text-shadow: 
+                0.5px 0.5px 0 var(--tpl-gold),
+                -0.5px -0.5px 0 var(--tpl-gold),
+                0.5px -0.5px 0 var(--tpl-gold),
+                -0.5px 0.5px 0 var(--tpl-gold);
+        }
+
+        .hero-title { font-size: clamp(3.5rem, 12vw, 10rem); }
+        .section-header { font-size: clamp(2rem, 6vw, 4rem); }
+        .match-title { font-size: clamp(2.5rem, 8vw, 5.5rem); }
+
+        .section-divider {
+            border-top: 1px solid var(--text-main);
+            margin-top: 4rem;
+            padding-top: 1rem;
+        }
+
+        /* Match Cards */
+        .match-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.5rem;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--grid-line);
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s ease;
+            position: relative;
+            z-index: 10;
+            background: transparent;
+        }
+
+        .match-card:hover { opacity: 0.8; }
+
+        .match-image-container {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+
+        .match-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .match-card:hover .match-image-container img { transform: scale(1.05); }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metadata-label {
+            color: #888;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        /* Navigation Links */
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            transform: translateX(-101%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after { transform: translateX(0); }
+
+        /* Floating Nav - "Pops" when scrolling up */
+        .floating-nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            background: rgba(242, 242, 242, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            border: 1px solid rgba(253, 185, 19, 0.3);
+            display: flex;
+            gap: 2rem;
+            z-index: 1000;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .floating-nav.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .floating-nav a {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .match-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0; }
+            .hero-title { font-size: 4rem; }
+            .hero-logo { 
+                height: clamp(10rem, 45vw, 16rem);
+            }
+            .bg-watermark { 
+                width: 250vw; 
+                height: 250vw; 
+                opacity: 0.05; 
+            }
+            .gold-line-bg { left: 4%; }
+            .gold-line-bg-2 { right: 4%; }
+            .floating-nav { 
+                gap: 1rem; 
+                padding: 0.6rem 1rem;
+                width: 90%;
+                justify-content: center;
+            }
+            .floating-nav a { font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+
+    <!-- Faded Fixed Watermark -->
+    <img src="assets/logos/tplt10logo.png" class="bg-watermark" alt="">
+    
+    <!-- Decorative Golden Lines -->
+    <div class="gold-line-bg"></div>
+    <div class="gold-line-bg-2"></div>
+
+    <!-- Scroll Pop Navigation -->
+    <div id="stickyNav" class="floating-nav">
+        <a href="teams.html" class="nav-link">Teams</a>
+        <a href="fixtures.html" class="nav-link">Fixtures</a>
+        <a href="points.html" class="nav-link">Standings</a>
+        <a href="stats.html" class="nav-link">Stats</a>
+    </div>
+
+    <!-- Static Initial Navigation -->
+    <nav class="relative z-20 flex justify-between items-start mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">
+            TPL / SEASON 01
+        </div>
+        <div class="flex flex-col items-end gap-2 uppercase text-xs md:text-sm font-medium text-right">
+            <a href="index.html" class="nav-link font-bold">Home</a>
+            <a href="teams.html" class="nav-link">Teams</a>
+            <a href="fixtures.html" class="nav-link">Fixtures</a>
+            <a href="points.html" class="nav-link">Standings</a>
+            <a href="stats.html" class="nav-link">Stats</a>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="relative z-10 mb-32 hero-container">
+        <!-- Tournament Logo - Strictly Centered -->
+        <img src="assets/logos/tplt10logo.png" class="hero-logo" alt="TPL Logo">
+        <h1 class="hero-title">T10 Premier<br>League</h1>
+    </header>
+
+    <!-- Recent Matches List -->
+    <main class="relative z-10">
+        
+        <div class="section-divider flex justify-between items-end mb-12">
+            <h2 class="section-header tracking-tighter">Recent Matches</h2>
+            <div class="text-[10px] uppercase tracking-widest text-gray-400">Latest Results / 23 of 30</div>
+        </div>
+
+        <!-- Match 23 -->
+        <a href="matches/match.html?id=23" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 23</div>
+                <img src="assets/matches/match-23.jpg" alt="RCB VS MI" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS MI</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Bengaluru Resilience</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A gritty defense of 116. RCB held their nerve to win by 7 runs despite an explosive late surge from Hardik Pandya.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">Wankhede Stadium</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">RCB vs MI</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">RCB Won (7 Runs)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Phil Salt (40)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Match 22 -->
+        <a href="matches/match.html?id=22" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 22</div>
+                <img src="assets/matches/match-22.jpg" alt="CSK VS KKR" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">CSK VS KKR</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Knight's Mastery</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">KKR chased down 86 in under 8 overs, moving firmly into a qualifying position with a 6-wicket victory.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">MA Chidambaram</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">CSK vs KKR</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">KKR Won (6 Wickets)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Sunil Narine (30)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Match 21 -->
+        <a href="matches/match.html?id=21" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 21</div>
+                <img src="assets/matches/match-21.jpg" alt="RCB VS SRH" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS SRH</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Salt's Storm</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">An unbeaten 47 from Phil Salt anchored a clinical chase, leaving SRH's playoff hopes hanging by a thread.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">M. Chinnaswamy</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">RCB vs SRH</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">RCB Won (8 Wickets)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Phil Salt (47*)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Match 20 -->
+        <a href="matches/match.html?id=20" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 20</div>
+                <img src="assets/matches/match-20.jpg" alt="KKR VS RR" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">KKR VS RR</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Royal Routing</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A complete dismantling by Rajasthan, bowling out Kolkata for just 61 runs to secure a massive 49-run win.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">Eden Gardens</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">KKR vs RR</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">RR Won (49 Runs)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Ravindra Jadeja (41*)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="py-24 text-center">
+            <a href="fixtures.html" class="view-all-cta text-6xl md:text-8xl hover:tracking-widest transition-all duration-700 tracking-tighter">View All Matches</a>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+            © 2026 T10 Premier League<br>
+            Season 01 / All Rights Reserved.
+        </div>
+        <div class="text-[10px] uppercase tracking-widest text-right">
+            Crafted for Excellence.<br>
+            Where every ball matters.
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Logic for Floating Navigation
+        let lastScrollY = window.scrollY;
+        const stickyNav = document.getElementById('stickyNav');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            // Only show if we've scrolled down a bit (past the hero)
+            if (currentScrollY > 400) {
+                if (currentScrollY < lastScrollY) {
+                    // Scrolling Up
+                    stickyNav.classList.add('visible');
+                } else {
+                    // Scrolling Down
+                    stickyNav.classList.remove('visible');
+                }
+            } else {
+                // At the top of the page
+                stickyNav.classList.remove('visible');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+    </script>
+
+</body>
+</html>
