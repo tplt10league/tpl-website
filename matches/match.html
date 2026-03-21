@@ -123,12 +123,14 @@
                     <img id="team1Logo" src="" class="w-16 md:w-24 h-16 md:h-24 object-contain ml-auto mb-2">
                     <h2 id="team1Name" class="text-2xl md:text-4xl font-black gold-stroke">---</h2>
                     <div id="team1Score" class="text-3xl md:text-5xl font-black mt-2">0/0</div>
+                    <div id="team1Overs" class="text-sm md:text-base font-bold text-gray-500 mt-1 uppercase tracking-widest"></div>
                 </div>
                 <div class="text-4xl font-black text-gray-300 italic">VS</div>
                 <div id="team2Container" class="text-left flex-1">
                     <img id="team2Logo" src="" class="w-16 md:w-24 h-16 md:h-24 object-contain mr-auto mb-2">
                     <h2 id="team2Name" class="text-2xl md:text-4xl font-black gold-stroke">---</h2>
                     <div id="team2Score" class="text-3xl md:text-5xl font-black mt-2">0/0</div>
+                    <div id="team2Overs" class="text-sm md:text-base font-bold text-gray-500 mt-1 uppercase tracking-widest"></div>
                 </div>
             </div>
             <div id="matchResult" class="mt-8 inline-block bg-black text-white px-6 py-2 text-xs font-black uppercase tracking-widest">
@@ -151,7 +153,7 @@
         // SQUAD LISTS
         const squads = {
             csk: ["Ayush Mhatre", "Sanju Samson", "Ruturaj Gaikwad", "Dewald Brevis", "MS Dhoni", "Shivam Dube", "Sarfaraz Khan", "Nathan Ellis", "Noor Ahmad", "Khaleel Ahmed", "Rahul Chahar", "Akeel Hosein"],
-            mi: ["Rohit Sharma", "Tilak Varma", "Quinton de Kock", "Suryakumar Yadav", "Hardik Pandya", "Ryan Rickelton", "Mitchell Santner", "Will Jacks", "Trent Boult", "Jasprit Bumrah", "Deepak Chahar"],
+            mi: ["Rohit Sharma", "Quinton de Kock", "Suryakumar Yadav", "Hardik Pandya", "Tilak Varma", "Ryan Rickelton", "Mitchell Santner", "Will Jacks", "Trent Boult", "Jasprit Bumrah", "Deepak Chahar"],
             rcb: ["Phil Salt", "Virat Kohli", "Devdutt Padikkal", "Jacob Bethell", "Rajat Patidar", "Jitesh Sharma", "Venkatesh Iyer", "Romario Shepherd", "Tim David", "Krunal Pandya", "Bhuvaneshwar Kumar", "Josh Hazlewood", "Sandeep Sharma", "Nuwan Thushara"],
             kkr: ["Sunil Narine", "Ajinkya Rahane", "Cameron Green", "Manish Pandey", "Rinku Singh", "Rovman Powell", "Angkrish Raghuvanshi", "Tim Seifert", "Harshit Rana", "Matheesha Pathirana", "Varun Chakravarthy", "Umran Malik", "Rachin Ravindra"],
             rr: ["Yashasvi Jaiswal", "Vaibhav Suryavanshi", "Riyan Parag", "Dhruv Jurel", "Shimron Hetmyer", "Ravindra Jadeja", "Sam Curran", "Jofra Archer", "Ravi Bishnoi", "Sandeep Sharma"],
@@ -211,9 +213,11 @@
             document.getElementById('btnTeam2').innerText = `${data.team2.name} Innings`;
             document.getElementById('team1Name').innerText = data.team1.name;
             document.getElementById('team1Score').innerText = data.team1.score;
+            document.getElementById('team1Overs').innerText = `(${data.team1.overs} OV)`;
             document.getElementById('team1Logo').src = `../assets/logos/teams/${data.team1.id}.png`;
             document.getElementById('team2Name').innerText = data.team2.name;
             document.getElementById('team2Score').innerText = data.team2.score;
+            document.getElementById('team2Overs').innerText = `(${data.team2.overs} OV)`;
             document.getElementById('team2Logo').src = `../assets/logos/teams/${data.team2.id}.png`;
 
             document.getElementById('team1Container').classList.remove('losing-side');
