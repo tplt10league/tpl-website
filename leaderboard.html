@@ -154,50 +154,77 @@
 
     <footer class="relative z-10 border-t border-black mt-16 py-8 flex flex-col md:flex-row justify-between items-start gap-4">
         <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Performance Data</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Performance Data<br>Updated After Match 25</div>
     </footer>
 
     <script>
-        // FULL DATASET (TOP 15-20 PLAYERS)
+        // FULL DATASET UPDATED FOR MATCHES 1-25
         // Row Structure: [POS, NAME, TEAM_ABBR, STAT_1, STAT_2, STAT_3, ..., FINAL_STAT]
         const leaderboardData = {
+            "mvp": {
+                title: "Player of the Tournament",
+                label: "MVP Points",
+                headers: ["POS", "PLAYER", "MAT", "INN", "ROLE", "PTS"],
+                rows: [
+                    ["01", "Phil Salt", "RCB", "9", "9", "BAT", "245.5"],
+                    ["02", "Sunil Narine", "KKR", "8", "8", "ALL", "228.0"],
+                    ["03", "Sanju Samson", "CSK", "9", "9", "WK-BAT", "210.5"],
+                    ["04", "V. Suryavanshi", "RR", "8", "8", "BAT", "195.0"],
+                    ["05", "Ayush Mhatre", "CSK", "9", "8", "BAT", "182.5"],
+                    ["06", "Virat Kohli", "RCB", "9", "9", "BAT", "175.0"],
+                    ["07", "S. Yadav", "MI", "8", "8", "BAT", "168.5"],
+                    ["08", "H. Klaasen", "SRH", "8", "8", "WK-BAT", "155.0"],
+                    ["09", "Y. Jaiswal", "RR", "8", "8", "BAT", "148.5"],
+                    ["10", "Rohit Sharma", "MI", "8", "8", "BAT", "142.0"],
+                    ["11", "Hardik Pandya", "MI", "8", "8", "ALL", "138.5"],
+                    ["12", "Ruturaj Gaikwad", "CSK", "9", "9", "BAT", "135.0"],
+                    ["13", "Riyan Parag", "RR", "8", "8", "ALL", "125.5"],
+                    ["14", "Abhishek Sharma", "SRH", "8", "8", "ALL", "118.0"],
+                    ["15", "Ishan Kishan", "SRH", "8", "8", "WK-BAT", "112.5"]
+                ]
+            },
             "orange-cap": {
                 title: "Orange Cap",
                 label: "Most Runs",
-                headers: ["POS", "PLAYER", "MAT", "B", "4s", "6s", "RUNS"],
+                headers: ["POS", "PLAYER", "MAT", "INN", "B", "4s", "6s", "RUNS"],
                 rows: [
-                    ["01", "Sanju Samson", "CSK", "8", "154", "17", "36", "325"],
-                    ["02", "Phil Salt", "RCB", "8", "175", "14", "39", "325"],
-                    ["03", "V. Suryavanshi", "RR", "7", "150", "15", "34", "306"],
-                    ["04", "Ayush Mhatre", "CSK", "8", "146", "15", "31", "279"],
-                    ["05", "S. Yadav", "MI", "8", "118", "19", "25", "254"],
-                    ["06", "Virat Kohli", "RCB", "8", "151", "14", "22", "248"],
-                    ["07", "Sunil Narine", "KKR", "8", "105", "12", "24", "227"],
-                    ["08", "Rohit Sharma", "MI", "8", "113", "21", "18", "215"],
-                    ["09", "Y. Jaiswal", "RR", "7", "125", "10", "19", "204"],
-                    ["10", "H. Klaasen", "SRH", "7", "71", "11", "21", "171"],
-                    ["11", "Ruturaj Gaikwad", "CSK", "8", "106", "12", "15", "168"],
-                    ["12", "Abhishek Sharma", "SRH", "7", "83", "8", "16", "154"],
-                    ["13", "Hardik Pandya", "MI", "8", "78", "9", "14", "142"],
-                    ["14", "Cameron Green", "KKR", "8", "84", "11", "12", "136"],
-                    ["15", "Riyan Parag", "RR", "7", "72", "7", "13", "128"]
+                    ["01", "Phil Salt", "RCB", "9", "9", "215", "24", "41", "387"],
+                    ["02", "Sanju Samson", "CSK", "9", "9", "163", "17", "39", "344"],
+                    ["03", "V. Suryavanshi", "RR", "8", "8", "160", "16", "34", "314"],
+                    ["04", "Ayush Mhatre", "CSK", "9", "8", "159", "16", "33", "298"],
+                    ["05", "Virat Kohli", "RCB", "9", "9", "167", "16", "26", "284"],
+                    ["06", "S. Yadav", "MI", "8", "8", "118", "19", "25", "254"],
+                    ["07", "Y. Jaiswal", "RR", "8", "8", "140", "12", "22", "233"],
+                    ["08", "Sunil Narine", "KKR", "8", "8", "105", "12", "24", "227"],
+                    ["09", "H. Klaasen", "SRH", "8", "8", "97", "16", "24", "217"],
+                    ["10", "Rohit Sharma", "MI", "8", "8", "113", "21", "18", "215"],
+                    ["11", "Ruturaj Gaikwad", "CSK", "9", "9", "128", "14", "18", "201"],
+                    ["12", "Ishan Kishan", "SRH", "8", "8", "85", "10", "12", "160"],
+                    ["13", "Abhishek Sharma", "SRH", "8", "8", "85", "8", "16", "156"],
+                    ["14", "Riyan Parag", "RR", "8", "8", "80", "7", "15", "143"],
+                    ["15", "Hardik Pandya", "MI", "8", "8", "78", "9", "14", "142"]
                 ]
             },
             "most-sixes": {
                 title: "Most Sixes",
                 label: "Power Hitters",
-                headers: ["POS", "PLAYER", "RUNS", "SIXES"],
+                headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "SIXES"],
                 rows: [
-                    ["01", "Phil Salt", "RCB", "325", "39"],
-                    ["02", "Sanju Samson", "CSK", "325", "36"],
-                    ["03", "V. Suryavanshi", "RR", "306", "34"],
-                    ["04", "Ayush Mhatre", "CSK", "279", "31"],
-                    ["05", "S. Yadav", "MI", "254", "25"],
-                    ["06", "Sunil Narine", "KKR", "227", "24"],
-                    ["07", "Virat Kohli", "RCB", "248", "22"],
-                    ["08", "H. Klaasen", "SRH", "171", "21"],
-                    ["09", "Y. Jaiswal", "RR", "204", "19"],
-                    ["10", "Rohit Sharma", "MI", "215", "18"]
+                    ["01", "Phil Salt", "RCB", "9", "9", "387", "41"],
+                    ["02", "Sanju Samson", "CSK", "9", "9", "344", "39"],
+                    ["03", "V. Suryavanshi", "RR", "8", "8", "314", "34"],
+                    ["04", "Ayush Mhatre", "CSK", "9", "8", "298", "33"],
+                    ["05", "Virat Kohli", "RCB", "9", "9", "284", "26"],
+                    ["06", "S. Yadav", "MI", "8", "8", "254", "25"],
+                    ["07", "H. Klaasen", "SRH", "8", "8", "217", "24"],
+                    ["08", "Sunil Narine", "KKR", "8", "8", "227", "24"],
+                    ["09", "Y. Jaiswal", "RR", "8", "8", "233", "22"],
+                    ["10", "Rohit Sharma", "MI", "8", "8", "215", "18"],
+                    ["11", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "18"],
+                    ["12", "Abhishek Sharma", "SRH", "8", "8", "156", "16"],
+                    ["13", "Riyan Parag", "RR", "8", "8", "143", "15"],
+                    ["14", "Hardik Pandya", "MI", "8", "8", "142", "14"],
+                    ["15", "Ishan Kishan", "SRH", "8", "8", "160", "12"]
                 ]
             },
             "highest-score": {
@@ -209,58 +236,63 @@
                     ["02", "H. Klaasen", "SRH", "RCB", "26", "79"],
                     ["03", "Sunil Narine", "KKR", "MI", "34", "78"],
                     ["04", "D. Padikkal", "RCB", "CSK", "26", "73"],
-                    ["05", "Sanju Samson", "CSK", "RCB", "33", "71"]
+                    ["05", "Sanju Samson", "CSK", "RCB", "33", "71"],
+                    ["06", "V. Suryavanshi", "RR", "MI", "27", "69"],
+                    ["07", "Sunil Narine", "KKR", "SRH", "28", "68"],
+                    ["08", "Phil Salt", "RCB", "SRH", "38", "63"],
+                    ["09", "S. Yadav", "MI", "RR", "29", "63"],
+                    ["10", "Phil Salt", "RCB", "CSK", "40", "62"]
                 ]
             },
             "most-fours": {
                 title: "Most Fours",
                 label: "Boundary Masters",
-                headers: ["POS", "PLAYER", "MAT", "RUNS", "FOURS"],
+                headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "FOURS"],
                 rows: [
-                    ["01", "Rohit Sharma", "MI", "8", "215", "21"],
-                    ["02", "S. Yadav", "MI", "8", "254", "19"],
-                    ["03", "Sanju Samson", "CSK", "8", "325", "17"],
-                    ["04", "V. Suryavanshi", "RR", "7", "306", "15"],
-                    ["05", "Ayush Mhatre", "CSK", "8", "279", "15"],
-                    ["06", "Virat Kohli", "RCB", "8", "248", "14"],
-                    ["07", "Phil Salt", "RCB", "8", "325", "14"],
-                    ["08", "Sunil Narine", "KKR", "8", "227", "12"],
-                    ["09", "Ruturaj Gaikwad", "CSK", "8", "168", "12"],
-                    ["10", "Cameron Green", "KKR", "8", "136", "11"],
-                    ["11", "Y. Jaiswal", "RR", "7", "204", "10"],
-                    ["12", "Hardik Pandya", "MI", "8", "142", "9"],
-                    ["13", "Ishan Kishan", "SRH", "7", "112", "9"],
-                    ["14", "Abhishek Sharma", "SRH", "7", "154", "8"],
-                    ["15", "Riyan Parag", "RR", "7", "128", "7"]
+                    ["01", "Phil Salt", "RCB", "9", "9", "387", "24"],
+                    ["02", "Rohit Sharma", "MI", "8", "8", "215", "21"],
+                    ["03", "S. Yadav", "MI", "8", "8", "254", "19"],
+                    ["04", "Sanju Samson", "CSK", "9", "9", "344", "17"],
+                    ["05", "V. Suryavanshi", "RR", "8", "8", "314", "16"],
+                    ["06", "Ayush Mhatre", "CSK", "9", "8", "298", "16"],
+                    ["07", "Virat Kohli", "RCB", "9", "9", "284", "16"],
+                    ["08", "H. Klaasen", "SRH", "8", "8", "217", "16"],
+                    ["09", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "14"],
+                    ["10", "Sunil Narine", "KKR", "8", "8", "227", "12"],
+                    ["11", "Y. Jaiswal", "RR", "8", "8", "233", "12"],
+                    ["12", "Cameron Green", "KKR", "8", "7", "136", "11"],
+                    ["13", "Ishan Kishan", "SRH", "8", "8", "160", "10"],
+                    ["14", "Hardik Pandya", "MI", "8", "8", "142", "9"],
+                    ["15", "Abhishek Sharma", "SRH", "8", "8", "156", "8"]
                 ]
             },
             "best-sr": {
                 title: "Strike Rate",
                 label: "Best Pace (Min 50 Runs)",
-                headers: ["POS", "PLAYER", "MAT", "RUNS", "SR"],
+                headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "SR"],
                 rows: [
-                    ["01", "Rinku Singh", "KKR", "8", "89", "246.6"],
-                    ["02", "H. Klaasen", "SRH", "7", "171", "240.8"],
-                    ["03", "Dewald Brevis", "CSK", "8", "104", "230.5"],
-                    ["04", "Nitish Kumar Reddy", "SRH", "7", "95", "226.2"],
-                    ["05", "Suryakumar Yadav", "MI", "8", "254", "215.0"],
-                    ["06", "Sunil Narine", "KKR", "8", "227", "215.0"],
-                    ["07", "Sanju Samson", "CSK", "8", "325", "210.0"],
-                    ["08", "Vaibhav Suryavanshi", "RR", "7", "306", "204.0"],
-                    ["09", "Phil Salt", "RCB", "8", "325", "185.0"],
-                    ["10", "Ayush Mhatre", "CSK", "8", "279", "182.5"],
-                    ["11", "Hardik Pandya", "MI", "8", "142", "180.2"],
-                    ["12", "Riyan Parag", "RR", "7", "128", "177.8"],
-                    ["13", "Virat Kohli", "RCB", "8", "248", "164.3"],
-                    ["14", "Cameron Green", "KKR", "8", "136", "162.0"],
-                    ["15", "Ruturaj Gaikwad", "CSK", "8", "168", "158.5"]
+                    ["01", "Rinku Singh", "KKR", "8", "7", "89", "246.6"],
+                    ["02", "H. Klaasen", "SRH", "8", "8", "217", "223.7"],
+                    ["03", "Sunil Narine", "KKR", "8", "8", "227", "216.1"],
+                    ["04", "Suryakumar Yadav", "MI", "8", "8", "254", "215.2"],
+                    ["05", "Sanju Samson", "CSK", "9", "9", "344", "211.0"],
+                    ["06", "Vaibhav Suryavanshi", "RR", "8", "8", "314", "196.2"],
+                    ["07", "Rohit Sharma", "MI", "8", "8", "215", "190.2"],
+                    ["08", "Ishan Kishan", "SRH", "8", "8", "160", "188.2"],
+                    ["09", "Ayush Mhatre", "CSK", "9", "8", "298", "187.4"],
+                    ["10", "Abhishek Sharma", "SRH", "8", "8", "156", "183.5"],
+                    ["11", "Hardik Pandya", "MI", "8", "8", "142", "182.0"],
+                    ["12", "Phil Salt", "RCB", "9", "9", "387", "180.0"],
+                    ["13", "Riyan Parag", "RR", "8", "8", "143", "178.7"],
+                    ["14", "Virat Kohli", "RCB", "9", "9", "284", "170.0"],
+                    ["15", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "157.0"]
                 ]
             }
         };
 
         function renderLeaderboard() {
             const params = new URLSearchParams(window.location.search);
-            const type = params.get('type') || "orange-cap";
+            const type = params.get('type') || "mvp";
             const data = leaderboardData[type];
 
             if(!data) {

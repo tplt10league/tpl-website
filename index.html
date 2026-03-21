@@ -84,13 +84,15 @@
         .hero-title, 
         .section-header, 
         .match-title, 
-        .view-all-cta {
+        .view-all-cta,
+        .insight-val {
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -0.05em;
             color: var(--text-main);
             line-height: 0.85;
             position: relative;
+            /* Thin stroke behind effect using shadows */
             text-shadow: 
                 0.5px 0.5px 0 var(--tpl-gold),
                 -0.5px -0.5px 0 var(--tpl-gold),
@@ -156,11 +158,13 @@
             font-weight: 700;
         }
 
-        /* Navigation Links */
+        /* Navigation */
         .nav-link {
             position: relative;
             overflow: hidden;
             font-weight: 500;
+            text-decoration: none;
+            color: inherit;
         }
 
         .nav-link::after {
@@ -208,6 +212,15 @@
             text-decoration: none;
         }
 
+        /* Tournament Insights */
+        .insight-card {
+            text-align: center;
+            padding: 2rem;
+            border-right: 1px solid var(--grid-line);
+        }
+        .insight-card:last-child { border-right: none; }
+        .insight-val { font-size: clamp(2rem, 5vw, 4rem); }
+
         @media (max-width: 768px) {
             .match-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0; }
             .hero-title { font-size: 4rem; }
@@ -228,6 +241,9 @@
                 justify-content: center;
             }
             .floating-nav a { font-size: 0.65rem; }
+            .insight-grid { grid-template-columns: 1fr 1fr; }
+            .insight-card { border-bottom: 1px solid var(--grid-line); border-right: 1px solid var(--grid-line); }
+            .insight-card:nth-child(even) { border-right: none; }
         }
     </style>
 </head>
@@ -248,7 +264,7 @@
         <a href="stats.html" class="nav-link">Stats</a>
     </div>
 
-    <!-- Static Initial Navigation -->
+    <!-- Navigation -->
     <nav class="relative z-20 flex justify-between items-start mb-24">
         <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">
             TPL / SEASON 01
@@ -274,8 +290,76 @@
         
         <div class="section-divider flex justify-between items-end mb-12">
             <h2 class="section-header tracking-tighter">Recent Matches</h2>
-            <div class="text-[10px] uppercase tracking-widest text-gray-400">Latest Results / 23 of 30</div>
+            <div class="text-[10px] uppercase tracking-widest text-gray-400">Latest Results / 25 of 30</div>
         </div>
+
+        <!-- Match 25 -->
+        <a href="matches/match.html?id=25" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 25</div>
+                <img src="assets/matches/match-25.jpg" alt="RCB VS CSK" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS CSK</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Clinical Chennai</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">CSK chased down 102 with professional ease, anchored by steady contributions across the top order to win by 7 wickets.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">M. Chinnaswamy</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">RCB vs CSK</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">CSK Won (7 Wickets)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Phil Salt (62)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Match 24 -->
+        <a href="matches/match.html?id=24" class="match-card">
+            <div class="match-image-container">
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 24</div>
+                <img src="assets/matches/match-24.jpg" alt="RR VS SRH" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">RR VS SRH</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Super Over Thriller</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A dramatic tie at 129 saw RR edge out SRH in the Super Over. Ravi Bishnoi's cameo kept RR in the hunt until the very end.</p>
+                    
+                    <div class="metadata-grid">
+                        <div>
+                            <div class="metadata-label">Venue:</div>
+                            <div class="font-bold">Wankhede Stadium</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Match:</div>
+                            <div class="font-bold">RR vs SRH</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Result:</div>
+                            <div class="font-bold">RR Won (Super Over)</div>
+                        </div>
+                        <div>
+                            <div class="metadata-label">Top Performer:</div>
+                            <div class="font-bold">Ishan Kishan (48)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
 
         <!-- Match 23 -->
         <a href="matches/match.html?id=23" class="match-card">
@@ -287,7 +371,7 @@
             <div class="flex flex-col justify-between">
                 <div>
                     <h3 class="match-title italic mb-4 tracking-tighter">Bengaluru Resilience</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A gritty defense of 116. RCB held their nerve to win by 7 runs despite an explosive late surge from Hardik Pandya.</p>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A gritty defense of 116. RCB held their nerve to win by 7 runs despite an explosive surge from Hardik Pandya.</p>
                     
                     <div class="metadata-grid">
                         <div>
@@ -316,12 +400,12 @@
             <div class="match-image-container">
                 <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 22</div>
                 <img src="assets/matches/match-22.jpg" alt="CSK VS KKR" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">CSK VS KKR</div>
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">CSK VS KKR</div>
             </div>
             <div class="flex flex-col justify-between">
                 <div>
                     <h3 class="match-title italic mb-4 tracking-tighter">Knight's Mastery</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">KKR chased down 86 in under 8 overs, moving firmly into a qualifying position with a 6-wicket victory.</p>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">KKR chased down 86 in under 8 overs, moving firmly into a qualifying position with a dominant 6-wicket victory.</p>
                     
                     <div class="metadata-grid">
                         <div>
@@ -345,88 +429,37 @@
             </div>
         </a>
 
-        <!-- Match 21 -->
-        <a href="matches/match.html?id=21" class="match-card">
-            <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 21</div>
-                <img src="assets/matches/match-21.jpg" alt="RCB VS SRH" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS SRH</div>
-            </div>
-            <div class="flex flex-col justify-between">
-                <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Salt's Storm</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">An unbeaten 47 from Phil Salt anchored a clinical chase, leaving SRH's playoff hopes hanging by a thread.</p>
-                    
-                    <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">M. Chinnaswamy</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">RCB vs SRH</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">RCB Won (8 Wickets)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Phil Salt (47*)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Match 20 -->
-        <a href="matches/match.html?id=20" class="match-card">
-            <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 20</div>
-                <img src="assets/matches/match-20.jpg" alt="KKR VS RR" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">KKR VS RR</div>
-            </div>
-            <div class="flex flex-col justify-between">
-                <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Royal Routing</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A complete dismantling by Rajasthan, bowling out Kolkata for just 61 runs to secure a massive 49-run win.</p>
-                    
-                    <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">Eden Gardens</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">KKR vs RR</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">RR Won (49 Runs)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Ravindra Jadeja (41*)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
         <div class="py-24 text-center">
             <a href="fixtures.html" class="view-all-cta text-6xl md:text-8xl hover:tracking-widest transition-all duration-700 tracking-tighter">View All Matches</a>
         </div>
 
+        <!-- Tournament Insights Bar -->
+        <section class="section-divider mt-0">
+            <div class="grid grid-cols-2 md:grid-cols-4 insight-grid">
+                <div class="insight-card">
+                    <div class="insight-val">25</div>
+                    <div class="metadata-label">Matches Played</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-val">5,472</div>
+                    <div class="metadata-label">Total Runs</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-val">562</div>
+                    <div class="metadata-label">Total Sixes</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-val">317</div>
+                    <div class="metadata-label">Total Fours</div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
-        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-            © 2026 T10 Premier League<br>
-            Season 01 / All Rights Reserved.
-        </div>
-        <div class="text-[10px] uppercase tracking-widest text-right">
-            Crafted for Excellence.<br>
-            Where every ball matters.
+    <footer class="relative z-10 border-t border-black mt-32 py-12">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500 text-center">
+            © 2026 T10 Premier League / Season 01 / All Rights Reserved.
         </div>
     </footer>
 
