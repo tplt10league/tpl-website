@@ -11,18 +11,33 @@
         :root { 
             --bg-color: #f2f2f2; 
             --text-main: #1a1a1a; 
-            --tpl-gold: #fdb913;
             --grid-line: rgba(0,0,0,0.08); 
+            --tpl-gold: #fdb913;
         }
 
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
             font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
         }
 
-        /* Stroke BEHIND text using text-shadow stack */
-        .gold-stroke {
+        .grid-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 1; display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            border-left: 1px solid var(--grid-line); 
+            border-right: 1px solid var(--grid-line); 
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        .hero-title { 
+            font-weight: 900; 
+            font-size: clamp(2.2rem, 8vw, 5rem); 
+            line-height: 1; 
+            text-transform: uppercase; 
+            letter-spacing: -0.05em; 
+            color: var(--text-main);
             text-shadow: 
                 0.5px 0.5px 0 var(--tpl-gold),
                 -0.5px -0.5px 0 var(--tpl-gold),
@@ -30,244 +45,360 @@
                 -0.5px 0.5px 0 var(--tpl-gold);
         }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--grid-line);
+        .section-divider {
+            border-top: 1px solid var(--text-main);
+            margin-top: 3rem;
+            padding-top: 1rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .score-row {
-            display: grid;
-            grid-template-columns: 2fr 0.8fr 0.8fr 0.6fr 0.6fr 1.2fr;
-            padding: 1rem;
+        .score-container {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .score-big {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .overs-label {
+            font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+            font-weight: 700;
+            color: #666;
+            font-style: italic;
+        }
+
+        .losing-team { opacity: 0.45; filter: grayscale(0.5); transition: opacity 0.3s ease; }
+
+        .table-wrapper {
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 4rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            text-transform: uppercase;
+            font-size: 0.75rem; 
+            letter-spacing: 0.05em;
+        }
+
+        thead { border-bottom: 2px solid var(--text-main); }
+
+        th {
+            padding: 1rem 0.5rem;
+            font-weight: 900;
+            text-align: right;
+            color: #888;
+        }
+
+        th:first-child { text-align: left; color: var(--text-main); }
+
+        td {
+            padding: 1rem 0.5rem;
             border-bottom: 1px solid var(--grid-line);
-            font-size: 0.85rem;
-            align-items: center;
-        }
-
-        .score-header {
-            font-weight: 900;
-            text-transform: uppercase;
-            background: #f8f8f8;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            padding: 0.75rem 1rem;
-        }
-
-        .did-not-bat { color: #bbb; }
-
-        /* Faded side for the losing team */
-        .losing-side {
-            opacity: 0.35;
-            filter: grayscale(0.5);
-            transition: opacity 0.3s ease;
-        }
-
-        /* Team Toggle Buttons */
-        .tab-btn {
-            flex: 1;
-            padding: 1rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.75rem;
-            border: 1px solid var(--grid-line);
+            text-align: right;
             background: white;
-            transition: all 0.3s ease;
+            vertical-align: middle;
         }
 
-        .tab-btn.active {
+        td:first-child { 
+            text-align: left; 
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 1rem;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .team-header-unit { display: flex; align-items: center; gap: 1rem; }
+        .team-logo-mid { width: 40px; height: 40px; object-fit: contain; }
+        .main-header-logo { width: clamp(35px, 7vw, 70px); height: clamp(35px, 7vw, 70px); object-fit: contain; }
+
+        .super-over-box {
             background: var(--text-main);
             color: white;
-            border-color: var(--text-main);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        /* Hide/Show logic */
-        .scorecard-pane {
+            padding: 2rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 10;
             display: none;
         }
-        .scorecard-pane.active {
-            display: block;
-        }
 
-        .super-over-card {
-            background: #1a1a1a;
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 3rem;
-            text-align: center;
-        }
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
 
         @media (max-width: 768px) {
-            .score-row { grid-template-columns: 1.5fr 0.7fr 0.7fr 0.5fr 0.5fr 1fr; font-size: 0.8rem; }
+            .hero-title { font-size: 2rem; }
+            .player-name { font-size: 0.85rem; }
+            .team-logo-mid { width: 30px; height: 30px; }
+            .section-divider { flex-direction: column; align-items: flex-start; gap: 1rem; }
         }
     </style>
 </head>
 <body class="p-4 md:p-12">
-
-    <!-- Navigation -->
-    <nav class="flex justify-between items-center mb-12">
-        <a href="../index.html" class="font-black uppercase text-xs tracking-widest">← Back to Home</a>
-        <div id="matchNumber" class="font-black uppercase text-xs tracking-widest">Match Centre</div>
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav class="relative z-20 flex justify-between items-start mb-16 md:mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / SEASON 01</div>
+        <div class="flex flex-col items-end gap-1 md:gap-2 uppercase text-[10px] md:text-sm font-medium text-right">
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="../fixtures.html" class="nav-link">Fixtures</a>
+            <a href="../points.html" class="nav-link">Standings</a>
+            <a href="../stats.html" class="nav-link">Stats</a>
+        </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto">
-        <!-- Match Header -->
-        <header class="text-center mb-12">
-            <div id="matchVenue" class="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-4">Venue Loading...</div>
-            <div class="flex justify-center items-center gap-4 md:gap-12">
-                <div id="team1Container" class="text-right flex-1">
-                    <img id="team1Logo" src="" class="w-16 md:w-24 h-16 md:h-24 object-contain ml-auto mb-2">
-                    <h2 id="team1Name" class="text-2xl md:text-4xl font-black gold-stroke">---</h2>
-                    <div id="team1Score" class="text-3xl md:text-5xl font-black mt-2">0/0</div>
-                    <div id="team1Overs" class="text-sm md:text-base font-bold text-gray-500 mt-1 uppercase tracking-widest"></div>
-                </div>
-                <div class="text-4xl font-black text-gray-300 italic">VS</div>
-                <div id="team2Container" class="text-left flex-1">
-                    <img id="team2Logo" src="" class="w-16 md:w-24 h-16 md:h-24 object-contain mr-auto mb-2">
-                    <h2 id="team2Name" class="text-2xl md:text-4xl font-black gold-stroke">---</h2>
-                    <div id="team2Score" class="text-3xl md:text-5xl font-black mt-2">0/0</div>
-                    <div id="team2Overs" class="text-sm md:text-base font-bold text-gray-500 mt-1 uppercase tracking-widest"></div>
-                </div>
-            </div>
-            <div id="matchResult" class="mt-8 inline-block bg-black text-white px-6 py-2 text-xs font-black uppercase tracking-widest">
-                Result Loading...
-            </div>
-        </header>
-
-        <!-- Team Selector Tabs -->
-        <div class="flex mb-8 rounded-lg overflow-hidden border border-black/10 shadow-sm">
-            <button id="btnTeam1" class="tab-btn active" onclick="switchTeam(1)">Team A</button>
-            <button id="btnTeam2" class="tab-btn" onclick="switchTeam(2)">Team B</button>
+    <header class="relative z-10 mb-12">
+        <div id="matchNumber" class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Match Center</div>
+        <div class="flex items-center gap-4 md:gap-8">
+            <img id="logo1" src="" class="main-header-logo" alt="">
+            <h1 id="matchTitle" class="hero-title">Loading...</h1>
+            <img id="logo2" src="" class="main-header-logo" alt="">
         </div>
+        <div id="matchOutcome" class="mt-6 text-sm font-bold uppercase tracking-widest border-l-4 border-black pl-4"></div>
+    </header>
 
-        <!-- Scorecard Sections -->
-        <div id="scorecardContent"></div>
-        <div id="superOverContent"></div>
+    <main id="scorecardContent">
+        <!-- Team 1 Section -->
+        <section>
+            <div id="team1Header" class="section-divider flex justify-between items-end mb-6">
+                <div class="team-header-unit">
+                    <img id="inningsLogo1" src="" class="team-logo-mid" alt="">
+                    <h2 id="team1Name" class="text-3xl font-black italic tracking-tighter uppercase"></h2>
+                </div>
+                <div class="score-container">
+                    <div id="team1Score" class="score-big"></div>
+                    <div id="team1Overs" class="overs-label"></div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>BATTING</th><th width="60">R</th><th width="60">B</th><th width="60">4s</th><th width="60">6s</th><th width="80">SR</th></tr></thead>
+                    <tbody id="team1Batting"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Team 2 Section -->
+        <section>
+            <div id="team2Header" class="section-divider flex justify-between items-end mb-6">
+                <div class="team-header-unit">
+                    <img id="inningsLogo2" src="" class="team-logo-mid" alt="">
+                    <h2 id="team2Name" class="text-3xl font-black italic tracking-tighter uppercase"></h2>
+                </div>
+                <div class="score-container">
+                    <div id="team2Score" class="score-big"></div>
+                    <div id="team2Overs" class="overs-label"></div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>BATTING</th><th width="60">R</th><th width="60">B</th><th width="60">4s</th><th width="60">6s</th><th width="80">SR</th></tr></thead>
+                    <tbody id="team2Batting"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Super Over Box -->
+        <section id="superOverSection" class="super-over-box">
+            <h3 class="text-xs font-bold uppercase tracking-[0.3em] mb-6 opacity-60">The Super Over</h3>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="team-header-unit">
+                    <img id="soLogo1" src="" class="team-logo-mid" style="filter: brightness(0) invert(1);" alt="">
+                    <div id="soScore1" class="text-4xl font-black italic tracking-tighter uppercase"></div>
+                </div>
+                <div class="hidden md:block w-px h-12 bg-white/10"></div>
+                <div id="soTeam2Wrap" class="team-header-unit">
+                    <img id="soLogo2" src="" class="team-logo-mid" style="filter: brightness(0) invert(1);" alt="">
+                    <div id="soScore2" class="text-4xl font-black italic tracking-tighter uppercase"></div>
+                </div>
+                <div class="mt-4 md:mt-0 text-right">
+                    <div class="text-sm font-bold uppercase tracking-widest text-gray-400">Outcome</div>
+                    <div id="soResult" class="text-xl font-black uppercase text-white"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / Match Scorecard</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Official Match Data<br>Where every ball matters.</div>
+    </footer>
+
     <script>
-        // SQUAD LISTS
+        // SQUAD LISTS (For DNB calculations)
         const squads = {
-            csk: ["Ayush Mhatre", "Sanju Samson", "Ruturaj Gaikwad", "Dewald Brevis", "MS Dhoni", "Shivam Dube", "Sarfaraz Khan", "Nathan Ellis", "Noor Ahmad", "Khaleel Ahmed", "Rahul Chahar", "Akeel Hosein"],
+            csk: ["Ruturaj Gaikwad", "Sanju Samson", "Ayush Mhatre", "Dewald Brevis", "MS Dhoni", "Shivam Dube", "Sarfaraz Khan", "Nathan Ellis", "Noor Ahmad", "Khaleel Ahmed", "Rahul Chahar", "Akeel Hosein"],
             mi: ["Rohit Sharma", "Quinton de Kock", "Suryakumar Yadav", "Hardik Pandya", "Tilak Varma", "Ryan Rickelton", "Mitchell Santner", "Will Jacks", "Trent Boult", "Jasprit Bumrah", "Deepak Chahar"],
             rcb: ["Phil Salt", "Virat Kohli", "Devdutt Padikkal", "Jacob Bethell", "Rajat Patidar", "Jitesh Sharma", "Venkatesh Iyer", "Romario Shepherd", "Tim David", "Krunal Pandya", "Bhuvaneshwar Kumar", "Josh Hazlewood", "Sandeep Sharma", "Nuwan Thushara"],
-            kkr: ["Sunil Narine", "Ajinkya Rahane", "Cameron Green", "Manish Pandey", "Rinku Singh", "Rovman Powell", "Angkrish Raghuvanshi", "Tim Seifert", "Harshit Rana", "Matheesha Pathirana", "Varun Chakravarthy", "Umran Malik", "Rachin Ravindra"],
+            kkr: ["Sunil Narine", "Ajinkya Rahane", "Cameron Green", "Manish Pandey", "Rinku Singh", "Rovman Powell", "Angkrish Raghuvanshi", "Tim Seifert", "Finn Allen", "Harshit Rana", "Matheesha Pathirana", "Varun Chakravarthy", "Umran Malik", "Rachin Ravindra"],
             rr: ["Yashasvi Jaiswal", "Vaibhav Suryavanshi", "Riyan Parag", "Dhruv Jurel", "Shimron Hetmyer", "Ravindra Jadeja", "Sam Curran", "Jofra Archer", "Ravi Bishnoi", "Sandeep Sharma"],
             srh: ["Travis Head", "Abhishek Sharma", "Ishan Kishan", "Heinrich Klaasen", "Nitish Kumar Reddy", "Liam Livingstone", "Pat Cummins", "Jaydev Unadkat", "Harshal Patel", "Kusal Mendis", "Aniket Varma"]
         };
 
-        // FULL DATABASE M1-M25
-        const matches = {
-            "1": { venue: "MA Chidambaram, Chennai", result: "RR won via Super Over", winnerId: "rr", team1: { id: "csk", name: "CSK", score: "84/3", overs: "10.0", batters: {"Ayush Mhatre": [0,3,0,0], "Sanju Samson": [26,11,1,3], "Ruturaj Gaikwad": [33,22,1,4], "Dewald Brevis": [22,23,2,1], "MS Dhoni": [0,2,0,0]} }, team2: { id: "rr", name: "RR", score: "84/3", overs: "10.0", batters: {"Yashasvi Jaiswal": [26,12,2,0], "Vaibhav Suryavanshi": [13,15,1,0], "Riyan Parag": [28,16,3,1], "Ravindra Jadeja": [0,2,0,0], "Shimron Hetmyer": [14,12,1,1]} }, superOver: "RR: 19/0 vs CSK: 10/0" },
-            "2": { venue: "Rajiv Gandhi Intl, Hyderabad", result: "MI won by 6 wickets", winnerId: "mi", team1: { id: "srh", name: "SRH", score: "102/4", overs: "10.0", batters: {"Travis Head":[1,4,0,0], "Abhishek Sharma":[1,2,0,0], "Ishan Kishan":[13,9,2,0], "Heinrich Klaasen":[46,24,3,3], "Nitish Kumar Reddy":[39,18,2,3], "Liam Livingstone":[2,3,0,0]} }, team2: { id: "mi", name: "MI", score: "103/4", overs: "9.4", batters: {"Rohit Sharma":[43,16,0,7], "Tilak Varma":[16,6,2,1], "Quinton de Kock":[2,7,0,0], "Suryakumar Yadav":[1,10,0,0], "Hardik Pandya":[32,18,2,2], "Ryan Rickelton":[8,3,1,1]} } },
-            "3": { venue: "M. Chinnaswamy, Bengaluru", result: "KKR won by 2 runs", winnerId: "kkr", team1: { id: "kkr", name: "KKR", score: "75/2", overs: "10.0", batters: {"Sunil Narine":[2,5,0,0], "Ajinkya Rahane":[17,22,1,2], "Cameron Green":[48,26,5,4], "Rovman Powell":[8,7,0,1]} }, team2: { id: "rcb", name: "RCB", score: "74/3", overs: "10.0", batters: {"Virat Kohli":[12,16,1,1], "Phil Salt":[41,25,2,4], "Romario Shepherd":[0,4,0,0], "Rajat Patidar":[18,12,1,1], "Venkatesh Iyer":[2,3,0,0]} } },
-            "4": { venue: "Wankhede Stadium, Mumbai", result: "MI won by 8 wickets", winnerId: "mi", team1: { id: "csk", name: "CSK", score: "96/4", overs: "10.0", batters: {"Ayush Mhatre":[21,16,2,2], "Sanju Samson":[59,29,3,6], "Ruturaj Gaikwad":[2,3,0,0], "MS Dhoni":[11,10,0,1], "Dewald Brevis":[2,2,0,0]} }, team2: { id: "mi", name: "MI", score: "99/2", overs: "9.0", batters: {"Rohit Sharma":[41,21,3,4], "Quinton de Kock":[25,14,1,3], "Suryakumar Yadav":[12,7,0,1], "Tilak Varma":[15,10,2,1]} } },
-            "5": { venue: "Eden Gardens, Kolkata", result: "KKR won by 6 runs", winnerId: "kkr", team1: { id: "kkr", name: "KKR", score: "101/5", overs: "10.0", batters: {"Sunil Narine":[13,6,0,2], "Ajinkya Rahane":[1,4,0,0], "Cameron Green":[10,4,0,1], "Manish Pandey":[28,14,1,4], "Rinku Singh":[36,19,1,5], "Rovman Powell":[8,10,1,0]} }, team2: { id: "rr", name: "RR", score: "95/4", overs: "10.0", batters: {"Riyan Parag":[16,9,0,2], "Vaibhav Suryavanshi":[19,10,1,2], "Dhruv Jurel":[34,24,2,4], "Shimron Hetmyer":[18,8,1,2], "Ravindra Jadeja":[1,3,0,0]} } },
-            "6": { venue: "M. Chinnaswamy, Bengaluru", result: "SRH won by 8 wickets", winnerId: "srh", team1: { id: "rcb", name: "RCB", score: "122/1", overs: "10.0", batters: {"Virat Kohli":[14,7,0,2], "Phil Salt":[63,38,1,9], "Rajat Patidar":[40,15,1,5]} }, team2: { id: "srh", name: "SRH", score: "124/2", overs: "9.0", batters: {"Abhishek Sharma":[6,6,0,1], "Travis Head":[0,1,0,0], "Heinrich Klaasen":[79,26,4,10], "Nitish Kumar Reddy":[39,21,3,4]} } },
-            "7": { venue: "Eden Gardens, Kolkata", result: "CSK won by 8 wickets", winnerId: "csk", team1: { id: "kkr", name: "KKR", score: "136/6", overs: "10.0", batters: {"Sunil Narine":[23,9,2,2], "Ajinkya Rahane":[20,10,0,2], "Cameron Green":[1,3,0,0], "Manish Pandey":[50,21,3,6], "Rinku Singh":[26,7,2,3], "Angkrish Raghuvanshi":[5,4,1,0], "Rovman Powell":[0,4,0,0], "Harshit Rana":[6,3,0,1]} }, team2: { id: "csk", name: "CSK", score: "139/2", overs: "9.0", batters: {"Ayush Mhatre":[45,19,2,5], "Sanju Samson":[1,4,0,0], "Ruturaj Gaikwad":[53,19,4,6], "Dewald Brevis":[40,11,1,6]} } },
-            "8": { venue: "Wankhede Stadium, Mumbai", result: "MI won by 2 runs", winnerId: "mi", team1: { id: "mi", name: "MI", score: "120/2", overs: "10.0", batters: {"Quinton de Kock":[53,25,3,6], "Rohit Sharma":[38,20,2,5], "Suryakumar Yadav":[15,14,2,1], "Hardik Pandya":[6,1,0,1]} }, team2: { id: "rcb", name: "RCB", score: "118/2", overs: "10.0", batters: {"Phil Salt":[36,17,2,4], "Virat Kohli":[43,22,4,4], "Rajat Patidar":[21,8,0,3], "Venkatesh Iyer":[14,11,0,2]} } },
-            "9": { venue: "Sawai Mansingh, Jaipur", result: "RR won by 6 runs", winnerId: "rr", team1: { id: "rr", name: "RR", score: "124/3", overs: "10.0", batters: {"Yashasvi Jaiswal":[28,15,0,4], "Vaibhav Suryavanshi":[83,38,5,9], "Riyan Parag":[8,7,0,0], "Dhruv Jurel":[5,3,0,1]} }, team2: { id: "srh", name: "SRH", score: "118/3", overs: "10.0", batters: {"Abhishek Sharma":[39,25,2,5], "Travis Head":[59,26,1,8], "Heinrich Klaasen":[0,1,0,0], "Nitish Kumar Reddy":[19,8,0,3]} } },
-            "10": { venue: "M. Chinnaswamy, Bengaluru", result: "RCB won by 5 runs", winnerId: "rcb", team1: { id: "rcb", name: "RCB", score: "133/2", overs: "10.0", batters: {"Devdutt Padikkal":[73,26,2,10], "Virat Kohli":[46,29,3,5], "Phil Salt":[0,1,0,0], "Rajat Patidar":[10,4,0,2]} }, team2: { id: "csk", name: "CSK", score: "128/0", overs: "10.0", batters: {"Sanju Samson":[71,33,2,9], "Ayush Mhatre":[53,27,1,7]} } },
-            "11": { venue: "Eden Gardens, Kolkata", result: "KKR won by 31 runs", winnerId: "kkr", team1: { id: "kkr", name: "KKR", score: "138/3", overs: "10.0", batters: {"Sunil Narine":[39,19,1,5], "Ajinkya Rahane":[59,28,3,6], "Cameron Green":[25,10,2,2], "Manish Pandey":[1,1,0,0], "Rinku Singh":[12,4,0,2]} }, team2: { id: "srh", name: "SRH", score: "107/7", overs: "10.0", batters: {"Travis Head":[0,5,0,0], "Abhishek Sharma":[37,20,0,6], "Ishan Kishan":[36,13,1,5], "Heinrich Klaasen":[0,1,0,0], "Nitish Kumar Reddy":[5,3,1,0], "Liam Livingstone":[12,5,0,2], "Pat Cummins":[0,5,0,0], "Aniket Varma":[6,7,0,0], "Harshal Patel":[6,1,0,1]} } },
-            "12": { venue: "Wankhede Stadium, Mumbai", result: "RR won by 8 wickets", winnerId: "rr", team1: { id: "mi", name: "MI", score: "127/4", overs: "10.0", batters: {"Rohit Sharma":[4,7,1,0], "Quinton de Kock":[20,10,2,2], "Suryakumar Yadav":[63,29,4,7], "Ryan Rickelton":[30,9,3,3], "Hardik Pandya":[4,2,1,0], "Tilak Varma":[4,3,1,0]} }, team2: { id: "rr", name: "RR", score: "128/2", overs: "9.3", batters: {"Yashasvi Jaiswal":[24,22,2,2], "Vaibhav Suryavanshi":[69,27,2,10], "Riyan Parag":[11,7,1,1], "Ravindra Jadeja":[16,4,1,2]} } },
-            "13": { venue: "Rajiv Gandhi Intl, Hyderabad", result: "CSK won by 6 wickets", winnerId: "csk", team1: { id: "srh", name: "SRH", score: "97/5", overs: "10.0", batters: {"Abhishek Sharma":[4,4,1,0], "Travis Head":[16,12,0,2], "Ishan Kishan":[31,21,2,3], "Heinrich Klaasen":[22,13,4,1], "Liam Livingstone":[22,8,1,3], "Nitish Kumar Reddy":[1,2,0,0]} }, team2: { id: "csk", name: "CSK", score: "98/4", overs: "9.0", batters: {"Sanju Samson":[2,4,0,0], "Ayush Mhatre":[54,21,4,6], "Ruturaj Gaikwad":[0,2,0,0], "Dewald Brevis":[22,11,0,3], "Shivam Dube":[18,9,0,3], "MS Dhoni":[1,1,0,0]} } },
-            "14": { venue: "M. Chinnaswamy, Bengaluru", result: "RR won by 9 wickets", winnerId: "rr", team1: { id: "rcb", name: "RCB", score: "111/6", overs: "10.0", batters: {"Virat Kohli":[10,9,2,0], "Phil Salt":[55,22,2,7], "Devdutt Padikkal":[0,2,0,0], "Venkatesh Iyer":[6,5,1,0], "Rajat Patidar":[11,7,2,0], "Romario Shepherd":[0,1,0,0], "Tim David":[20,8,1,2], "Krunal Pandya":[7,4,0,1]} }, team2: { id: "rr", name: "RR", score: "113/1", overs: "10.0", batters: {"Yashasvi Jaiswal":[57,29,2,7], "Vaibhav Suryavanshi":[50,29,5,4], "Riyan Parag":[1,2,0,0]} } },
-            "15": { venue: "Eden Gardens, Kolkata", result: "MI won by 8 wickets", winnerId: "mi", team1: { id: "kkr", name: "KKR", score: "119/2", overs: "10.0", batters: {"Sunil Narine":[78,34,3,10], "Ajinkya Rahane":[12,4,0,2], "Cameron Green":[28,14,2,3], "Manish Pandey":[1,5,0,0]} }, team2: { id: "mi", name: "MI", score: "122/2", overs: "7.3", batters: {"Rohit Sharma":[18,8,3,1], "Quinton de Kock":[48,19,6,4], "Suryakumar Yadav":[50,17,1,7], "Hardik Pandya":[6,1,0,1]} } },
-            "16": { venue: "MA Chidambaram, Chennai", result: "CSK won by 12 runs", winnerId: "csk", team1: { id: "csk", name: "CSK", score: "120/0", overs: "10.0", batters: {"Ayush Mhatre":[45,24,2,5], "Sanju Samson":[69,35,4,8]} }, team2: { id: "rr", name: "RR", score: "108/0", overs: "10.0", batters: {"Vaibhav Suryavanshi":[51,27,2,6], "Yashasvi Jaiswal":[49,32,4,7]} } },
-            "17": { venue: "Rajiv Gandhi Intl, Hyderabad", result: "SRH won by 3 runs", winnerId: "srh", team1: { id: "srh", name: "SRH", score: "106/4", overs: "10.0", batters: {"Abhishek Sharma":[45,25,4,4], "Travis Head":[33,16,1,4], "Ishan Kishan":[0,1,0,0], "Heinrich Klaasen":[24,10,3,1], "Liam Livingstone":[6,6,0,1], "Nitish Kumar Reddy":[0,1,0,0]} }, team2: { id: "mi", name: "MI", score: "103/1", overs: "10.0", batters: {"Rohit Sharma":[46,26,3,5], "Quinton de Kock":[12,7,0,2], "Suryakumar Yadav":[31,21,3,3]} } },
-            "18": { venue: "Eden Gardens, Kolkata", result: "KKR won by 9 wickets", winnerId: "kkr", team1: { id: "rcb", name: "RCB", score: "89/0", overs: "10.0", batters: {"Phil Salt":[43,32,5,3], "Virat Kohli":[46,28,3,5]} }, team2: { id: "kkr", name: "KKR", score: "92/1", overs: "7.0", batters: {"Sunil Narine":[31,13,1,4], "Ajinkya Rahane":[48,20,0,7], "Cameron Green":[12,10,1,1]} } },
-            "19": { venue: "MA Chidambaram, Chennai", result: "CSK won by 21 runs", winnerId: "csk", team1: { id: "csk", name: "CSK", score: "129/1", overs: "10.0", batters: {"Sanju Samson":[55,30,2,7], "Ayush Mhatre":[45,22,3,5], "Ruturaj Gaikwad":[26,9,2,3]} }, team2: { id: "mi", name: "MI", score: "108/2", overs: "10.0", batters: {"Rohit Sharma":[59,30,7,5], "Quinton de Kock":[17,11,2,1], "Suryakumar Yadav":[28,11,4,2], "Hardik Pandya":[1,8,0,0]} } },
-            "20": { venue: "Eden Gardens, Kolkata", result: "RR won by 49 runs", winnerId: "rr", team1: { id: "rr", name: "RR", score: "110/2", overs: "10.0", batters: {"Yashasvi Jaiswal":[9,9,1,0], "Vaibhav Suryavanshi":[21,14,0,3], "Riyan Parag":[40,18,3,4], "Ravindra Jadeja":[41,18,0,6]} }, team2: { id: "kkr", name: "KKR", score: "61/9", overs: "10.0", batters: {"Sunil Narine":[11,6,1,1], "Ajinkya Rahane":[0,1,0,0], "Cameron Green":[0,3,0,0], "Manish Pandey":[11,8,1,1], "Rovman Powell":[6,13,1,0], "Rinku Singh":[2,4,0,0], "Angkrish Raghuvanshi":[18,11,1,2], "Tim Seifert":[0,1,0,0], "Matheesha Pathirana":[7,15,0,1], "Varun Chakravarthy":[4,2,1,0]} } },
-            "21": { venue: "M. Chinnaswamy, Bengaluru", result: "RCB won by 8 wickets", winnerId: "rcb", team1: { id: "srh", name: "SRH", score: "101/3", overs: "10.0", batters: {"Abhishek Sharma":[29,12,4,2], "Travis Head":[21,20,2,1], "Ishan Kishan":[0,1,0,0], "Heinrich Klaasen":[0,1,0,0], "Nitish Kumar Reddy":[49,26,7,3]} }, team2: { id: "rcb", name: "RCB", score: "104/2", overs: "9.0", batters: {"Phil Salt":[47,28,1,6], "Virat Kohli":[16,6,2,1], "Jacob Bethell":[20,7,2,2], "Venkatesh Iyer":[12,13,2,0]} } },
-            "22": { venue: "MA Chidambaram, Chennai", result: "KKR won by 6 wickets", winnerId: "kkr", team1: { id: "csk", name: "CSK", score: "86/2", overs: "10.0", batters: {"Sanju Samson":[42,28,5,3], "Ayush Mhatre":[16,21,1,1], "Ruturaj Gaikwad":[24,9,1,3], "Dewald Brevis":[0,2,0,0]} }, team2: { id: "kkr", name: "KKR", score: "87/4", overs: "7.5", batters: {"Ajinkya Rahane":[18,10,1,1], "Sunil Narine":[30,15,2,2], "Cameron Green":[7,5,0,1], "Manish Pandey":[18,8,3,1], "Rinku Singh":[6,2,0,1], "Rovman Powell":[7,5,0,1]} } },
-            "23": { venue: "Wankhede Stadium, Mumbai", result: "RCB won by 7 runs", winnerId: "rcb", team1: { id: "rcb", name: "RCB", score: "116/6", overs: "10.0", batters: {"Phil Salt":[40,18,3,4], "Virat Kohli":[7,3,0,1], "Devdutt Padikkal":[3,5,0,0], "Jacob Bethell":[11,6,1,1], "Rajat Patidar":[4,5,1,0], "Jitesh Sharma":[20,10,1,2], "Romario Shepherd":[0,2,0,0], "Venkatesh Iyer":[22,11,1,3]} }, team2: { id: "mi", name: "MI", score: "109/3", overs: "10.0", batters: {"Rohit Sharma":[0,2,0,0], "Quinton de Kock":[0,3,0,0], "Tilak Varma":[5,11,1,0], "Suryakumar Yadav":[54,30,5,5], "Hardik Pandya":[49,16,2,5]} } },
-            "24": { venue: "Wankhede Stadium, Mumbai", result: "RR won via Super Over", winnerId: "rr", team1: { id: "srh", name: "SRH", score: "129/4", overs: "10.0", batters: {"Abhishek Sharma":[2,2,0,0], "Travis Head":[0,1,0,0], "Heinrich Klaasen":[46,26,5,3], "Ishan Kishan":[48,16,1,7], "Liam Livingstone":[1,3,0,0], "Nitish Kumar Reddy":[27,12,0,4]} }, team2: { id: "rr", name: "RR", score: "129/7", overs: "10.0", batters: {"Yashasvi Jaiswal":[29,15,2,3], "Vaibhav Suryavanshi":[8,10,1,0], "Riyan Parag":[15,8,0,2], "Ravindra Jadeja":[15,8,1,1], "Dhruv Jurel":[6,3,0,1], "Shimron Hetmyer":[7,3,0,1], "Sam Curran":[12,4,0,2], "Jofra Archer":[1,1,0,0], "Ravi Bishnoi":[34,10,2,4]} }, superOver: "RR: 9/0 vs SRH: 7/0" },
-            "25": { venue: "M. Chinnaswamy, Bengaluru", result: "CSK won by 7 wickets", winnerId: "csk", team1: { id: "rcb", name: "RCB", score: "102/1", overs: "10.0", batters: {"Virat Kohli":[36,16,2,4], "Phil Salt":[62,40,10,2], "Jacob Bethell":[5,4,1,0]} }, team2: { id: "csk", name: "CSK", score: "103/3", overs: "10.0", batters: {"Sanju Samson":[19,9,0,3], "Ayush Mhatre":[19,13,1,2], "Ruturaj Gaikwad":[33,22,2,3], "Dewald Brevis":[19,14,4,0], "Shivam Dube":[7,2,0,1]} } }
+        // FULL MATCH DATABASE 01-29
+        const matchesData = {
+            "1": { title: "CSK vs RR", outcome: "RR won via Super Over", winner: "RR", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "84/3", overs: "10.0", batting: [["Ayush Mhatre",0,3,0,0],["Sanju Samson",26,11,1,3],["Ruturaj Gaikwad",33,22,1,4],["Dewald Brevis",22,23,2,1],["MS Dhoni",0,2,0,0]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "84/3", overs: "10.0", batting: [["Yashasvi Jaiswal",26,12,2,0],["Vaibhav Suryavanshi",13,15,1,0],["Riyan Parag",28,16,3,1],["Ravindra Jadeja",0,2,0,0],["Shimron Hetmyer",14,12,1,1]] }, superOver: { team1: "RR: 19/0", team2: "CSK: 10/0", result: "RR won by 9 runs", winner: "RR" } },
+            "2": { title: "SRH vs MI", outcome: "MI won by 6 wickets", winner: "MI", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "102/4", overs: "10.0", batting: [["Travis Head",1,4,0,0],["Abhishek Sharma",1,2,0,0],["Ishan Kishan",13,9,2,0],["Heinrich Klaasen",46,24,3,3],["Nitish Kumar Reddy",39,18,2,3],["Liam Livingstone",2,3,0,0]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "103/4", overs: "9.4", batting: [["Rohit Sharma",43,16,0,7],["Tilak Varma",16,6,2,1],["Quinton de Kock",2,7,0,0],["Suryakumar Yadav",1,10,0,0],["Hardik Pandya",32,18,2,2],["Ryan Rickelton",8,3,1,1]] } },
+            "3": { title: "KKR vs RCB", outcome: "KKR won by 2 runs", winner: "KKR", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "75/2", overs: "10.0", batting: [["Sunil Narine",2,5,0,0],["Ajinkya Rahane",17,22,1,2],["Cameron Green",48,26,5,4],["Rovman Powell",8,7,0,1]] }, team2: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "74/3", overs: "10.0", batting: [["Virat Kohli",12,16,1,1],["Phil Salt",41,25,2,4],["Romario Shepherd",0,4,0,0],["Rajat Patidar",18,12,1,1],["Venkatesh Iyer",2,3,0,0]] } },
+            "4": { title: "CSK vs MI", outcome: "MI won by 8 wickets", winner: "MI", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "96/4", overs: "10.0", batting: [["Ayush Mhatre",21,16,2,2],["Sanju Samson",59,29,3,6],["Ruturaj Gaikwad",2,3,0,0],["MS Dhoni",11,10,0,1],["Dewald Brevis",2,2,0,0]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "99/2", overs: "9.0", batting: [["Rohit Sharma",41,21,3,4],["Quinton de Kock",25,14,1,3],["Suryakumar Yadav",12,7,0,1],["Tilak Varma",15,10,2,1]] } },
+            "5": { title: "KKR vs RR", outcome: "KKR won by 6 runs", winner: "KKR", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "101/5", overs: "10.0", batting: [["Sunil Narine",13,6,0,2],["Ajinkya Rahane",1,4,0,0],["Cameron Green",10,4,0,1],["Manish Pandey",28,14,1,4],["Rinku Singh",36,19,1,5],["Rovman Powell",8,10,1,0]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "95/4", overs: "10.0", batting: [["Riyan Parag",16,9,0,2],["Vaibhav Suryavanshi",19,10,1,2],["Dhruv Jurel",34,24,2,4],["Shimron Hetmyer",18,8,1,2],["Ravindra Jadeja",1,3,0,0]] } },
+            "6": { title: "RCB vs SRH", outcome: "SRH won by 8 wickets", winner: "SRH", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "122/1", overs: "10.0", batting: [["Virat Kohli",14,7,0,2],["Phil Salt",63,38,1,9],["Rajat Patidar",40,15,1,5]] }, team2: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "124/2", overs: "9.0", batting: [["Abhishek Sharma",6,6,0,1],["Travis Head",0,1,0,0],["Heinrich Klaasen",79,26,4,10],["Nitish Kumar Reddy",39,21,3,4]] } },
+            "7": { title: "KKR vs CSK", outcome: "CSK won by 8 wickets", winner: "CSK", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "136/6", overs: "10.0", batting: [["Sunil Narine",23,9,2,2],["Ajinkya Rahane",20,10,0,2],["Cameron Green",1,3,0,0],["Manish Pandey",50,21,3,6],["Rinku Singh",26,7,2,3],["Angkrish Raghuvanshi",5,4,1,0],["Rovman Powell",0,4,0,0],["Harshit Rana",6,3,0,1]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "139/2", overs: "9.0", batting: [["Ayush Mhatre",45,19,2,5],["Sanju Samson",1,4,0,0],["Ruturaj Gaikwad",53,19,4,6],["Dewald Brevis",40,11,1,6]] } },
+            "8": { title: "MI vs RCB", outcome: "MI won by 2 runs", winner: "MI", team1: { name: "Mumbai Indians", abbr: "MI", score: "120/2", overs: "10.0", batting: [["Quinton de Kock",53,25,3,6],["Rohit Sharma",38,20,2,5],["Suryakumar Yadav",15,14,2,1],["Hardik Pandya",6,1,0,1]] }, team2: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "118/2", overs: "10.0", batting: [["Phil Salt",36,17,2,4],["Virat Kohli",43,22,4,4],["Rajat Patidar",21,8,0,3],["Venkatesh Iyer",14,11,0,2]] } },
+            "9": { title: "RR vs SRH", outcome: "RR won by 6 runs", winner: "RR", team1: { name: "Rajasthan Royals", abbr: "RR", score: "124/3", overs: "10.0", batting: [["Yashasvi Jaiswal",28,15,0,4],["Vaibhav Suryavanshi",83,38,5,9],["Riyan Parag",8,7,0,0],["Dhruv Jurel",5,3,0,1]] }, team2: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "118/3", overs: "10.0", batting: [["Abhishek Sharma",39,25,2,5],["Travis Head",59,26,1,8],["Heinrich Klaasen",0,1,0,0],["Nitish Kumar Reddy",19,8,0,3]] } },
+            "10": { title: "RCB vs CSK", outcome: "RCB won by 5 runs", winner: "RCB", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "133/2", overs: "10.0", batting: [["Devdutt Padikkal",73,26,2,10],["Virat Kohli",46,29,3,5],["Phil Salt",0,1,0,0],["Rajat Patidar",10,4,0,2]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "128/0", overs: "10.0", batting: [["Sanju Samson",71,33,2,9],["Ayush Mhatre",53,27,1,7]] } },
+            "11": { title: "KKR vs SRH", outcome: "KKR won by 31 runs", winner: "KKR", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "138/3", overs: "10.0", batting: [["Sunil Narine",39,19,1,5],["Ajinkya Rahane",59,28,3,6],["Cameron Green",25,10,2,2],["Manish Pandey",1,1,0,0],["Rinku Singh",12,4,0,2]] }, team2: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "107/7", overs: "10.0", batting: [["Travis Head",0,5,0,0],["Abhishek Sharma",37,20,0,6],["Ishan Kishan",36,13,1,5],["Heinrich Klaasen",0,1,0,0],["Nitish Kumar Reddy",5,3,1,0],["Liam Livingstone",12,5,0,2],["Pat Cummins",0,5,0,0],["Aniket Varma",6,7,0,0],["Harshal Patel",6,1,0,1]] } },
+            "12": { title: "MI vs RR", outcome: "RR won by 8 wickets", winner: "RR", team1: { name: "Mumbai Indians", abbr: "MI", score: "127/4", overs: "10.0", batting: [["Rohit Sharma",4,7,1,0],["Quinton de Kock",20,10,2,2],["Suryakumar Yadav",63,29,4,7],["Ryan Rickelton",30,9,3,3],["Hardik Pandya",4,2,1,0],["Tilak Varma",4,3,1,0]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "128/2", overs: "9.3", batting: [["Yashasvi Jaiswal",24,22,2,2],["Vaibhav Suryavanshi",69,27,2,10],["Riyan Parag",11,7,1,1],["Ravindra Jadeja",16,4,1,2]] } },
+            "13": { title: "SRH vs CSK", outcome: "CSK won by 6 wickets", winner: "CSK", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "97/5", overs: "10.0", batting: [["Abhishek Sharma",4,4,1,0],["Travis Head",16,12,0,2],["Ishan Kishan",31,21,2,3],["Heinrich Klaasen",22,13,4,1],["Liam Livingstone",22,8,1,3],["Nitish Kumar Reddy",1,2,0,0]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "98/4", overs: "9.0", batting: [["Sanju Samson",2,4,0,0],["Ayush Mhatre",54,21,4,6],["Ruturaj Gaikwad",0,2,0,0],["Dewald Brevis",22,11,0,3],["Shivam Dube",18,9,0,3],["MS Dhoni",1,1,0,0]] } },
+            "14": { title: "RCB vs RR", outcome: "RR won by 9 wickets", winner: "RR", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "111/6", overs: "10.0", batting: [["Virat Kohli",10,9,2,0],["Phil Salt",55,22,2,7],["Devdutt Padikkal",0,2,0,0],["Venkatesh Iyer",6,5,1,0],["Rajat Patidar",11,7,2,0],["Romario Shepherd",0,1,0,0],["Tim David",20,8,1,2],["Krunal Pandya",7,4,0,1]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "113/1", overs: "10.0", batting: [["Yashasvi Jaiswal",57,29,2,7],["Vaibhav Suryavanshi",50,29,5,4],["Riyan Parag",1,2,0,0]] } },
+            "15": { title: "KKR vs MI", outcome: "MI won by 8 wickets", winner: "MI", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "119/2", overs: "10.0", batting: [["Sunil Narine",78,34,3,10],["Ajinkya Rahane",12,4,0,2],["Cameron Green",28,14,2,3],["Manish Pandey",1,5,0,0]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "122/2", overs: "7.3", batting: [["Rohit Sharma",18,8,3,1],["Quinton de Kock",48,19,6,4],["Suryakumar Yadav",50,17,1,7],["Hardik Pandya",6,1,0,1]] } },
+            "16": { title: "CSK vs RR", outcome: "CSK won by 12 runs", winner: "CSK", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "120/0", overs: "10.0", batting: [["Ayush Mhatre",45,24,2,5],["Sanju Samson",69,35,4,8]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "108/0", overs: "10.0", batting: [["Vaibhav Suryavanshi",51,27,2,6],["Yashasvi Jaiswal",49,32,4,7]] } },
+            "17": { title: "SRH vs MI", outcome: "SRH won by 3 runs", winner: "SRH", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "106/4", overs: "10.0", batting: [["Abhishek Sharma",45,25,4,4],["Travis Head",33,16,1,4],["Ishan Kishan",0,1,0,0],["Heinrich Klaasen",24,10,3,1],["Liam Livingstone",6,6,0,1],["Nitish Kumar Reddy",0,1,0,0]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "103/1", overs: "10.0", batting: [["Rohit Sharma",46,26,3,5],["Quinton de Kock",12,7,0,2],["Suryakumar Yadav",31,21,3,3]] } },
+            "18": { title: "RCB vs KKR", outcome: "KKR won by 9 wickets", winner: "KKR", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "89/0", overs: "10.0", batting: [["Phil Salt",43,32,5,3],["Virat Kohli",46,28,3,5]] }, team2: { name: "Kolkata Knight Riders", abbr: "KKR", score: "92/1", overs: "7.0", batting: [["Sunil Narine",31,13,1,4],["Ajinkya Rahane",48,20,0,7],["Cameron Green",12,10,1,1]] } },
+            "19": { title: "CSK vs MI", outcome: "CSK won by 21 runs", winner: "CSK", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "129/1", overs: "10.0", batting: [["Sanju Samson",55,30,2,7],["Ayush Mhatre",45,22,3,5],["Ruturaj Gaikwad",26,9,2,3]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "108/2", overs: "10.0", batting: [["Rohit Sharma",59,30,7,5],["Quinton de Kock",17,11,2,1],["Suryakumar Yadav",28,11,4,2],["Hardik Pandya",1,8,0,0]] } },
+            "20": { title: "RR vs KKR", outcome: "RR won by 49 runs", winner: "RR", team1: { name: "Rajasthan Royals", abbr: "RR", score: "110/2", overs: "10.0", batting: [["Yashasvi Jaiswal",9,9,1,0],["Vaibhav Suryavanshi",21,14,0,3],["Riyan Parag",40,18,3,4],["Ravindra Jadeja",41,18,0,6]] }, team2: { name: "Kolkata Knight Riders", abbr: "KKR", score: "61/9", overs: "10.0", batting: [["Sunil Narine",11,6,1,1],["Ajinkya Rahane",0,1,0,0],["Cameron Green",0,3,0,0],["Manish Pandey",11,8,1,1],["Rovman Powell",6,13,1,0],["Rinku Singh",2,4,0,0],["Angkrish Raghuvanshi",18,11,1,2],["Finn Allen",0,3,0,0],["Tim Seifert",0,1,0,0],["Matheesha Pathirana",7,15,0,1],["Varun Chakravarthy",4,2,1,0]] } },
+            "21": { title: "SRH vs RCB", outcome: "RCB won by 8 wickets", winner: "RCB", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "101/3", overs: "10.0", batting: [["Abhishek Sharma",29,12,4,2],["Travis Head",21,20,2,1],["Ishan Kishan",0,1,0,0],["Heinrich Klaasen",0,1,0,0],["Nitish Kumar Reddy",49,26,7,3]] }, team2: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "104/2", overs: "9.0", batting: [["Phil Salt",47,28,1,6],["Virat Kohli",16,6,2,1],["Jacob Bethell",20,7,2,2],["Venkatesh Iyer",12,13,2,0]] } },
+            "22": { title: "CSK vs KKR", outcome: "KKR won by 6 wickets", winner: "KKR", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "86/2", overs: "10.0", batting: [["Sanju Samson",42,28,5,3],["Ayush Mhatre",16,21,1,1],["Ruturaj Gaikwad",24,9,1,3],["Dewald Brevis",0,2,0,0]] }, team2: { name: "Kolkata Knight Riders", abbr: "KKR", score: "87/4", overs: "7.5", batting: [["Ajinkya Rahane",18,10,1,1],["Sunil Narine",30,15,2,2],["Cameron Green",7,5,0,1],["Manish Pandey",18,8,3,1],["Rinku Singh",6,2,0,1],["Rovman Powell",7,5,0,1]] } },
+            "23": { title: "RCB vs MI", outcome: "RCB won by 7 runs", winner: "RCB", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "116/6", overs: "10.0", batting: [["Phil Salt",40,18,3,4],["Virat Kohli",7,3,0,1],["Devdutt Padikkal",3,5,0,0],["Jacob Bethell",11,6,1,1],["Rajat Patidar",4,5,1,0],["Jitesh Sharma",20,10,1,2],["Romario Shepherd",0,2,0,0],["Venkatesh Iyer",22,11,1,3]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "109/3", overs: "10.0", batting: [["Rohit Sharma",0,2,0,0],["Quinton de Kock",0,3,0,0],["Tilak Varma",5,11,1,0],["Suryakumar Yadav",54,30,5,5],["Hardik Pandya",49,16,2,5]] } },
+            "24": { title: "SRH vs RR", outcome: "RR won via Super Over", winner: "RR", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "129/4", overs: "10.0", batting: [["Abhishek Sharma",2,2,0,0],["Travis Head",0,1,0,0],["Heinrich Klaasen",46,26,5,3],["Ishan Kishan",48,16,1,7],["Liam Livingstone",1,3,0,0],["Nitish Kumar Reddy",27,12,0,4]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "129/7", overs: "10.0", batting: [["Yashasvi Jaiswal",29,15,2,3],["Vaibhav Suryavanshi",8,10,1,0],["Riyan Parag",15,8,0,2],["Ravindra Jadeja",15,8,1,1],["Dhruv Jurel",6,3,0,1],["Shimron Hetmyer",7,3,0,1],["Sam Curran",12,4,0,2],["Jofra Archer",1,1,0,0],["Ravi Bishnoi",34,10,2,4]] }, superOver: { team1: "RR: 9/0", team2: "SRH: 7/0", result: "RR won by 2 runs", winner: "RR" } },
+            "25": { title: "RCB vs CSK", outcome: "CSK won by 7 wickets", winner: "CSK", team1: { name: "Royal Challengers Bengaluru", abbr: "RCB", score: "102/1", overs: "10.0", batting: [["Virat Kohli",36,16,2,4],["Phil Salt",62,40,10,2],["Jacob Bethell",5,4,1,0]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "103/3", overs: "10.0", batting: [["Sanju Samson",19,9,0,3],["Ayush Mhatre",19,13,1,2],["Ruturaj Gaikwad",33,22,2,3],["Dewald Brevis",19,14,4,0],["Shivam Dube",7,2,0,1]] } },
+            "26": { title: "SRH vs KKR", outcome: "SRH won by 4 runs", winner: "SRH", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "98/2", overs: "10.0", batting: [["Abhishek Sharma",2,7,0,0],["Travis Head",4,4,1,0],["Ishan Kishan",71,28,2,10],["Heinrich Klaasen",19,21,1,1]] }, team2: { name: "Kolkata Knight Riders", abbr: "KKR", score: "94/3", overs: "10.0", batting: [["Sunil Narine",7,4,0,1],["Finn Allen",66,39,5,6],["Tim Seifert",17,13,2,2],["Rinku Singh",5,3,0,0]] } },
+            "27": { title: "RR vs MI", outcome: "RR won by 17 runs", winner: "RR", team1: { name: "Rajasthan Royals", abbr: "RR", score: "128/2", overs: "10.0", batting: [["Yashasvi Jaiswal",82,35,5,6],["Vaibhav Suryavanshi",29,15,1,4],["Riyan Parag",8,6,2,0],["Dhruv Jurel",8,4,0,1]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "111/2", overs: "10.0", batting: [["Rohit Sharma",46,24,2,6],["Quinton de Kock",49,24,6,3],["Suryakumar Yadav",0,5,0,0],["Hardik Pandya",12,6,1,1]] } },
+            "28": { title: "SRH vs CSK", outcome: "SRH won by 11 runs", winner: "SRH", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "138/4", overs: "10.0", batting: [["Abhishek Sharma",4,3,1,0],["Travis Head",23,15,2,2],["Heinrich Klaasen",6,3,0,1],["Ishan Kishan",81,27,9,7],["Liam Livingstone",19,10,3,1],["Nitish Kumar Reddy",0,1,0,0]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "127/4", overs: "10.0", batting: [["Sanju Samson",34,19,2,4],["Ayush Mhatre",48,25,1,6],["Ruturaj Gaikwad",6,7,0,0],["Shivam Dube",18,5,3,1],["Dewald Brevis",12,3,0,2],["MS Dhoni",0,1,0,0]] } },
+            "29": { title: "KKR vs MI", outcome: "MI won by 7 wickets", winner: "MI", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "87/3", overs: "10.0", batting: [["Sunil Narine",46,35,5,4],["Finn Allen",20,11,3,1],["Tim Seifert",0,3,0,0],["Ajinkya Rahane",21,11,2,2]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "88/3", overs: "8.4", batting: [["Rohit Sharma",0,2,0,0],["Quinton de Kock",16,5,1,2],["Suryakumar Yadav",5,10,1,0],["Tilak Varma",50,24,3,5],["Ryan Rickelton",14,11,1,1]] } }
         };
 
-        function getFullSquadScorecard(teamId, matchBatters) {
-            const squadList = squads[teamId] || [];
-            return squadList.map(name => {
-                const stats = matchBatters[name];
-                return stats ? { name, runs: stats[0], balls: stats[1], fours: stats[2], sixes: stats[3], status: "Batted" }
-                             : { name, runs: "-", balls: "-", fours: "-", sixes: "-", status: "DNB" };
+        function getFullBattingTable(teamAbbr, battingStats) {
+            const squad = squads[teamAbbr.toLowerCase()] || [];
+            let html = '';
+            const battedNames = new Set();
+            let playersShown = 0;
+
+            // 1. Add players who batted in the exact order they were provided
+            battingStats.forEach(p => {
+                battedNames.add(p[0]);
+                const sr = p[2] > 0 ? ((p[1] / p[2]) * 100).toFixed(2) : "0.00";
+                html += `
+                <tr>
+                    <td>
+                        <div class="player-name">${p[0]}</div>
+                    </td>
+                    <td class="font-black text-black">${p[1]}</td>
+                    <td class="font-medium">${p[2]}</td>
+                    <td>${p[3]}</td>
+                    <td>${p[4]}</td>
+                    <td class="font-bold text-gray-500">${sr}</td>
+                </tr>`;
+                playersShown++;
             });
+            
+            // 2. Add players from the squad who did not bat, ensuring max 11 players total
+            for (let i = 0; i < squad.length; i++) {
+                if (playersShown >= 11) break; // Enforce the 11-player limit
+                
+                const player = squad[i];
+                if(!battedNames.has(player)) {
+                    html += `
+                    <tr class="opacity-40 bg-gray-50/50">
+                        <td>
+                            <div class="player-name text-gray-400">${player}</div>
+                            <div class="text-[9px] uppercase font-bold text-gray-400 not-italic tracking-widest mt-1">Did Not Bat</div>
+                        </td>
+                        <td class="font-black text-gray-400">-</td>
+                        <td class="font-medium">-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td class="font-bold text-gray-400">-</td>
+                    </tr>`;
+                    playersShown++;
+                }
+            }
+            return html;
         }
 
-        function renderScorecard() {
-            const id = new URLSearchParams(window.location.search).get('id') || "25";
-            const data = matches[id];
+        function renderMatch() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id') || "29"; 
+            const data = matchesData[id];
+
             if(!data) {
-                document.getElementById('scorecardContent').innerHTML = `<div class="text-center py-20 text-gray-400 font-bold uppercase tracking-widest">Match Data for ${id} Not Found.</div>`;
+                document.getElementById('matchTitle').innerText = "Match Not Found";
                 return;
             }
 
-            document.getElementById('matchNumber').innerText = `Match ${id.padStart(2, '0')} Centre`;
-            document.getElementById('matchVenue').innerText = data.venue;
-            document.getElementById('matchResult').innerText = data.result;
-            document.getElementById('btnTeam1').innerText = `${data.team1.name} Innings`;
-            document.getElementById('btnTeam2').innerText = `${data.team2.name} Innings`;
+            // Global Headers
+            document.getElementById('matchNumber').innerText = `Match ${id.padStart(2, '0')} — Completed`;
+            document.getElementById('matchTitle').innerText = data.title;
+            document.getElementById('matchOutcome').innerText = data.outcome;
+            document.getElementById('logo1').src = `../assets/logos/teams/${data.team1.abbr.toLowerCase()}.png`;
+            document.getElementById('logo2').src = `../assets/logos/teams/${data.team2.abbr.toLowerCase()}.png`;
+
+            // Team 1 Section
             document.getElementById('team1Name').innerText = data.team1.name;
             document.getElementById('team1Score').innerText = data.team1.score;
-            document.getElementById('team1Overs').innerText = `(${data.team1.overs} OV)`;
-            document.getElementById('team1Logo').src = `../assets/logos/teams/${data.team1.id}.png`;
+            document.getElementById('team1Overs').innerText = `${data.team1.overs} OV`;
+            document.getElementById('inningsLogo1').src = `../assets/logos/teams/${data.team1.abbr.toLowerCase()}.png`;
+            
+            // Team 2 Section
             document.getElementById('team2Name').innerText = data.team2.name;
             document.getElementById('team2Score').innerText = data.team2.score;
-            document.getElementById('team2Overs').innerText = `(${data.team2.overs} OV)`;
-            document.getElementById('team2Logo').src = `../assets/logos/teams/${data.team2.id}.png`;
+            document.getElementById('team2Overs').innerText = `${data.team2.overs} OV`;
+            document.getElementById('inningsLogo2').src = `../assets/logos/teams/${data.team2.abbr.toLowerCase()}.png`;
 
-            document.getElementById('team1Container').classList.remove('losing-side');
-            document.getElementById('team2Container').classList.remove('losing-side');
-            if (data.winnerId === data.team1.id) document.getElementById('team2Container').classList.add('losing-side');
-            else if (data.winnerId === data.team2.id) document.getElementById('team1Container').classList.add('losing-side');
+            // Visual indicator for losing team header
+            if (data.winner === data.team1.abbr) {
+                document.getElementById('team2Header').classList.add('losing-team');
+            } else if (data.winner === data.team2.abbr) {
+                document.getElementById('team1Header').classList.add('losing-team');
+            }
 
-            const teamConfigs = [data.team1, data.team2];
-            let html = '';
-            teamConfigs.forEach((team, idx) => {
-                const fullSquad = getFullSquadScorecard(team.id, team.batters);
-                html += `
-                <section id="pane-${idx+1}" class="scorecard-pane ${idx === 0 ? 'active' : ''}">
-                    <h3 class="text-xl font-black uppercase mb-4 tracking-tighter">${team.name} Batting</h3>
-                    <div class="card">
-                        <div class="score-row score-header">
-                            <span>Batter</span><span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
-                        </div>
-                        ${fullSquad.map(p => {
-                            const sr = (p.status === 'Batted' && p.balls > 0) ? ((p.runs / p.balls) * 100).toFixed(2) : "-";
-                            return `<div class="score-row ${p.status === 'DNB' ? 'did-not-bat' : ''}">
-                                <div><div class="font-bold">${p.name}</div>${p.status === 'DNB' ? '<div class="text-[9px] uppercase font-bold text-gray-300">DNB</div>' : ''}</div>
-                                <span class="text-center font-black">${p.runs}</span><span class="text-center font-medium">${p.balls}</span>
-                                <span class="text-center">${p.fours}</span><span class="text-center">${p.sixes}</span>
-                                <span class="text-center font-bold text-gray-500">${sr}</span></div>`;
-                        }).join('')}
-                    </div>
-                </section>`;
-            });
-            document.getElementById('scorecardContent').innerHTML = html;
+            // Render the complex tables with DNBs (Limit: 11)
+            document.getElementById('team1Batting').innerHTML = getFullBattingTable(data.team1.abbr, data.team1.batting);
+            document.getElementById('team2Batting').innerHTML = getFullBattingTable(data.team2.abbr, data.team2.batting);
 
-            if(data.superOver) {
-                document.getElementById('superOverContent').innerHTML = `
-                <div class="super-over-card">
-                    <div class="text-[10px] uppercase tracking-widest font-bold opacity-60 mb-2">Super Over Outcome</div>
-                    <div class="text-2xl font-black italic tracking-tighter">${data.superOver}</div>
-                </div>`;
-            } else {
-                document.getElementById('superOverContent').innerHTML = '';
+            // Conditional Super Over Display
+            if (data.superOver) {
+                const so = data.superOver;
+                document.getElementById('superOverSection').style.display = 'block';
+                document.getElementById('soScore1').innerText = so.team1;
+                document.getElementById('soScore2').innerText = so.team2;
+                document.getElementById('soResult').innerText = so.result;
+                
+                // Match 1 Super Over specific setup, RR batted first
+                if (id === "1") {
+                    document.getElementById('soLogo1').src = `../assets/logos/teams/rr.png`; 
+                    document.getElementById('soLogo2').src = `../assets/logos/teams/csk.png`;
+                } else if (id === "24") {
+                    document.getElementById('soLogo1').src = `../assets/logos/teams/rr.png`; 
+                    document.getElementById('soLogo2').src = `../assets/logos/teams/srh.png`;
+                }
+
+                if(so.winner === data.team1.abbr) {
+                    document.getElementById('soTeam2Wrap').classList.add('opacity-40');
+                } else {
+                    document.getElementById('soTeam2Wrap').previousElementSibling.previousElementSibling.classList.add('opacity-40');
+                }
             }
         }
 
-        function switchTeam(n) {
-            document.getElementById('btnTeam1').classList.toggle('active', n === 1);
-            document.getElementById('btnTeam2').classList.toggle('active', n === 2);
-            document.getElementById('pane-1').classList.toggle('active', n === 1);
-            document.getElementById('pane-2').classList.toggle('active', n === 2);
-        }
-
-        window.onload = renderScorecard;
+        window.onload = renderMatch;
     </script>
 </body>
 </html>

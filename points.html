@@ -47,10 +47,12 @@
             position: relative;
             z-index: 10;
             margin-top: 2rem;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
+            min-width: 500px;
             border-collapse: collapse;
             text-transform: uppercase;
             font-size: 0.75rem; 
@@ -80,12 +82,12 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 0.4rem;
+            gap: 0.5rem;
         }
 
         .team-logo {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             object-fit: contain;
         }
 
@@ -106,18 +108,18 @@
             padding: 2px 4px;
             border-radius: 2px;
         }
-        .status-q { color: var(--pos-green); }
-        .status-e { color: var(--neg-red); }
+        .status-q { color: var(--pos-green); background: rgba(0, 140, 74, 0.1); }
+        .status-e { color: var(--neg-red); background: rgba(217, 48, 37, 0.1); }
 
         .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
         .nav-link:hover::after { transform: translateX(0); }
 
         @media (max-width: 480px) {
-            table { font-size: 0.65rem; }
-            .team-name { font-size: 0.85rem; }
-            th, td { padding: 0.75rem 0.15rem; }
-            .team-logo { width: 18px; height: 18px; }
+            table { font-size: 0.65rem; min-width: 100%; }
+            .team-name { font-size: 0.9rem; }
+            th, td { padding: 0.75rem 0.2rem; }
+            .team-logo { width: 20px; height: 20px; }
         }
     </style>
 </head>
@@ -143,14 +145,14 @@
         <table>
             <thead>
                 <tr>
-                    <th width="30">#</th>
+                    <th width="40">#</th>
                     <th align="left">TEAM</th>
                     <th>P</th>
                     <th>W</th>
                     <th>L</th>
                     <th>PTS</th>
                     <th>NRR</th>
-                    <th width="30">ST</th>
+                    <th width="40">ST</th>
                 </tr>
             </thead>
             <tbody>
@@ -163,68 +165,85 @@
                             <span class="team-name">RR</span>
                         </div>
                     </td>
-                    <td>8</td>
-                    <td>6</td>
+                    <td>9</td>
+                    <td>7</td>
                     <td>2</td>
-                    <td class="font-black">12</td>
-                    <td class="nrr-pos">+0.68</td>
+                    <td class="font-black text-lg">14</td>
+                    <td class="nrr-pos">+0.75</td>
                     <td><span class="status-badge status-q">Q</span></td>
                 </tr>
 
-                <!-- 2: CSK -->
+                <!-- 2: MI -->
                 <tr>
                     <td><span class="font-bold">02</span></td>
-                    <td>
-                        <div class="team-cell">
-                            <img src="assets/logos/teams/csk.png" class="team-logo" alt="CSK" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
-                            <span class="team-name">CSK</span>
-                        </div>
-                    </td>
-                    <td>9</td>
-                    <td>5</td>
-                    <td>4</td>
-                    <td class="font-black">10</td>
-                    <td class="nrr-pos">+0.25</td>
-                    <td><span class="status-badge status-q">Q</span></td>
-                </tr>
-
-                <!-- 3: KKR -->
-                <tr>
-                    <td><span class="font-bold">03</span></td>
-                    <td>
-                        <div class="team-cell">
-                            <img src="assets/logos/teams/kkr.png" class="team-logo" alt="KKR" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
-                            <span class="team-name">KKR</span>
-                        </div>
-                    </td>
-                    <td>8</td>
-                    <td>5</td>
-                    <td>3</td>
-                    <td class="font-black">10</td>
-                    <td class="nrr-neg">-0.61</td>
-                    <td><span class="status-badge status-q">Q</span></td>
-                </tr>
-
-                <!-- 4: MI -->
-                <tr>
-                    <td><span class="font-bold">04</span></td>
                     <td>
                         <div class="team-cell">
                             <img src="assets/logos/teams/mi.png" class="team-logo" alt="MI" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
                             <span class="team-name">MI</span>
                         </div>
                     </td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td>4</td>
-                    <td class="font-black">8</td>
-                    <td class="nrr-pos">+0.20</td>
-                    <td></td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td class="font-black text-lg">10</td>
+                    <td class="nrr-pos">+0.22</td>
+                    <td><span class="status-badge status-q">Q</span></td>
                 </tr>
 
-                <!-- 5: RCB -->
+                <!-- 3: CSK -->
+                <tr>
+                    <td><span class="font-bold">03</span></td>
+                    <td>
+                        <div class="team-cell">
+                            <img src="assets/logos/teams/csk.png" class="team-logo" alt="CSK" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <span class="team-name">CSK</span>
+                        </div>
+                    </td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td class="font-black text-lg">10</td>
+                    <td class="nrr-pos">+0.15</td>
+                    <td><span class="status-badge status-q">Q</span></td>
+                </tr>
+
+                <!-- 4: KKR -->
+                <tr>
+                    <td><span class="font-bold">04</span></td>
+                    <td>
+                        <div class="team-cell">
+                            <img src="assets/logos/teams/kkr.png" class="team-logo" alt="KKR" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <span class="team-name">KKR</span>
+                        </div>
+                    </td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td class="font-black text-lg">10</td>
+                    <td class="nrr-neg">-0.75</td>
+                    <td><span class="status-badge status-q">Q</span></td>
+                </tr>
+
+                <!-- 5: SRH -->
                 <tr>
                     <td><span class="font-bold">05</span></td>
+                    <td>
+                        <div class="team-cell">
+                            <img src="assets/logos/teams/srh.png" class="team-logo" alt="SRH" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <span class="team-name">SRH</span>
+                        </div>
+                    </td>
+                    <td>10</td>
+                    <td>4</td>
+                    <td>6</td>
+                    <td class="font-black text-lg text-gray-500">8</td>
+                    <td class="nrr-neg">-0.60</td>
+                    <td><span class="status-badge status-e">E</span></td>
+                </tr>
+
+                <!-- 6: RCB -->
+                <tr>
+                    <td><span class="font-bold">06</span></td>
                     <td>
                         <div class="team-cell">
                             <img src="assets/logos/teams/rcb.png" class="team-logo" alt="RCB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
@@ -234,26 +253,9 @@
                     <td>9</td>
                     <td>3</td>
                     <td>6</td>
-                    <td class="font-black">6</td>
+                    <td class="font-black text-lg text-gray-500">6</td>
                     <td class="nrr-neg">-0.45</td>
-                    <td></td>
-                </tr>
-
-                <!-- 6: SRH -->
-                <tr>
-                    <td><span class="font-bold">06</span></td>
-                    <td>
-                        <div class="team-cell">
-                            <img src="assets/logos/teams/srh.png" class="team-logo" alt="SRH" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
-                            <span class="team-name">SRH</span>
-                        </div>
-                    </td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>6</td>
-                    <td class="font-black">4</td>
-                    <td class="nrr-neg">-0.76</td>
-                    <td></td>
+                    <td><span class="status-badge status-e">E</span></td>
                 </tr>
             </tbody>
         </table>
@@ -261,7 +263,7 @@
 
     <footer class="relative z-10 border-t border-black mt-16 py-8 flex flex-col md:flex-row justify-between items-start gap-4">
         <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Standings Data<br>Updated After Match 25</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Standings Data<br>Updated After Match 29</div>
     </footer>
 </body>
 </html>

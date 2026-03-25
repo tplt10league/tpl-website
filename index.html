@@ -23,223 +23,52 @@
             position: relative;
         }
 
-        /* Fixed Background Golden Lines */
-        .gold-line-bg {
-            position: fixed;
-            top: 0;
-            left: 8%;
-            width: 1px;
-            height: 100%;
-            background: var(--tpl-gold);
-            opacity: 0.12;
-            z-index: -1;
-        }
-        .gold-line-bg-2 {
-            position: fixed;
-            top: 0;
-            right: 12%;
-            width: 1px;
-            height: 100%;
-            background: var(--tpl-gold);
-            opacity: 0.08;
-            z-index: -1;
-        }
+        .gold-line-bg { position: fixed; top: 0; left: 8%; width: 1px; height: 100%; background: var(--tpl-gold); opacity: 0.12; z-index: -1; }
+        .gold-line-bg-2 { position: fixed; top: 0; right: 12%; width: 1px; height: 100%; background: var(--tpl-gold); opacity: 0.08; z-index: -1; }
+        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 180vw; height: 180vw; max-width: 2500px; max-height: 2500px; opacity: 0.06; pointer-events: none; z-index: -2; object-fit: contain; }
 
-        /* Fixed Background Watermark - Strictly Centered */
-        .bg-watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 180vw;
-            height: 180vw;
-            max-width: 2500px;
-            max-height: 2500px;
-            opacity: 0.06;
-            pointer-events: none;
-            z-index: -2;
-            object-fit: contain;
-        }
+        .hero-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .hero-logo { height: clamp(10rem, 35vw, 22rem); width: auto; margin-bottom: 1rem; object-fit: contain; display: block; margin-left: auto; margin-right: auto; }
 
-        /* Hero Container - Strictly Centered Alignment */
-        .hero-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Hero Logo Styling - Strictly Centered */
-        .hero-logo {
-            height: clamp(10rem, 35vw, 22rem);
-            width: auto;
-            margin-bottom: 1rem;
-            object-fit: contain;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Heading Styles with Golden Stroke BEHIND the text */
-        .hero-title, 
-        .section-header, 
-        .match-title, 
-        .view-all-cta,
-        .insight-val {
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            color: var(--text-main);
-            line-height: 0.85;
-            position: relative;
-            /* Thin stroke behind effect using shadows */
-            text-shadow: 
-                0.5px 0.5px 0 var(--tpl-gold),
-                -0.5px -0.5px 0 var(--tpl-gold),
-                0.5px -0.5px 0 var(--tpl-gold),
-                -0.5px 0.5px 0 var(--tpl-gold);
+        .hero-title, .section-header, .match-title, .view-all-cta, .insight-val {
+            font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; color: var(--text-main); line-height: 0.85; position: relative;
+            text-shadow: 0.5px 0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold), 0.5px -0.5px 0 var(--tpl-gold), -0.5px 0.5px 0 var(--tpl-gold);
         }
 
         .hero-title { font-size: clamp(3.5rem, 12vw, 10rem); }
         .section-header { font-size: clamp(2rem, 6vw, 4rem); }
         .match-title { font-size: clamp(2.5rem, 8vw, 5.5rem); }
+        .section-divider { border-top: 1px solid var(--text-main); margin-top: 4rem; padding-top: 1rem; }
 
-        .section-divider {
-            border-top: 1px solid var(--text-main);
-            margin-top: 4rem;
-            padding-top: 1rem;
-        }
-
-        /* Match Cards */
-        .match-card {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 2.5rem;
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--grid-line);
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.3s ease;
-            position: relative;
-            z-index: 10;
-            background: transparent;
-        }
-
+        .match-card { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; padding: 4rem 0; border-bottom: 1px solid var(--grid-line); text-decoration: none; color: inherit; transition: opacity 0.3s ease; position: relative; z-index: 10; background: transparent; }
         .match-card:hover { opacity: 0.8; }
-
-        .match-image-container {
-            position: relative;
-            aspect-ratio: 16/9;
-            background: rgba(0,0,0,0.03);
-            overflow: hidden;
-        }
-
-        .match-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        .match-image-container { position: relative; aspect-ratio: 16/9; background: rgba(0,0,0,0.03); overflow: hidden; }
+        .match-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .match-card:hover .match-image-container img { transform: scale(1.05); }
 
-        .metadata-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .metadata-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .metadata-label { color: #888; margin-bottom: 0.25rem; font-weight: 700; }
 
-        .metadata-label {
-            color: #888;
-            margin-bottom: 0.25rem;
-            font-weight: 700;
-        }
-
-        /* Navigation */
-        .nav-link {
-            position: relative;
-            overflow: hidden;
-            font-weight: 500;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: currentColor;
-            transform: translateX(-101%);
-            transition: transform 0.3s ease;
-        }
-
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
         .nav-link:hover::after { transform: translateX(0); }
 
-        /* Floating Nav - "Pops" when scrolling up */
-        .floating-nav {
-            position: fixed;
-            top: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(-150%);
-            background: rgba(242, 242, 242, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 0.75rem 1.5rem;
-            border-radius: 100px;
-            border: 1px solid rgba(253, 185, 19, 0.3);
-            display: flex;
-            gap: 2rem;
-            z-index: 1000;
-            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
+        .floating-nav { position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%) translateY(-150%); background: rgba(242, 242, 242, 0.85); backdrop-filter: blur(12px); padding: 0.75rem 1.5rem; border-radius: 100px; border: 1px solid rgba(253, 185, 19, 0.3); display: flex; gap: 2rem; z-index: 1000; transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .floating-nav.visible { transform: translateX(-50%) translateY(0); }
+        .floating-nav a { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; color: var(--text-main); text-decoration: none; }
 
-        .floating-nav.visible {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .floating-nav a {
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        /* Tournament Insights */
-        .insight-card {
-            text-align: center;
-            padding: 2rem;
-            border-right: 1px solid var(--grid-line);
-        }
+        .insight-card { text-align: center; padding: 2rem; border-right: 1px solid var(--grid-line); }
         .insight-card:last-child { border-right: none; }
         .insight-val { font-size: clamp(2rem, 5vw, 4rem); }
 
         @media (max-width: 768px) {
             .match-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0; }
             .hero-title { font-size: 4rem; }
-            .hero-logo { 
-                height: clamp(10rem, 45vw, 16rem);
-            }
-            .bg-watermark { 
-                width: 250vw; 
-                height: 250vw; 
-                opacity: 0.05; 
-            }
+            .hero-logo { height: clamp(10rem, 45vw, 16rem); }
+            .bg-watermark { width: 250vw; height: 250vw; opacity: 0.05; }
             .gold-line-bg { left: 4%; }
             .gold-line-bg-2 { right: 4%; }
-            .floating-nav { 
-                gap: 1rem; 
-                padding: 0.6rem 1rem;
-                width: 90%;
-                justify-content: center;
-            }
+            .floating-nav { gap: 1rem; padding: 0.6rem 1rem; width: 90%; justify-content: center; }
             .floating-nav a { font-size: 0.65rem; }
             .insight-grid { grid-template-columns: 1fr 1fr; }
             .insight-card { border-bottom: 1px solid var(--grid-line); border-right: 1px solid var(--grid-line); }
@@ -248,15 +77,9 @@
     </style>
 </head>
 <body class="p-6 md:p-12">
-
-    <!-- Faded Fixed Watermark -->
     <img src="assets/logos/tplt10logo.png" class="bg-watermark" alt="">
-    
-    <!-- Decorative Golden Lines -->
-    <div class="gold-line-bg"></div>
-    <div class="gold-line-bg-2"></div>
+    <div class="gold-line-bg"></div><div class="gold-line-bg-2"></div>
 
-    <!-- Scroll Pop Navigation -->
     <div id="stickyNav" class="floating-nav">
         <a href="teams.html" class="nav-link">Teams</a>
         <a href="fixtures.html" class="nav-link">Fixtures</a>
@@ -264,11 +87,8 @@
         <a href="stats.html" class="nav-link">Stats</a>
     </div>
 
-    <!-- Navigation -->
     <nav class="relative z-20 flex justify-between items-start mb-24">
-        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">
-            TPL / SEASON 01
-        </div>
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / SEASON 01</div>
         <div class="flex flex-col items-end gap-2 uppercase text-xs md:text-sm font-medium text-right">
             <a href="index.html" class="nav-link font-bold">Home</a>
             <a href="teams.html" class="nav-link">Teams</a>
@@ -278,152 +98,101 @@
         </div>
     </nav>
 
-    <!-- Hero Header -->
     <header class="relative z-10 mb-32 hero-container">
-        <!-- Tournament Logo - Strictly Centered -->
         <img src="assets/logos/tplt10logo.png" class="hero-logo" alt="TPL Logo">
         <h1 class="hero-title">T10 Premier<br>League</h1>
     </header>
 
-    <!-- Recent Matches List -->
     <main class="relative z-10">
         
         <div class="section-divider flex justify-between items-end mb-12">
             <h2 class="section-header tracking-tighter">Recent Matches</h2>
-            <div class="text-[10px] uppercase tracking-widest text-gray-400">Latest Results / 25 of 30</div>
+            <div class="text-[10px] uppercase tracking-widest text-gray-400">Latest Results / 29 of 30</div>
         </div>
 
-        <!-- Match 25 -->
-        <a href="matches/match.html?id=25" class="match-card">
+        <!-- Match 29 -->
+        <a href="matches/match.html?id=29" class="match-card">
             <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 25</div>
-                <img src="assets/matches/match-25.jpg" alt="RCB VS CSK" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS CSK</div>
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 29</div>
+                <img src="assets/matches/match-29.jpg" alt="KKR VS MI" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">KKR VS MI</div>
             </div>
             <div class="flex flex-col justify-between">
                 <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Clinical Chennai</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">CSK chased down 102 with professional ease, anchored by steady contributions across the top order to win by 7 wickets.</p>
+                    <h3 class="match-title italic mb-4 tracking-tighter">MUMBAI IS ON!</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">Tilak Varma blasted 50 off 24 to help Mumbai Indians chase down Kolkata's total with 8 balls to spare.</p>
                     
                     <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">M. Chinnaswamy</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">RCB vs CSK</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">CSK Won (7 Wickets)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Phil Salt (62)</div>
-                        </div>
+                        <div><div class="metadata-label">Venue:</div><div class="font-bold">Eden Gardens</div></div>
+                        <div><div class="metadata-label">Match:</div><div class="font-bold">KKR vs MI</div></div>
+                        <div><div class="metadata-label">Result:</div><div class="font-bold">MI Won (7 Wickets)</div></div>
+                        <div><div class="metadata-label">Top Performer:</div><div class="font-bold">Tilak Varma (50)</div></div>
                     </div>
                 </div>
             </div>
         </a>
 
-        <!-- Match 24 -->
-        <a href="matches/match.html?id=24" class="match-card">
+        <!-- Match 28 -->
+        <a href="matches/match.html?id=28" class="match-card">
             <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 24</div>
-                <img src="assets/matches/match-24.jpg" alt="RR VS SRH" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">RR VS SRH</div>
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 28</div>
+                <img src="assets/matches/match-28.jpg" alt="SRH VS CSK" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">SRH VS CSK</div>
             </div>
             <div class="flex flex-col justify-between">
                 <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Super Over Thriller</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A dramatic tie at 129 saw RR edge out SRH in the Super Over. Ravi Bishnoi's cameo kept RR in the hunt until the very end.</p>
+                    <h3 class="match-title italic mb-4 tracking-tighter">KISHAN 2X!</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">Ishan Kishan's absolute demolition job of 81 runs in 27 balls overpowered CSK, despite Ayush Mhatre's fighting 48.</p>
                     
                     <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">Wankhede Stadium</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">RR vs SRH</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">RR Won (Super Over)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Ishan Kishan (48)</div>
-                        </div>
+                        <div><div class="metadata-label">Venue:</div><div class="font-bold">MA Chidambaram</div></div>
+                        <div><div class="metadata-label">Match:</div><div class="font-bold">SRH vs CSK</div></div>
+                        <div><div class="metadata-label">Result:</div><div class="font-bold">SRH Won (11 Runs)</div></div>
+                        <div><div class="metadata-label">Top Performer:</div><div class="font-bold">Ishan Kishan (81)</div></div>
                     </div>
                 </div>
             </div>
         </a>
 
-        <!-- Match 23 -->
-        <a href="matches/match.html?id=23" class="match-card">
+        <!-- Match 27 -->
+        <a href="matches/match.html?id=27" class="match-card">
             <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 23</div>
-                <img src="assets/matches/match-23.jpg" alt="RCB VS MI" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RCB VS MI</div>
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 27</div>
+                <img src="assets/matches/match-27.jpg" alt="RR VS MI" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-400 font-black italic text-4xl">RR VS MI</div>
             </div>
             <div class="flex flex-col justify-between">
                 <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Bengaluru Resilience</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">A gritty defense of 116. RCB held their nerve to win by 7 runs despite an explosive surge from Hardik Pandya.</p>
+                    <h3 class="match-title italic mb-4 tracking-tighter">Jais-Ball</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">Yashasvi Jaiswal carried his bat for an incredible 82 off 35 to set a towering 128 that proved too much for MI.</p>
                     
                     <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">Wankhede Stadium</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">RCB vs MI</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">RCB Won (7 Runs)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Phil Salt (40)</div>
-                        </div>
+                        <div><div class="metadata-label">Venue:</div><div class="font-bold">Sawai Mansingh</div></div>
+                        <div><div class="metadata-label">Match:</div><div class="font-bold">RR vs MI</div></div>
+                        <div><div class="metadata-label">Result:</div><div class="font-bold">RR Won (17 Runs)</div></div>
+                        <div><div class="metadata-label">Top Performer:</div><div class="font-bold">Y. Jaiswal (82)</div></div>
                     </div>
                 </div>
             </div>
         </a>
 
-        <!-- Match 22 -->
-        <a href="matches/match.html?id=22" class="match-card">
+        <!-- Match 26 -->
+        <a href="matches/match.html?id=26" class="match-card">
             <div class="match-image-container">
-                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 22</div>
-                <img src="assets/matches/match-22.jpg" alt="CSK VS KKR" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-neutral-200/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">CSK VS KKR</div>
+                <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] uppercase font-black tracking-tighter z-20 shadow-sm">Match 26</div>
+                <img src="assets/matches/match-26.jpg" alt="SRH VS KKR" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-neutral-800/50 -z-10 flex items-center justify-center text-neutral-600 font-black italic text-4xl">SRH VS KKR</div>
             </div>
             <div class="flex flex-col justify-between">
                 <div>
-                    <h3 class="match-title italic mb-4 tracking-tighter">Knight's Mastery</h3>
-                    <p class="text-gray-600 mb-8 max-w-sm text-sm">KKR chased down 86 in under 8 overs, moving firmly into a qualifying position with a dominant 6-wicket victory.</p>
+                    <h3 class="match-title italic mb-4 tracking-tighter">KISHAN IS BACK!</h3>
+                    <p class="text-gray-600 mb-8 max-w-sm text-sm">Finn Allen's heroic 66 (39) wasn't enough to overcome SRH's 98, set up by another Ishan Kishan half-century.</p>
                     
                     <div class="metadata-grid">
-                        <div>
-                            <div class="metadata-label">Venue:</div>
-                            <div class="font-bold">MA Chidambaram</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Match:</div>
-                            <div class="font-bold">CSK vs KKR</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Result:</div>
-                            <div class="font-bold">KKR Won (6 Wickets)</div>
-                        </div>
-                        <div>
-                            <div class="metadata-label">Top Performer:</div>
-                            <div class="font-bold">Sunil Narine (30)</div>
-                        </div>
+                        <div><div class="metadata-label">Venue:</div><div class="font-bold">Eden Gardens</div></div>
+                        <div><div class="metadata-label">Match:</div><div class="font-bold">SRH vs KKR</div></div>
+                        <div><div class="metadata-label">Result:</div><div class="font-bold">SRH Won (4 Runs)</div></div>
+                        <div><div class="metadata-label">Top Performer:</div><div class="font-bold">Ishan Kishan (71)</div></div>
                     </div>
                 </div>
             </div>
@@ -433,23 +202,22 @@
             <a href="fixtures.html" class="view-all-cta text-6xl md:text-8xl hover:tracking-widest transition-all duration-700 tracking-tighter">View All Matches</a>
         </div>
 
-        <!-- Tournament Insights Bar -->
         <section class="section-divider mt-0">
             <div class="grid grid-cols-2 md:grid-cols-4 insight-grid">
                 <div class="insight-card">
-                    <div class="insight-val">25</div>
+                    <div class="insight-val">29</div>
                     <div class="metadata-label">Matches Played</div>
                 </div>
                 <div class="insight-card">
-                    <div class="insight-val">5,472</div>
+                    <div class="insight-val">6,343</div>
                     <div class="metadata-label">Total Runs</div>
                 </div>
                 <div class="insight-card">
-                    <div class="insight-val">562</div>
+                    <div class="insight-val">642</div>
                     <div class="metadata-label">Total Sixes</div>
                 </div>
                 <div class="insight-card">
-                    <div class="insight-val">317</div>
+                    <div class="insight-val">382</div>
                     <div class="metadata-label">Total Fours</div>
                 </div>
             </div>
@@ -464,30 +232,18 @@
     </footer>
 
     <script>
-        // Scroll Logic for Floating Navigation
         let lastScrollY = window.scrollY;
         const stickyNav = document.getElementById('stickyNav');
-
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-
-            // Only show if we've scrolled down a bit (past the hero)
             if (currentScrollY > 400) {
-                if (currentScrollY < lastScrollY) {
-                    // Scrolling Up
-                    stickyNav.classList.add('visible');
-                } else {
-                    // Scrolling Down
-                    stickyNav.classList.remove('visible');
-                }
+                if (currentScrollY < lastScrollY) stickyNav.classList.add('visible');
+                else stickyNav.classList.remove('visible');
             } else {
-                // At the top of the page
                 stickyNav.classList.remove('visible');
             }
-
             lastScrollY = currentScrollY;
         });
     </script>
-
 </body>
 </html>

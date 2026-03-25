@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* Architectural Grid Overlay */
         .grid-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             pointer-events: none; z-index: 1; display: grid; 
@@ -41,72 +40,16 @@
             color: var(--text-main);
         }
 
-        /* Table Styling */
-        .table-wrapper {
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            margin-top: 3rem;
-            margin-bottom: 5rem;
-            overflow-x: auto;
-        }
+        .table-wrapper { width: 100%; position: relative; z-index: 10; margin-top: 3rem; margin-bottom: 5rem; overflow-x: auto; }
+        table { width: 100%; min-width: 600px; border-collapse: collapse; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
+        thead { background-color: var(--tpl-blue); color: white; }
+        th { padding: 1.25rem 0.5rem; font-weight: 700; text-align: center; }
+        td { padding: 1.25rem 0.5rem; border-bottom: 1px solid var(--grid-line); vertical-align: middle; background: white; text-align: center; }
 
-        table {
-            width: 100%;
-            min-width: 600px;
-            border-collapse: collapse;
-            text-transform: uppercase;
-            font-size: 0.75rem; 
-            letter-spacing: 0.05em;
-        }
-
-        thead {
-            background-color: var(--tpl-blue);
-            color: white;
-        }
-
-        th {
-            padding: 1.25rem 0.5rem;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        td {
-            padding: 1.25rem 0.5rem;
-            border-bottom: 1px solid var(--grid-line);
-            vertical-align: middle;
-            background: white;
-            text-align: center;
-        }
-
-        /* Player Cell */
-        .player-cell {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 1rem;
-            text-align: left;
-        }
-
-        .player-name {
-            font-size: 1.1rem;
-            font-weight: 900;
-            font-style: italic;
-            letter-spacing: -0.02em;
-            line-height: 1;
-        }
-
-        .team-logo-mini {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-        }
-
-        .highlight-val {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--text-main);
-        }
+        .player-cell { display: flex; align-items: center; justify-content: flex-start; gap: 1rem; text-align: left; }
+        .player-name { font-size: 1.1rem; font-weight: 900; font-style: italic; letter-spacing: -0.02em; line-height: 1; }
+        .team-logo-mini { width: 28px; height: 28px; object-fit: contain; }
+        .highlight-val { font-weight: 900; font-size: 1.2rem; color: var(--text-main); }
 
         .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
@@ -116,7 +59,6 @@
             .hero-title { font-size: 2.2rem; }
             .player-name { font-size: 0.9rem; }
             .highlight-val { font-size: 1rem; }
-            .hide-mobile { display: none; }
             th, td { padding: 1rem 0.25rem; }
         }
     </style>
@@ -141,151 +83,112 @@
 
     <main class="table-wrapper">
         <table id="leaderboardTable">
-            <thead>
-                <tr id="tableHeader">
-                    <!-- Dynamic Headers -->
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- Dynamic Rows -->
-            </tbody>
+            <thead><tr id="tableHeader"></tr></thead>
+            <tbody id="tableBody"></tbody>
         </table>
     </main>
 
     <footer class="relative z-10 border-t border-black mt-16 py-8 flex flex-col md:flex-row justify-between items-start gap-4">
         <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Performance Data<br>Updated After Match 25</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Performance Data<br>Updated After Match 29</div>
     </footer>
 
     <script>
-        // FULL DATASET UPDATED FOR MATCHES 1-25
-        // Row Structure: [POS, NAME, TEAM_ABBR, STAT_1, STAT_2, STAT_3, ..., FINAL_STAT]
         const leaderboardData = {
             "mvp": {
-                title: "Player of the Tournament",
-                label: "MVP Points",
+                title: "Player of the Tournament", label: "Batting Impact Points",
                 headers: ["POS", "PLAYER", "MAT", "INN", "ROLE", "PTS"],
                 rows: [
-                    ["01", "Phil Salt", "RCB", "9", "9", "BAT", "245.5"],
-                    ["02", "Sunil Narine", "KKR", "8", "8", "ALL", "228.0"],
-                    ["03", "Sanju Samson", "CSK", "9", "9", "WK-BAT", "210.5"],
-                    ["04", "V. Suryavanshi", "RR", "8", "8", "BAT", "195.0"],
-                    ["05", "Ayush Mhatre", "CSK", "9", "8", "BAT", "182.5"],
-                    ["06", "Virat Kohli", "RCB", "9", "9", "BAT", "175.0"],
-                    ["07", "S. Yadav", "MI", "8", "8", "BAT", "168.5"],
-                    ["08", "H. Klaasen", "SRH", "8", "8", "WK-BAT", "155.0"],
-                    ["09", "Y. Jaiswal", "RR", "8", "8", "BAT", "148.5"],
-                    ["10", "Rohit Sharma", "MI", "8", "8", "BAT", "142.0"],
-                    ["11", "Hardik Pandya", "MI", "8", "8", "ALL", "138.5"],
-                    ["12", "Ruturaj Gaikwad", "CSK", "9", "9", "BAT", "135.0"],
-                    ["13", "Riyan Parag", "RR", "8", "8", "ALL", "125.5"],
-                    ["14", "Abhishek Sharma", "SRH", "8", "8", "ALL", "118.0"],
-                    ["15", "Ishan Kishan", "SRH", "8", "8", "WK-BAT", "112.5"]
+                    ["01", "Phil Salt", "RCB", "9", "9", "BAT", "285.5"],
+                    ["02", "Sanju Samson", "CSK", "10", "10", "WK-BAT", "282.0"],
+                    ["03", "Ayush Mhatre", "CSK", "10", "9", "BAT", "258.5"],
+                    ["04", "V. Suryavanshi", "RR", "9", "9", "BAT", "254.0"],
+                    ["05", "Yashasvi Jaiswal", "RR", "9", "9", "BAT", "238.5"],
+                    ["06", "Ishan Kishan", "SRH", "10", "10", "WK-BAT", "235.0"],
+                    ["07", "Sunil Narine", "KKR", "10", "10", "ALL", "215.5"],
+                    ["08", "Virat Kohli", "RCB", "9", "9", "BAT", "198.0"],
+                    ["09", "Rohit Sharma", "MI", "10", "10", "BAT", "195.5"],
+                    ["10", "S. Yadav", "MI", "10", "10", "BAT", "192.0"]
                 ]
             },
             "orange-cap": {
-                title: "Orange Cap",
-                label: "Most Runs",
+                title: "Orange Cap", label: "Most Runs",
                 headers: ["POS", "PLAYER", "MAT", "INN", "B", "4s", "6s", "RUNS"],
                 rows: [
                     ["01", "Phil Salt", "RCB", "9", "9", "215", "24", "41", "387"],
-                    ["02", "Sanju Samson", "CSK", "9", "9", "163", "17", "39", "344"],
-                    ["03", "V. Suryavanshi", "RR", "8", "8", "160", "16", "34", "314"],
-                    ["04", "Ayush Mhatre", "CSK", "9", "8", "159", "16", "33", "298"],
-                    ["05", "Virat Kohli", "RCB", "9", "9", "167", "16", "26", "284"],
-                    ["06", "S. Yadav", "MI", "8", "8", "118", "19", "25", "254"],
-                    ["07", "Y. Jaiswal", "RR", "8", "8", "140", "12", "22", "233"],
-                    ["08", "Sunil Narine", "KKR", "8", "8", "105", "12", "24", "227"],
-                    ["09", "H. Klaasen", "SRH", "8", "8", "97", "16", "24", "217"],
-                    ["10", "Rohit Sharma", "MI", "8", "8", "113", "21", "18", "215"],
-                    ["11", "Ruturaj Gaikwad", "CSK", "9", "9", "128", "14", "18", "201"],
-                    ["12", "Ishan Kishan", "SRH", "8", "8", "85", "10", "12", "160"],
-                    ["13", "Abhishek Sharma", "SRH", "8", "8", "85", "8", "16", "156"],
-                    ["14", "Riyan Parag", "RR", "8", "8", "80", "7", "15", "143"],
-                    ["15", "Hardik Pandya", "MI", "8", "8", "78", "9", "14", "142"]
+                    ["02", "Sanju Samson", "CSK", "10", "10", "182", "19", "43", "378"],
+                    ["03", "Ayush Mhatre", "CSK", "10", "9", "184", "17", "39", "346"],
+                    ["04", "V. Suryavanshi", "RR", "9", "9", "175", "17", "38", "343"],
+                    ["05", "Yashasvi Jaiswal", "RR", "9", "9", "175", "17", "28", "315"],
+                    ["06", "Ishan Kishan", "SRH", "10", "10", "140", "21", "29", "312"],
+                    ["07", "Virat Kohli", "RCB", "9", "9", "167", "16", "26", "284"],
+                    ["08", "Sunil Narine", "KKR", "10", "10", "144", "17", "29", "280"],
+                    ["09", "Rohit Sharma", "MI", "10", "10", "139", "23", "24", "261"],
+                    ["10", "S. Yadav", "MI", "10", "10", "133", "20", "25", "259"]
                 ]
             },
             "most-sixes": {
-                title: "Most Sixes",
-                label: "Power Hitters",
+                title: "Most Sixes", label: "Power Hitters",
                 headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "SIXES"],
                 rows: [
-                    ["01", "Phil Salt", "RCB", "9", "9", "387", "41"],
-                    ["02", "Sanju Samson", "CSK", "9", "9", "344", "39"],
-                    ["03", "V. Suryavanshi", "RR", "8", "8", "314", "34"],
-                    ["04", "Ayush Mhatre", "CSK", "9", "8", "298", "33"],
-                    ["05", "Virat Kohli", "RCB", "9", "9", "284", "26"],
-                    ["06", "S. Yadav", "MI", "8", "8", "254", "25"],
-                    ["07", "H. Klaasen", "SRH", "8", "8", "217", "24"],
-                    ["08", "Sunil Narine", "KKR", "8", "8", "227", "24"],
-                    ["09", "Y. Jaiswal", "RR", "8", "8", "233", "22"],
-                    ["10", "Rohit Sharma", "MI", "8", "8", "215", "18"],
-                    ["11", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "18"],
-                    ["12", "Abhishek Sharma", "SRH", "8", "8", "156", "16"],
-                    ["13", "Riyan Parag", "RR", "8", "8", "143", "15"],
-                    ["14", "Hardik Pandya", "MI", "8", "8", "142", "14"],
-                    ["15", "Ishan Kishan", "SRH", "8", "8", "160", "12"]
+                    ["01", "Sanju Samson", "CSK", "10", "10", "378", "43"],
+                    ["02", "Phil Salt", "RCB", "9", "9", "387", "41"],
+                    ["03", "Ayush Mhatre", "CSK", "10", "9", "346", "39"],
+                    ["04", "V. Suryavanshi", "RR", "9", "9", "343", "38"],
+                    ["05", "Sunil Narine", "KKR", "10", "10", "280", "29"],
+                    ["06", "Ishan Kishan", "SRH", "10", "10", "312", "29"],
+                    ["07", "Yashasvi Jaiswal", "RR", "9", "9", "315", "28"],
+                    ["08", "Virat Kohli", "RCB", "9", "9", "284", "26"],
+                    ["09", "H. Klaasen", "SRH", "10", "10", "242", "26"],
+                    ["10", "S. Yadav", "MI", "10", "10", "259", "25"]
                 ]
             },
             "highest-score": {
-                title: "Highest Scores",
-                label: "Innings Best",
+                title: "Highest Scores", label: "Innings Best",
                 headers: ["POS", "PLAYER", "OPP", "B", "SCORE"],
                 rows: [
                     ["01", "V. Suryavanshi", "RR", "SRH", "38", "83"],
-                    ["02", "H. Klaasen", "SRH", "RCB", "26", "79"],
-                    ["03", "Sunil Narine", "KKR", "MI", "34", "78"],
-                    ["04", "D. Padikkal", "RCB", "CSK", "26", "73"],
-                    ["05", "Sanju Samson", "CSK", "RCB", "33", "71"],
-                    ["06", "V. Suryavanshi", "RR", "MI", "27", "69"],
-                    ["07", "Sunil Narine", "KKR", "SRH", "28", "68"],
-                    ["08", "Phil Salt", "RCB", "SRH", "38", "63"],
-                    ["09", "S. Yadav", "MI", "RR", "29", "63"],
-                    ["10", "Phil Salt", "RCB", "CSK", "40", "62"]
+                    ["02", "Y. Jaiswal", "RR", "MI", "35", "82"],
+                    ["03", "Ishan Kishan", "SRH", "CSK", "27", "81"],
+                    ["04", "H. Klaasen", "SRH", "RCB", "26", "79"],
+                    ["05", "Sunil Narine", "KKR", "MI", "34", "78"],
+                    ["06", "D. Padikkal", "RCB", "CSK", "26", "73"],
+                    ["07", "Ishan Kishan", "SRH", "KKR", "28", "71"],
+                    ["08", "Sanju Samson", "CSK", "RCB", "33", "71"],
+                    ["09", "V. Suryavanshi", "RR", "MI", "27", "69"],
+                    ["10", "Sunil Narine", "KKR", "SRH", "28", "68"]
                 ]
             },
             "most-fours": {
-                title: "Most Fours",
-                label: "Boundary Masters",
+                title: "Most Fours", label: "Boundary Masters",
                 headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "FOURS"],
                 rows: [
                     ["01", "Phil Salt", "RCB", "9", "9", "387", "24"],
-                    ["02", "Rohit Sharma", "MI", "8", "8", "215", "21"],
-                    ["03", "S. Yadav", "MI", "8", "8", "254", "19"],
-                    ["04", "Sanju Samson", "CSK", "9", "9", "344", "17"],
-                    ["05", "V. Suryavanshi", "RR", "8", "8", "314", "16"],
-                    ["06", "Ayush Mhatre", "CSK", "9", "8", "298", "16"],
-                    ["07", "Virat Kohli", "RCB", "9", "9", "284", "16"],
-                    ["08", "H. Klaasen", "SRH", "8", "8", "217", "16"],
-                    ["09", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "14"],
-                    ["10", "Sunil Narine", "KKR", "8", "8", "227", "12"],
-                    ["11", "Y. Jaiswal", "RR", "8", "8", "233", "12"],
-                    ["12", "Cameron Green", "KKR", "8", "7", "136", "11"],
-                    ["13", "Ishan Kishan", "SRH", "8", "8", "160", "10"],
-                    ["14", "Hardik Pandya", "MI", "8", "8", "142", "9"],
-                    ["15", "Abhishek Sharma", "SRH", "8", "8", "156", "8"]
+                    ["02", "Rohit Sharma", "MI", "10", "10", "261", "23"],
+                    ["03", "Ishan Kishan", "SRH", "10", "10", "312", "21"],
+                    ["04", "S. Yadav", "MI", "10", "10", "259", "20"],
+                    ["05", "Sanju Samson", "CSK", "10", "10", "378", "19"],
+                    ["06", "Yashasvi Jaiswal", "RR", "9", "9", "315", "17"],
+                    ["07", "V. Suryavanshi", "RR", "9", "9", "343", "17"],
+                    ["08", "Ayush Mhatre", "CSK", "10", "9", "346", "17"],
+                    ["09", "Sunil Narine", "KKR", "10", "10", "280", "17"],
+                    ["10", "H. Klaasen", "SRH", "10", "10", "242", "17"]
                 ]
             },
             "best-sr": {
-                title: "Strike Rate",
-                label: "Best Pace (Min 50 Runs)",
+                title: "Strike Rate", label: "Best Pace (Min 50 Runs)",
                 headers: ["POS", "PLAYER", "MAT", "INN", "RUNS", "SR"],
                 rows: [
-                    ["01", "Rinku Singh", "KKR", "8", "7", "89", "246.6"],
-                    ["02", "H. Klaasen", "SRH", "8", "8", "217", "223.7"],
-                    ["03", "Sunil Narine", "KKR", "8", "8", "227", "216.1"],
-                    ["04", "Suryakumar Yadav", "MI", "8", "8", "254", "215.2"],
-                    ["05", "Sanju Samson", "CSK", "9", "9", "344", "211.0"],
-                    ["06", "Vaibhav Suryavanshi", "RR", "8", "8", "314", "196.2"],
-                    ["07", "Rohit Sharma", "MI", "8", "8", "215", "190.2"],
-                    ["08", "Ishan Kishan", "SRH", "8", "8", "160", "188.2"],
-                    ["09", "Ayush Mhatre", "CSK", "9", "8", "298", "187.4"],
-                    ["10", "Abhishek Sharma", "SRH", "8", "8", "156", "183.5"],
-                    ["11", "Hardik Pandya", "MI", "8", "8", "142", "182.0"],
-                    ["12", "Phil Salt", "RCB", "9", "9", "387", "180.0"],
-                    ["13", "Riyan Parag", "RR", "8", "8", "143", "178.7"],
-                    ["14", "Virat Kohli", "RCB", "9", "9", "284", "170.0"],
-                    ["15", "Ruturaj Gaikwad", "CSK", "9", "9", "201", "157.0"]
+                    ["01", "Rinku Singh", "KKR", "10", "9", "94", "241.0"],
+                    ["02", "H. Klaasen", "SRH", "10", "10", "242", "205.0"],
+                    ["03", "Sunil Narine", "KKR", "10", "10", "280", "194.4"],
+                    ["04", "Suryakumar Yadav", "MI", "10", "10", "259", "194.7"],
+                    ["05", "Sanju Samson", "CSK", "10", "10", "378", "207.6"],
+                    ["06", "Vaibhav Suryavanshi", "RR", "9", "9", "343", "196.0"],
+                    ["07", "Rohit Sharma", "MI", "10", "10", "261", "187.7"],
+                    ["08", "Ishan Kishan", "SRH", "10", "10", "312", "222.8"],
+                    ["09", "Ayush Mhatre", "CSK", "10", "9", "346", "188.0"],
+                    ["10", "Phil Salt", "RCB", "9", "9", "387", "180.0"]
                 ]
             }
         };
@@ -295,38 +198,18 @@
             const type = params.get('type') || "mvp";
             const data = leaderboardData[type];
 
-            if(!data) {
-                document.getElementById('statTitle').innerText = "Not Found";
-                return;
-            }
+            if(!data) { document.getElementById('statTitle').innerText = "Not Found"; return; }
 
             document.getElementById('statTitle').innerText = data.title;
             document.getElementById('statCategory').innerText = data.label;
-
-            // Render Headers
             document.getElementById('tableHeader').innerHTML = data.headers.map(h => `<th>${h}</th>`).join('');
 
-            // Render Rows
             document.getElementById('tableBody').innerHTML = data.rows.map(row => {
-                // Team is always index 2
                 const teamAbbr = row[2].toLowerCase();
-                
-                // Construct cells
                 const posCell = `<td class="font-bold">${row[0]}</td>`;
-                const playerCell = `
-                    <td>
-                        <div class="player-cell">
-                            <img src="assets/logos/teams/${teamAbbr}.png" class="team-logo-mini" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23ccc%22%3E%3Cpath d=%22M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z%22/%3E%3C/svg%3E'">
-                            <span class="player-name">${row[1]}</span>
-                        </div>
-                    </td>`;
-                
-                // Middle stats start from index 3 to length-1
+                const playerCell = `<td><div class="player-cell"><img src="assets/logos/teams/${teamAbbr}.png" class="team-logo-mini" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23ccc%22%3E%3Cpath d=%22M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z%22/%3E%3C/svg%3E'"><span class="player-name">${row[1]}</span></div></td>`;
                 const middleStats = row.slice(3, -1).map(val => `<td>${val}</td>`).join('');
-                
-                // Final value is always last index
                 const finalStat = `<td class="highlight-val">${row[row.length - 1]}</td>`;
-
                 return `<tr>${posCell}${playerCell}${middleStats}${finalStat}</tr>`;
             }).join('');
         }
