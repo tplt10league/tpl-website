@@ -13,6 +13,14 @@
             --text-main: #1a1a1a; 
             --grid-line: rgba(0,0,0,0.08); 
             --tpl-gold: #fdb913;
+
+            /* Official Team Colors for Dynamic Strokes */
+            --csk: #fdb913;
+            --rr: #ea1a85;
+            --mi: #004ba0;
+            --rcb: #ec1c24;
+            --kkr: #3a225d;
+            --srh: #f26522;
         }
 
         body { 
@@ -29,7 +37,6 @@
             border-left: 1px solid var(--grid-line); 
             border-right: 1px solid var(--grid-line); 
         }
-        
         .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
         
         .hero-title { 
@@ -39,11 +46,7 @@
             text-transform: uppercase; 
             letter-spacing: -0.05em; 
             color: var(--text-main); 
-            text-shadow: 
-                0.5px 0.5px 0 var(--tpl-gold),
-                -0.5px -0.5px 0 var(--tpl-gold),
-                0.5px -0.5px 0 var(--tpl-gold),
-                -0.5px 0.5px 0 var(--tpl-gold);
+            text-shadow: 0.5px 0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold), 0.5px -0.5px 0 var(--tpl-gold), -0.5px 0.5px 0 var(--tpl-gold);
         }
 
         .section-divider { 
@@ -54,32 +57,9 @@
             z-index: 10; 
         }
 
-        /* Result List Rows */
-        .list-row { 
-            display: grid; 
-            grid-template-columns: 60px 1.5fr 1.5fr 80px; 
-            gap: 1rem; 
-            padding: 1.25rem 0; 
-            border-bottom: 1px solid var(--grid-line); 
-            align-items: center; 
-            text-decoration: none; 
-            color: inherit; 
-            position: relative; 
-            z-index: 10; 
-            transition: background 0.2s ease; 
-        }
-        .list-row:hover { background: rgba(0,0,0,0.02); }
-        
-        .fixture-teams { display: flex; align-items: center; gap: 0.5rem; }
-        .team-unit { display: flex; align-items: center; gap: 0.4rem; justify-content: center; }
-        .team-logo-small { width: 22px; height: 22px; object-fit: contain; }
-        .team-abbr { font-size: 1.4rem; font-weight: 900; font-style: italic; letter-spacing: -0.05em; line-height: 1; text-transform: uppercase; }
-        .vs-divider { font-weight: 300; font-size: 0.9rem; color: #bbb; font-style: italic; }
-        .match-meta { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 700; }
-        .result-text { font-weight: 800; font-size: 0.7rem; text-transform: uppercase; color: #000; letter-spacing: 0.02em; text-align: right; padding-right: 1rem; }
-        .view-link { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #bbb; text-align: right; }
-        
-        /* STICKY NAV - FLAT DESIGN */
+        /* -----------------------------------------
+           STICKY NAV - PILL DESIGN
+           ----------------------------------------- */
         .sticky-nav {
             position: fixed;
             top: 20px;
@@ -95,23 +75,135 @@
             align-items: center;
             justify-content: center;
             gap: 2.2rem;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .sticky-nav.visible { transform: translateX(-50%) translateY(0); }
-        
-        .nav-btn { 
-            color: #000; 
-            font-weight: 900; 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.12em; 
-            text-decoration: none; 
-            white-space: nowrap; 
-        }
+        .nav-btn { color: #000; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
         .nav-btn:hover { color: var(--tpl-gold); }
 
-        /* PLAYOFF BRACKET - TRANSPARENT/STROKE */
+        /* -----------------------------------------
+           TIMELINE RESULTS
+           ----------------------------------------- */
+        .results-timeline {
+            position: relative;
+            z-index: 10;
+            padding-left: 20px;
+            margin-top: 2rem;
+        }
+
+        .timeline-match {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 20px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .match-tag {
+            width: 70px;
+            height: 30px;
+            border: 1px solid #ccc;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 5;
+        }
+
+        .timeline-line-segment {
+            position: absolute;
+            left: 35px;
+            top: 15px;
+            width: 2px;
+            height: calc(100% + 2rem);
+            background: #ddd;
+            z-index: 2;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+            z-index: 6;
+            border: 2px solid white;
+        }
+
+        .match-details-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        /* Prevent Collapsing & Overlapping Layout Fixes */
+        .match-score-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap; /* Allows button to safely drop to next line on small screens */
+        }
+
+        /* Prevent "VS" from shrinking */
+        .match-score-row > div:not(.team-score-unit):not(.match-centre-btn) {
+            flex-shrink: 0;
+            margin: 0 0.25rem;
+        }
+
+        .team-score-unit { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.6rem; 
+            flex: 0 0 auto; /* Enforces boundaries, prevents squishing */
+            white-space: nowrap; 
+        }
+
+        .score-val {
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.05em;
+        }
+
+        .match-centre-btn {
+            background: var(--tpl-gold);
+            color: #000;
+            padding: 0.45rem 1.1rem;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            margin-left: auto; /* Pushes button to the right safely */
+            flex-shrink: 0;
+        }
+        .match-centre-btn:hover { background: #000; color: #fff; }
+
+        .outcome-text {
+            margin-top: 0.5rem;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* -----------------------------------------
+           PLAYOFF BRACKET
+           ----------------------------------------- */
         .bracket-wrapper {
             width: 100%;
             margin: 3rem 0;
@@ -122,59 +214,30 @@
             padding-bottom: 2rem;
         }
         .bracket-svg { width: 1100px; height: 520px; background: transparent; }
-        
-        .node-box { 
-            display: flex; 
-            flex-direction: column; 
-            width: 100%; 
-            height: 100%; 
-            background: transparent; 
-            border: 2.2px solid #000; 
-            overflow: hidden; 
-            font-family: 'Inter', sans-serif; 
-        }
-        
-        .node-label { 
-            font-size: 10px; 
-            font-weight: 900; 
-            background: #000; 
-            color: #fff; 
-            text-align: center; 
-            padding: 5px 0; 
-            text-transform: uppercase; 
-            letter-spacing: 0.2em; 
-        }
-        
-        .team-strip { 
-            display: flex; 
-            align-items: center; 
-            height: 44px; 
-            padding: 0 12px; 
-            background: transparent; 
-            color: #000; 
-            font-weight: 900; 
-            font-style: italic; 
-            font-size: 24px; 
-            border-bottom: 2.2px solid #000; 
-        }
+        .node-box { display: flex; flex-direction: column; width: 100%; height: 100%; background: transparent; border: 2.2px solid #000; overflow: hidden; font-family: 'Inter', sans-serif; }
+        .node-label { font-size: 10px; font-weight: 900; background: #000; color: #fff; text-align: center; padding: 5px 0; text-transform: uppercase; letter-spacing: 0.2em; }
+        .team-strip { display: flex; align-items: center; height: 44px; padding: 0 12px; background: transparent; color: #000; font-weight: 900; font-style: italic; font-size: 24px; border-bottom: 2.2px solid #000; }
         .team-strip:last-child { border-bottom: none; }
-        
         .team-strip img { height: 32px; width: 32px; object-fit: contain; margin-right: 14px; }
-        .tbd-strip { color: #ccc; font-size: 16px; font-style: normal; }
 
         @media (max-width: 768px) { 
-            .list-row { grid-template-columns: 45px 1fr 1fr; gap: 0.5rem; } 
-            .view-link { display: none; }
-            .team-abbr { font-size: 1.1rem; } 
-            .sticky-nav { gap: 1.2rem; padding: 0.6rem 1.4rem; }
-            .nav-btn { font-size: 9.5px; }
+            .match-score-row { gap: 0.4rem; justify-content: flex-start; }
+            .team-score-unit { gap: 0.35rem; }
+            .score-val { font-size: 1.15rem; }
+            .team-score-unit img { width: 20px; height: 20px; }
+            .match-centre-btn { font-size: 8px; padding: 0.35rem 0.6rem; }
+            .timeline-match { grid-template-columns: 40px 1fr; gap: 10px; margin-bottom: 1.5rem; }
+            .match-tag { width: 38px; font-size: 8px; height: 22px; }
+            .timeline-line-segment { left: 18px; }
+            .match-details-card { padding: 0.75rem; }
+            .sticky-nav { gap: 0.8rem; padding: 0.5rem 1rem; width: 95%; max-width: 400px; }
+            .nav-btn { font-size: 8px; }
         }
     </style>
 </head>
 <body class="p-4 md:p-12">
     <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
     
-    <!-- Flat Sticky Nav Bar (Home, Teams, Standings, Stats) -->
     <nav id="stickyNav" class="sticky-nav">
         <a href="index.html" class="nav-btn">Home</a>
         <a href="teams.html" class="nav-btn">Teams</a>
@@ -198,25 +261,8 @@
     </header>
 
     <main>
-        <!-- UPCOMING -->
-        <section>
-            <div class="section-divider mb-8">
-                <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">Next Match</h2>
-            </div>
-            <div class="list-row">
-                <div class="match-meta">M30</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                </div>
-                <div class="result-text !text-gray-400">League Stage Finale</div>
-                <div class="view-link">Upcoming</div>
-            </div>
-        </section>
-
         <!-- PLAYOFFS -->
-        <section class="mt-16 relative z-10">
+        <section class="relative z-10">
             <div class="section-divider mb-8 border-t-2 border-black">
                 <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase mt-8">The Playoffs</h2>
             </div>
@@ -229,397 +275,582 @@
                         </marker>
                     </defs>
 
-                    <!-- CONNECTORS (Solid Black) -->
+                    <!-- CONNECTORS -->
                     <path d="M 230 110 L 280 110 L 280 40 L 780 40 L 780 105 L 810 105" fill="none" stroke="#000" stroke-width="3" marker-end="url(#arrow-black)" />
                     <path d="M 230 155 L 280 155 L 280 235 L 420 235" fill="none" stroke="#000" stroke-width="3" marker-end="url(#arrow-black)" />
                     <path d="M 230 365 L 280 365 L 280 280 L 420 280" fill="none" stroke="#000" stroke-width="3" marker-end="url(#arrow-black)" />
                     <path d="M 630 258 L 780 258 L 780 150 L 810 150" fill="none" stroke="#000" stroke-width="3" marker-end="url(#arrow-black)" />
 
-                    <!-- NODES (Transparent with Strokes) -->
+                    <!-- NODES -->
                     <foreignObject x="20" y="70" width="210" height="120">
                         <div xmlns="http://www.w3.org/1999/xhtml" class="node-box">
                             <div class="node-label">Qualifier 1</div>
-                            <div class="team-strip"><img src="assets/logos/teams/rr.png"> RR</div>
-                            <div class="team-strip"><img src="assets/logos/teams/mi.png"> MI</div>
+                            <div class="team-strip"><img src="assets/logos/teams/rr.png" class="object-contain"> RR</div>
+                            <div class="team-strip"><img src="assets/logos/teams/mi.png" class="object-contain"> MI</div>
                         </div>
                     </foreignObject>
 
                     <foreignObject x="20" y="330" width="210" height="120">
                         <div xmlns="http://www.w3.org/1999/xhtml" class="node-box">
-                            <div class="node-label">Eliminator</div>
-                            <div class="team-strip"><img src="assets/logos/teams/csk.png"> CSK</div>
-                            <div class="team-strip"><img src="assets/logos/teams/kkr.png"> KKR</div>
+                            <div class="node-label" style="background:#333;">Eliminator</div>
+                            <div class="team-strip"><img src="assets/logos/teams/csk.png" class="object-contain"> CSK</div>
+                            <div class="team-strip"><img src="assets/logos/teams/kkr.png" class="object-contain"> KKR</div>
                         </div>
                     </foreignObject>
 
                     <foreignObject x="420" y="200" width="210" height="120">
                         <div xmlns="http://www.w3.org/1999/xhtml" class="node-box">
-                            <div class="node-label">Qualifier 2</div>
-                            <div class="team-strip tbd-strip">LOSER Q1</div>
-                            <div class="team-strip tbd-strip">WINNER EL</div>
+                            <div class="node-label" style="background:#555;">Qualifier 2</div>
+                            <div class="team-strip tbd-strip font-black p-4 text-gray-300">TBD</div>
+                            <div class="team-strip tbd-strip font-black p-4 text-gray-300">TBD</div>
                         </div>
                     </foreignObject>
 
                     <foreignObject x="810" y="70" width="240" height="120">
-                        <div xmlns="http://www.w3.org/1999/xhtml" class="node-box" style="border-color: #000; border-width: 4px;">
-                            <div class="node-label" style="background: var(--tpl-gold); color:#000;">Grand Final</div>
-                            <div class="team-strip tbd-strip font-black text-sm tracking-widest" style="color:#000; border-bottom-color:#000;">WINNER Q1</div>
-                            <div class="team-strip tbd-strip font-black text-sm tracking-widest" style="color:#000;">WINNER Q2</div>
+                        <div xmlns="http://www.w3.org/1999/xhtml" class="node-box" style="border-color: var(--tpl-gold); border-width: 3px;">
+                            <div class="node-label" style="background: transparent; color: var(--tpl-gold); border-bottom: 2px solid var(--tpl-gold);">Grand Final</div>
+                            <div class="team-strip font-black text-sm tracking-widest p-4 text-gray-300" style="border-bottom-color: var(--tpl-gold);">TBD</div>
+                            <div class="team-strip font-black text-sm tracking-widest p-4 text-gray-300">TBD</div>
                         </div>
                     </foreignObject>
                 </svg>
             </div>
         </section>
 
-        <!-- RESULTS LOG (1-29) -->
+        <!-- RESULTS LOG (1-30 TIMELINE) -->
         <section class="mt-24 relative z-10">
-            <div class="section-divider mb-8">
-                <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">Season Results</h2>
+            <div class="section-divider mb-12">
+                <h2 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">League Stage Results</h2>
             </div>
-            
-            <a href="matches/match.html?id=29" class="list-row">
-                <div class="match-meta">M29</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
-                </div>
-                <div class="result-text">MI WON BY 7 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=28" class="list-row">
-                <div class="match-meta">M28</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+            <div class="results-timeline">
+                
+                <!-- Match 30 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M30</div>
+                        <div class="timeline-line-segment" style="background: var(--rcb);"><div class="timeline-dot" style="color: var(--rcb);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">91/1</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">90/8</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=30" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rcb);">RCB WON BY 9 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">SRH WON BY 11 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=27" class="list-row">
-                <div class="match-meta">M27</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 29 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M29</div>
+                        <div class="timeline-line-segment" style="background: var(--mi);"><div class="timeline-dot" style="color: var(--mi);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">87/3</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">88/3</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=29" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--mi);">MI WON BY 7 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON BY 17 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=26" class="list-row">
-                <div class="match-meta">M26</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                <!-- Match 28 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M28</div>
+                        <div class="timeline-line-segment" style="background: var(--srh);"><div class="timeline-dot" style="color: var(--srh);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">138/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">127/4</span><span class="font-bold text-xs">CSK</span><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=28" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--srh);">SRH WON BY 11 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">SRH WON BY 4 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=25" class="list-row">
-                <div class="match-meta">M25</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                <!-- Match 27 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M27</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RR</span><span class="score-val">128/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">111/2</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=27" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON BY 17 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">CSK WON BY 7 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=24" class="list-row">
-                <div class="match-meta">M24</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 26 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M26</div>
+                        <div class="timeline-line-segment" style="background: var(--srh);"><div class="timeline-dot" style="color: var(--srh);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">98/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">94/3</span><span class="font-bold text-xs">KKR</span><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=26" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--srh);">SRH WON BY 4 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON VIA SUPER OVER</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=23" class="list-row">
-                <div class="match-meta">M23</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 25 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M25</div>
+                        <div class="timeline-line-segment" style="background: var(--csk);"><div class="timeline-dot" style="color: var(--csk);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">102/1</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">103/3</span><span class="font-bold text-xs">CSK</span><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=25" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--csk);">CSK WON BY 7 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">RCB WON BY 7 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=22" class="list-row">
-                <div class="match-meta">M22</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                <!-- Match 24 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M24</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">129/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">129/7</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=24" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON VIA SUPER OVER</div>
+                    </div>
                 </div>
-                <div class="result-text">KKR WON BY 6 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=21" class="list-row">
-                <div class="match-meta">M21</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                <!-- Match 23 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M23</div>
+                        <div class="timeline-line-segment" style="background: var(--rcb);"><div class="timeline-dot" style="color: var(--rcb);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">116/6</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">109/3</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=23" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rcb);">RCB WON BY 7 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">RCB WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=20" class="list-row">
-                <div class="match-meta">M20</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                <!-- Match 22 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M22</div>
+                        <div class="timeline-line-segment" style="background: var(--kkr);"><div class="timeline-dot" style="color: var(--kkr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">CSK</span><span class="score-val">86/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">87/4</span><span class="font-bold text-xs">KKR</span><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=22" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--kkr);">KKR WON BY 6 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON BY 49 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=19" class="list-row">
-                <div class="match-meta">M19</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 21 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M21</div>
+                        <div class="timeline-line-segment" style="background: var(--rcb);"><div class="timeline-dot" style="color: var(--rcb);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">101/3</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">104/2</span><span class="font-bold text-xs">RCB</span><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=21" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rcb);">RCB WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">CSK WON BY 21 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=18" class="list-row">
-                <div class="match-meta">M18</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
+                <!-- Match 20 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M20</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RR</span><span class="score-val">110/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">61/9</span><span class="font-bold text-xs">KKR</span><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=20" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON BY 49 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">KKR WON BY 9 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=17" class="list-row">
-                <div class="match-meta">M17</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 19 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M19</div>
+                        <div class="timeline-line-segment" style="background: var(--csk);"><div class="timeline-dot" style="color: var(--csk);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">CSK</span><span class="score-val">129/1</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">108/2</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=19" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--csk);">CSK WON BY 21 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">SRH WON BY 3 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=16" class="list-row">
-                <div class="match-meta">M16</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 18 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M18</div>
+                        <div class="timeline-line-segment" style="background: var(--kkr);"><div class="timeline-dot" style="color: var(--kkr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">89/0</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">92/1</span><span class="font-bold text-xs">KKR</span><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=18" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--kkr);">KKR WON BY 9 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">CSK WON BY 12 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=15" class="list-row">
-                <div class="match-meta">M15</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 17 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M17</div>
+                        <div class="timeline-line-segment" style="background: var(--srh);"><div class="timeline-dot" style="color: var(--srh);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">106/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">103/1</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=17" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--srh);">SRH WON BY 3 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">MI WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=14" class="list-row">
-                <div class="match-meta">M14</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 16 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M16</div>
+                        <div class="timeline-line-segment" style="background: var(--csk);"><div class="timeline-dot" style="color: var(--csk);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">CSK</span><span class="score-val">120/0</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">108/0</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=16" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--csk);">CSK WON BY 12 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON BY 9 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=13" class="list-row">
-                <div class="match-meta">M13</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                <!-- Match 15 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M15</div>
+                        <div class="timeline-line-segment" style="background: var(--mi);"><div class="timeline-dot" style="color: var(--mi);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">119/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">122/2</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=15" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--mi);">MI WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">CSK WON BY 6 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=12" class="list-row">
-                <div class="match-meta">M12</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 14 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M14</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">111/6</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">113/1</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=14" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON BY 9 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=11" class="list-row">
-                <div class="match-meta">M11</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                <!-- Match 13 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M13</div>
+                        <div class="timeline-line-segment" style="background: var(--csk);"><div class="timeline-dot" style="color: var(--csk);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">97/5</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">98/4</span><span class="font-bold text-xs">CSK</span><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=13" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--csk);">CSK WON BY 6 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">KKR WON BY 31 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=10" class="list-row">
-                <div class="match-meta">M10</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                <!-- Match 12 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M12</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">MI</span><span class="score-val">127/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">128/2</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=12" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">RCB WON BY 5 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=9" class="list-row">
-                <div class="match-meta">M09</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                <!-- Match 11 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M11</div>
+                        <div class="timeline-line-segment" style="background: var(--kkr);"><div class="timeline-dot" style="color: var(--kkr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">138/3</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">107/7</span><span class="font-bold text-xs">SRH</span><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=11" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--kkr);">KKR WON BY 31 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON BY 6 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=8" class="list-row">
-                <div class="match-meta">M08</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                <!-- Match 10 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M10</div>
+                        <div class="timeline-line-segment" style="background: var(--rcb);"><div class="timeline-dot" style="color: var(--rcb);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">133/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">128/0</span><span class="font-bold text-xs">CSK</span><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=10" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rcb);">RCB WON BY 5 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">MI WON BY 2 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=7" class="list-row">
-                <div class="match-meta">M07</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
+                <!-- Match 09 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M09</div>
+                        <div class="timeline-line-segment" style="background: var(--rr);"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RR</span><span class="score-val">124/3</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">118/3</span><span class="font-bold text-xs">SRH</span><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=9" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON BY 6 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">CSK WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=6" class="list-row">
-                <div class="match-meta">M06</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
+                <!-- Match 08 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M08</div>
+                        <div class="timeline-line-segment" style="background: var(--mi);"><div class="timeline-dot" style="color: var(--mi);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">MI</span><span class="score-val">120/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">118/2</span><span class="font-bold text-xs">RCB</span><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=8" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--mi);">MI WON BY 2 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">SRH WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=5" class="list-row">
-                <div class="match-meta">M05</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 07 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M07</div>
+                        <div class="timeline-line-segment" style="background: var(--csk);"><div class="timeline-dot" style="color: var(--csk);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">136/6</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">139/2</span><span class="font-bold text-xs">CSK</span><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=7" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--csk);">CSK WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">KKR WON BY 6 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=4" class="list-row">
-                <div class="match-meta">M04</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 06 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M06</div>
+                        <div class="timeline-line-segment" style="background: var(--srh);"><div class="timeline-dot" style="color: var(--srh);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">RCB</span><span class="score-val">122/1</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">124/2</span><span class="font-bold text-xs">SRH</span><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=6" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--srh);">SRH WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">MI WON BY 8 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=3" class="list-row">
-                <div class="match-meta">M03</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/kkr.png" class="team-logo-small"><span class="team-abbr">KKR</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rcb.png" class="team-logo-small"><span class="team-abbr">RCB</span></div>
+                <!-- Match 05 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M05</div>
+                        <div class="timeline-line-segment" style="background: var(--kkr);"><div class="timeline-dot" style="color: var(--kkr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">101/5</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">95/4</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=5" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--kkr);">KKR WON BY 6 RUNS</div>
+                    </div>
                 </div>
-                <div class="result-text">KKR WON BY 2 RUNS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=2" class="list-row">
-                <div class="match-meta">M02</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/srh.png" class="team-logo-small"><span class="team-abbr">SRH</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/mi.png" class="team-logo-small"><span class="team-abbr">MI</span></div>
+                <!-- Match 04 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M04</div>
+                        <div class="timeline-line-segment" style="background: var(--mi);"><div class="timeline-dot" style="color: var(--mi);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">CSK</span><span class="score-val">96/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">99/2</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=4" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--mi);">MI WON BY 8 WICKETS</div>
+                    </div>
                 </div>
-                <div class="result-text">MI WON BY 6 WICKETS</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
 
-            <a href="matches/match.html?id=1" class="list-row">
-                <div class="match-meta">M01</div>
-                <div class="fixture-teams">
-                    <div class="team-unit"><img src="assets/logos/teams/csk.png" class="team-logo-small"><span class="team-abbr">CSK</span></div>
-                    <span class="vs-divider">VS</span>
-                    <div class="team-unit"><img src="assets/logos/teams/rr.png" class="team-logo-small"><span class="team-abbr">RR</span></div>
+                <!-- Match 03 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M03</div>
+                        <div class="timeline-line-segment" style="background: var(--kkr);"><div class="timeline-dot" style="color: var(--kkr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/kkr.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">KKR</span><span class="score-val">75/2</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">74/3</span><span class="font-bold text-xs">RCB</span><img src="assets/logos/teams/rcb.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=3" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--kkr);">KKR WON BY 1 RUN</div>
+                    </div>
                 </div>
-                <div class="result-text">RR WON VIA SUPER OVER</div>
-                <div class="view-link">SCORECARD →</div>
-            </a>
+
+                <!-- Match 02 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M02</div>
+                        <div class="timeline-line-segment" style="background: var(--mi);"><div class="timeline-dot" style="color: var(--mi);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/srh.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">SRH</span><span class="score-val">102/4</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">103/4</span><span class="font-bold text-xs">MI</span><img src="assets/logos/teams/mi.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=2" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--mi);">MI WON BY 6 WICKETS</div>
+                    </div>
+                </div>
+
+                <!-- Match 01 -->
+                <div class="timeline-match">
+                    <div class="timeline-left">
+                        <div class="match-tag">M01</div>
+                        <!-- Bottom element doesn't need a tail down -->
+                        <div class="timeline-line-segment" style="background: var(--rr); height: 15px;"><div class="timeline-dot" style="color: var(--rr);"></div></div>
+                    </div>
+                    <div class="match-details-card">
+                        <div class="match-score-row">
+                            <div class="team-score-unit"><img src="assets/logos/teams/csk.png" class="w-8 h-8 object-contain"><span class="font-bold text-xs">CSK</span><span class="score-val">84/3</span></div>
+                            <div class="text-[9px] font-black opacity-10">VS</div>
+                            <div class="team-score-unit"><span class="score-val">84/3</span><span class="font-bold text-xs">RR</span><img src="assets/logos/teams/rr.png" class="w-8 h-8 object-contain"></div>
+                            <a href="matches/match.html?id=1" class="match-centre-btn">Scorecard</a>
+                        </div>
+                        <div class="outcome-text" style="color: var(--rr);">RR WON VIA SUPER OVER</div>
+                    </div>
+                </div>
+
+            </div>
         </section>
     </main>
 
     <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
-        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-            © 2026 T10 Premier League<br>
-            Season 01 / All Rights Reserved.
-        </div>
-        <div class="text-[10px] uppercase tracking-widest text-right">
-            Crafted for Excellence.<br>
-            Where every ball matters.
-        </div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500 text-center w-full">© 2026 T10 Premier League / Season 01</div>
     </footer>
 
     <script>
         let lastScrollY = window.scrollY;
         const stickyNav = document.getElementById('stickyNav');
-
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY < lastScrollY && currentScrollY > 150) {
-                stickyNav.classList.add('visible');
-            } else {
-                stickyNav.classList.remove('visible');
-            }
+            if (currentScrollY < lastScrollY && currentScrollY > 150) stickyNav.classList.add('visible');
+            else stickyNav.classList.remove('visible');
             lastScrollY = currentScrollY;
         });
     </script>

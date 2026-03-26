@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates — TPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        :root { 
+            --bg-color: #f2f2f2; 
+            --text-main: #1a1a1a; 
+            --grid-line: rgba(0,0,0,0.08); 
+            --tpl-gold: #fdb913;
+            --neg-red: #d93025;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        .grid-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 1; display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            border-left: 1px solid var(--grid-line); 
+            border-right: 1px solid var(--grid-line); 
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        .hero-title { 
+            font-weight: 900; 
+            font-size: clamp(2.5rem, 10vw, 6rem); 
+            line-height: 0.9; 
+            letter-spacing: -0.05em; 
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-shadow: 0.5px 0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold), 0.5px -0.5px 0 var(--tpl-gold), -0.5px 0.5px 0 var(--tpl-gold);
+        }
+
+        .section-divider {
+            border-top: 1px solid var(--text-main);
+            margin-top: 4rem;
+            padding-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* -----------------------------------------
+           STICKY NAV - FLAT PILL DESIGN
+           ----------------------------------------- */
+        .sticky-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-200%);
+            width: auto;
+            max-width: 95%;
+            background: #ffffff;
+            border: 1px solid var(--tpl-gold);
+            border-radius: 100px;
+            padding: 0.7rem 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.2rem;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sticky-nav.visible { transform: translateX(-50%) translateY(0); }
+        .nav-btn { color: #000; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
+        .nav-btn:hover { color: var(--tpl-gold); }
+
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        /* Trending Ticker */
+        .trending-bar {
+            background: var(--text-main);
+            color: white;
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 4rem;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .trending-label {
+            background: var(--tpl-gold);
+            color: black;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 1rem;
+            margin: 0 1rem;
+            z-index: 2;
+        }
+
+        .ticker-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: scrollTicker 25s linear infinite;
+        }
+
+        @keyframes scrollTicker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* -----------------------------------------
+           SLIDESHOW / CAROUSEL CSS 
+           ----------------------------------------- */
+        .carousel-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            align-items: stretch;
+            width: 100%;
+            touch-action: pan-y; /* Allows vertical scrolling while tracking horizontal swipes */
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 0;
+            align-items: center;
+            opacity: 0.3;
+            transition: opacity 0.7s ease;
+        }
+        
+        .carousel-slide.active { opacity: 1; }
+
+        .slide-image-box {
+            position: relative;
+            aspect-ratio: 16/10;
+            background: #e0e0e0;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            border: 1px solid var(--grid-line);
+            width: 100%;
+        }
+
+        .slide-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            padding-left: 4rem;
+            padding-right: 1rem;
+        }
+
+        .alert-tag {
+            display: inline-block;
+            background: var(--text-main);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-tag.urgent { background: var(--neg-red); }
+        .alert-tag.gold { background: var(--tpl-gold); color: black; }
+
+        .slide-headline {
+            font-size: clamp(2.2rem, 4vw, 4rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        .slide-excerpt {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 95%;
+        }
+
+        .read-more-btn {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--tpl-gold);
+            padding-bottom: 4px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .read-more-btn:hover { color: var(--tpl-gold); }
+
+        /* Floating Image Nav Arrows (No Background Circle) */
+        .carousel-nav-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 58.333%; 
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            pointer-events: none; 
+            z-index: 20;
+        }
+
+        .nav-arrow {
+            pointer-events: auto;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-arrow svg { 
+            width: 32px; 
+            height: 32px; 
+            stroke: rgba(255, 255, 255, 0.9);
+            stroke-width: 2.5; 
+            transition: stroke 0.2s ease;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+        }
+        
+        .nav-arrow:hover { transform: scale(1.15); }
+        .nav-arrow:hover svg { stroke: var(--tpl-gold); }
+
+        /* -----------------------------------------
+           SECONDARY GRID 
+           ----------------------------------------- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .news-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card-img-wrap {
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #e0e0e0;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .news-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .news-card:hover .news-card-img-wrap img { transform: scale(1.03); }
+
+        .news-card-tag { font-size: 0.65rem; font-weight: 900; color: var(--tpl-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+        .news-card-title { font-size: 1.4rem; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.75rem; text-transform: uppercase; transition: color 0.2s ease; }
+        .news-card:hover .news-card-title { color: var(--tpl-gold); }
+        .news-card-excerpt { font-size: 0.9rem; color: #666; line-height: 1.5; }
+
+        @media (max-width: 992px) {
+            .carousel-slide { grid-template-columns: 1fr; gap: 2rem; }
+            .slide-content { padding-left: 1rem; padding-right: 1rem; }
+            .carousel-nav-layer { width: 100%; height: auto; aspect-ratio: 16/10; padding: 0 1rem; }
+            .slide-excerpt { max-width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .slide-headline { font-size: 2.2rem; }
+            .sticky-nav { gap: 0.8rem; padding: 0.5rem 1rem; width: 95%; max-width: 400px; }
+            .nav-btn { font-size: 8px; }
+            .nav-arrow { width: 40px; height: 40px; }
+            .nav-arrow svg { width: 24px; height: 24px; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav id="stickyNav" class="sticky-nav">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="news.html" class="nav-btn" style="color: var(--tpl-gold);">News</a>
+        <a href="fixtures.html" class="nav-btn">Fixtures/Results</a>
+        <a href="points.html" class="nav-btn">Standings</a>
+        <a href="stats.html" class="nav-btn">Stats</a>
+    </nav>
+
+    <nav class="relative z-20 flex justify-between items-start mb-16 md:mb-24">
+        <div class="text-[10px] md:text-xs font-bold tracking-widest uppercase">TPL / SEASON 01</div>
+        <div class="flex flex-col items-end gap-1 md:gap-2 uppercase text-[10px] md:text-sm font-medium text-right">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="news.html" class="nav-link font-bold">News</a>
+            <a href="fixtures.html" class="nav-link">Fixtures/Results</a>
+            <a href="points.html" class="nav-link">Standings</a>
+            <a href="stats.html" class="nav-link">Stats</a>
+        </div>
+    </nav>
+
+    <header class="relative z-10 mb-8">
+        <h1 class="hero-title">Latest<br>Updates</h1>
+    </header>
+
+    <div class="trending-bar">
+        <div class="trending-label">JUST IN</div>
+        <div class="ticker-text">
+            PLAYOFF FIXTURES CONFIRMED: RR VS MI (QUALIFIER 1) • CSK VS KKR (ELIMINATOR) • SRH RELEGATED TO LOWER DIVISION AFTER FINISHING LAST IN SEASON 01 • SURYAVANSHI LEADS ORANGE CAP RACE • SAMSON HITS 43 SIXES •
+        </div>
+    </div>
+
+    <main>
+        
+        <!-- The Interactive Slideshow -->
+        <div class="carousel-container" id="newsCarousel">
+            
+            <!-- Floating Navigation Layer over Image (No Circles) -->
+            <div class="carousel-nav-layer">
+                <div class="nav-arrow" id="prevBtn" aria-label="Previous story">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="square" stroke-linejoin="miter"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </div>
+                <div class="nav-arrow" id="nextBtn" aria-label="Next story">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="square" stroke-linejoin="miter"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </div>
+
+            <div class="carousel-track" id="track">
+                
+                <!-- SLIDE 1 -->
+                <article class="carousel-slide active">
+                    <div class="slide-image-box">
+                        <img src="assets/news/playoffs-preview.jpg" alt="Playoffs Preview" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 flex items-center justify-center -z-10 bg-neutral-200 text-neutral-400 font-black italic text-2xl uppercase tracking-tighter px-4 text-center">Image: playoffs-preview.jpg</div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="alert-tag">The Playoffs</span>
+                            <span class="font-black text-sm tracking-widest text-gray-400">01/04</span>
+                        </div>
+                        <h2 class="slide-headline">The Stage is Set: Season 01 Playoffs</h2>
+                        <p class="slide-excerpt">
+                            The league stage is officially over, and the final four have emerged. Table-toppers Rajasthan Royals clash with Mumbai Indians in Qualifier 1, while MS Dhoni's Chennai Super Kings face a do-or-die Eliminator against the Kolkata Knight Riders. Who will lift the inaugural trophy?
+                        </p>
+                        <div><a href="fixtures.html" class="read-more-btn">View Bracket &rarr;</a></div>
+                    </div>
+                </article>
+
+                <!-- SLIDE 2 -->
+                <article class="carousel-slide">
+                    <div class="slide-image-box">
+                        <img src="assets/news/srh-relegated.jpg" alt="SRH Relegated" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 flex items-center justify-center -z-10 bg-neutral-200 text-neutral-400 font-black italic text-2xl uppercase tracking-tighter px-4 text-center">Image: srh-relegated.jpg</div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="alert-tag urgent">Breaking News</span>
+                            <span class="font-black text-sm tracking-widest text-gray-400">02/04</span>
+                        </div>
+                        <h2 class="slide-headline">End of the Road: Sunrisers Relegated</h2>
+                        <p class="slide-excerpt">
+                            Finishing dead last in Season 01 with just 8 points and a dismal Net Run Rate of -0.60, Sunrisers Hyderabad face the ultimate penalty. After a rollercoaster season that ended with a brutal defeat, they have been officially relegated from the top flight of the TPL.
+                        </p>
+                        <div><a href="points.html" class="read-more-btn">Final Standings &rarr;</a></div>
+                    </div>
+                </article>
+
+                <!-- SLIDE 3 -->
+                <article class="carousel-slide">
+                    <div class="slide-image-box">
+                        <img src="assets/news/suryavanshi-orange.jpg" alt="Suryavanshi Orange Cap" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 flex items-center justify-center -z-10 bg-neutral-200 text-neutral-400 font-black italic text-2xl uppercase tracking-tighter px-4 text-center">Image: suryavanshi-orange.jpg</div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="alert-tag gold">Tournament Stats</span>
+                            <span class="font-black text-sm tracking-widest text-gray-400">03/04</span>
+                        </div>
+                        <h2 class="slide-headline">Suryavanshi Secures the Orange Cap</h2>
+                        <p class="slide-excerpt">
+                            The 15-year-old prodigy finishes the league stage with a massive 403 runs and 5 half-centuries, overtaking Phil Salt at the final hurdle. He currently leads the MVP race and looks unstoppable going into the playoffs.
+                        </p>
+                        <div><a href="stats.html" class="read-more-btn">View Stats Hub &rarr;</a></div>
+                    </div>
+                </article>
+
+                <!-- SLIDE 4 -->
+                <article class="carousel-slide">
+                    <div class="slide-image-box">
+                        <img src="assets/news/kohli-masterclass.jpg" alt="Kohli Masterclass" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 flex items-center justify-center -z-10 bg-neutral-200 text-neutral-400 font-black italic text-2xl uppercase tracking-tighter px-4 text-center">Image: kohli-masterclass.jpg</div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="alert-tag">Match 30 Recap</span>
+                            <span class="font-black text-sm tracking-widest text-gray-400">04/04</span>
+                        </div>
+                        <h2 class="slide-headline">Kohli's Masterclass Saves RCB's Pride</h2>
+                        <p class="slide-excerpt">
+                            RCB might have missed the playoffs, but Virat Kohli's unbeaten 54 helped them chase down RR's 90 in just 9.3 overs in the league finale, ensuring they avoided the relegation zone and finished the season strong.
+                        </p>
+                        <div><a href="matches/match.html?id=30" class="read-more-btn">View Scorecard &rarr;</a></div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+        <!-- MORE STORIES GRID -->
+        <div class="section-divider mb-12">
+            <h3 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">More Stories</h3>
+        </div>
+
+        <div class="news-grid mb-24">
+            
+            <!-- Article 5 -->
+            <a href="matches/match.html?id=20" class="news-card">
+                <div class="news-card-img-wrap">
+                    <img src="assets/news/rr-crushes-kkr.jpg" alt="RR Crushes KKR" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 flex items-center justify-center -z-10 text-neutral-400 font-black italic text-lg uppercase tracking-tighter px-4 text-center">Image: rr-crushes-kkr.jpg</div>
+                </div>
+                <div class="news-card-tag">Match 20 Throwback</div>
+                <h4 class="news-card-title">Royals Crush KKR by 49 Runs</h4>
+                <p class="news-card-excerpt">A look back at the biggest margin of victory this season, where Ravindra Jadeja's 41 off 18 completely dismantled the Knight Riders.</p>
+            </a>
+
+            <!-- Article 6 -->
+            <a href="leaderboard.html?type=most-sixes" class="news-card">
+                <div class="news-card-img-wrap">
+                    <img src="assets/news/samson-sixes.jpg" alt="Samson Sixes" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 flex items-center justify-center -z-10 text-neutral-400 font-black italic text-lg uppercase tracking-tighter px-4 text-center">Image: samson-sixes.jpg</div>
+                </div>
+                <div class="news-card-tag" style="color: var(--text-main);">Tournament Stats</div>
+                <h4 class="news-card-title">Samson Crowned Six-Hitting King</h4>
+                <p class="news-card-excerpt">Sanju Samson finishes the league stage with an incredible 43 maximums, tying for the top spot and asserting his dominance.</p>
+            </a>
+
+            <!-- Article 7: RR Openers Analysis -->
+            <a href="teams.html" class="news-card">
+                <div class="news-card-img-wrap">
+                    <img src="assets/news/rr-openers.jpg" alt="RR Opening Combo" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 flex items-center justify-center -z-10 text-neutral-400 font-black italic text-lg uppercase tracking-tighter px-4 text-center">Image: rr-openers.jpg</div>
+                </div>
+                <div class="news-card-tag">Team Analysis</div>
+                <h4 class="news-card-title">The Jaiswal-Suryavanshi Phenomenon</h4>
+                <p class="news-card-excerpt">Analyzing the most explosive opening pair of the tournament. Yashasvi and the 15-year-old prodigy Vaibhav have consistently dismantled opposition bowling attacks.</p>
+            </a>
+
+            <!-- Article 8: CSK Openers Analysis -->
+            <a href="teams.html" class="news-card">
+                <div class="news-card-img-wrap">
+                    <img src="assets/news/csk-openers.jpg" alt="CSK Opening Combo" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 flex items-center justify-center -z-10 text-neutral-400 font-black italic text-lg uppercase tracking-tighter px-4 text-center">Image: csk-openers.jpg</div>
+                </div>
+                <div class="news-card-tag">Team Analysis</div>
+                <h4 class="news-card-title">Fire & Ice: Samson and Mhatre</h4>
+                <p class="news-card-excerpt">Sanju Samson's relentless power-hitting perfectly complements Ayush Mhatre's calculated aggression at the top of the order for the Super Kings.</p>
+            </a>
+
+            <!-- Article 9: Match 7 Throwback -->
+            <a href="matches/match.html?id=7" class="news-card">
+                <div class="news-card-img-wrap">
+                    <img src="assets/news/csk-dominates-kkr.jpg" alt="CSK Dominates KKR" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 flex items-center justify-center -z-10 text-neutral-400 font-black italic text-lg uppercase tracking-tighter px-4 text-center">Image: csk-dominates-kkr.jpg</div>
+                </div>
+                <div class="news-card-tag">Match 07 Throwback</div>
+                <h4 class="news-card-title">Super Kings Dominate Knight Riders</h4>
+                <p class="news-card-excerpt">CSK puts on a clinical chasing masterclass, hunting down KKR's 136 with ease to secure a massive 8-wicket victory early in the season.</p>
+            </a>
+
+        </div>
+
+        <!-- BY THE NUMBERS (FAST FACTS) -->
+        <div class="section-divider mb-12">
+            <h3 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">League Stage by the Numbers</h3>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 relative z-10">
+            <div class="bg-neutral-800 text-white p-6 text-center shadow-lg">
+                <div class="text-4xl md:text-5xl font-black italic text-[var(--tpl-gold)] mb-2">403</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-gray-300">Runs by Suryavanshi</div>
+            </div>
+            <div class="bg-neutral-800 text-white p-6 text-center shadow-lg">
+                <div class="text-4xl md:text-5xl font-black italic text-[var(--tpl-gold)] mb-2">43</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-gray-300">Sixes by S. Samson</div>
+            </div>
+            <div class="bg-neutral-800 text-white p-6 text-center shadow-lg">
+                <div class="text-4xl md:text-5xl font-black italic text-[var(--tpl-gold)] mb-2">241.0</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-gray-300">S/R by Rinku Singh</div>
+            </div>
+            <div class="bg-neutral-800 text-white p-6 text-center shadow-lg">
+                <div class="text-4xl md:text-5xl font-black italic text-[var(--tpl-gold)] mb-2">139</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-gray-300">Highest Total (CSK)</div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 border-t border-black mt-24 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500 text-center w-full">© 2026 T10 Premier League / Season 01 News Desk</div>
+    </footer>
+
+    <script>
+        // Sticky Nav Logic
+        let lastScrollY = window.scrollY;
+        const stickyNav = document.getElementById('stickyNav');
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY < lastScrollY && currentScrollY > 150) stickyNav.classList.add('visible');
+            else stickyNav.classList.remove('visible');
+            lastScrollY = currentScrollY;
+        });
+
+        // Carousel / Slideshow Logic
+        const track = document.getElementById('track');
+        const slides = Array.from(track.children);
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const carousel = document.getElementById('newsCarousel');
+        
+        let currentIndex = 0;
+        let slideInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function updateSlider() {
+            // Move Track
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update Opacities
+            slides.forEach((slide, index) => {
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+
+        function moveToNextSlide() {
+            currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+            updateSlider();
+        }
+
+        function moveToPrevSlide() {
+            currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+            updateSlider();
+        }
+
+        function startAutoPlay() {
+            slideInterval = setInterval(moveToNextSlide, 5000); // 5 seconds
+        }
+
+        function resetAutoPlay() {
+            clearInterval(slideInterval);
+            startAutoPlay();
+        }
+
+        // Button Listeners with interval reset
+        nextBtn.addEventListener('click', () => {
+            moveToNextSlide();
+            resetAutoPlay();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            moveToPrevSlide();
+            resetAutoPlay();
+        });
+
+        // Swipe Functionality for Touch Devices
+        carousel.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+            clearInterval(slideInterval); // Pause while swiping/holding
+        }, {passive: true});
+
+        carousel.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            startAutoPlay(); // Resume after swipe
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum distance to register a swipe
+            if (touchStartX - touchEndX > swipeThreshold) {
+                // Swiped Left - Next Slide
+                moveToNextSlide();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                // Swiped Right - Prev Slide
+                moveToPrevSlide();
+            }
+        }
+
+        // Pause on hover so users can read the text (Desktop)
+        carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        carousel.addEventListener('mouseleave', startAutoPlay);
+
+        // Initialize First Slide and Start Auto Play
+        updateSlider();
+        startAutoPlay();
+    </script>
+</body>
+</html>

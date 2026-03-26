@@ -248,11 +248,11 @@
             mi: ["Rohit Sharma", "Quinton de Kock", "Suryakumar Yadav", "Hardik Pandya", "Tilak Varma", "Ryan Rickelton", "Mitchell Santner", "Will Jacks", "Trent Boult", "Jasprit Bumrah", "Deepak Chahar"],
             rcb: ["Phil Salt", "Virat Kohli", "Devdutt Padikkal", "Jacob Bethell", "Rajat Patidar", "Jitesh Sharma", "Venkatesh Iyer", "Romario Shepherd", "Tim David", "Krunal Pandya", "Bhuvaneshwar Kumar", "Josh Hazlewood", "Sandeep Sharma", "Nuwan Thushara"],
             kkr: ["Sunil Narine", "Ajinkya Rahane", "Cameron Green", "Manish Pandey", "Rinku Singh", "Rovman Powell", "Angkrish Raghuvanshi", "Tim Seifert", "Finn Allen", "Harshit Rana", "Matheesha Pathirana", "Varun Chakravarthy", "Umran Malik", "Rachin Ravindra"],
-            rr: ["Yashasvi Jaiswal", "Vaibhav Suryavanshi", "Riyan Parag", "Dhruv Jurel", "Shimron Hetmyer", "Ravindra Jadeja", "Sam Curran", "Jofra Archer", "Ravi Bishnoi", "Sandeep Sharma"],
+            rr: ["Yashasvi Jaiswal", "Vaibhav Suryavanshi", "Riyan Parag", "Dhruv Jurel", "Shimron Hetmyer", "Ravindra Jadeja", "Sam Curran", "Jofra Archer", "Ravi Bishnoi", "Sandeep Sharma", "Donnovan Ferrera"],
             srh: ["Travis Head", "Abhishek Sharma", "Ishan Kishan", "Heinrich Klaasen", "Nitish Kumar Reddy", "Liam Livingstone", "Pat Cummins", "Jaydev Unadkat", "Harshal Patel", "Kusal Mendis", "Aniket Varma"]
         };
 
-        // FULL MATCH DATABASE 01-29
+        // FULL MATCH DATABASE 01-30
         const matchesData = {
             "1": { title: "CSK vs RR", outcome: "RR won via Super Over", winner: "RR", team1: { name: "Chennai Super Kings", abbr: "CSK", score: "84/3", overs: "10.0", batting: [["Ayush Mhatre",0,3,0,0],["Sanju Samson",26,11,1,3],["Ruturaj Gaikwad",33,22,1,4],["Dewald Brevis",22,23,2,1],["MS Dhoni",0,2,0,0]] }, team2: { name: "Rajasthan Royals", abbr: "RR", score: "84/3", overs: "10.0", batting: [["Yashasvi Jaiswal",26,12,2,0],["Vaibhav Suryavanshi",13,15,1,0],["Riyan Parag",28,16,3,1],["Ravindra Jadeja",0,2,0,0],["Shimron Hetmyer",14,12,1,1]] }, superOver: { team1: "RR: 19/0", team2: "CSK: 10/0", result: "RR won by 9 runs", winner: "RR" } },
             "2": { title: "SRH vs MI", outcome: "MI won by 6 wickets", winner: "MI", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "102/4", overs: "10.0", batting: [["Travis Head",1,4,0,0],["Abhishek Sharma",1,2,0,0],["Ishan Kishan",13,9,2,0],["Heinrich Klaasen",46,24,3,3],["Nitish Kumar Reddy",39,18,2,3],["Liam Livingstone",2,3,0,0]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "103/4", overs: "9.4", batting: [["Rohit Sharma",43,16,0,7],["Tilak Varma",16,6,2,1],["Quinton de Kock",2,7,0,0],["Suryakumar Yadav",1,10,0,0],["Hardik Pandya",32,18,2,2],["Ryan Rickelton",8,3,1,1]] } },
@@ -282,7 +282,34 @@
             "26": { title: "SRH vs KKR", outcome: "SRH won by 4 runs", winner: "SRH", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "98/2", overs: "10.0", batting: [["Abhishek Sharma",2,7,0,0],["Travis Head",4,4,1,0],["Ishan Kishan",71,28,2,10],["Heinrich Klaasen",19,21,1,1]] }, team2: { name: "Kolkata Knight Riders", abbr: "KKR", score: "94/3", overs: "10.0", batting: [["Sunil Narine",7,4,0,1],["Finn Allen",66,39,5,6],["Tim Seifert",17,13,2,2],["Rinku Singh",5,3,0,0]] } },
             "27": { title: "RR vs MI", outcome: "RR won by 17 runs", winner: "RR", team1: { name: "Rajasthan Royals", abbr: "RR", score: "128/2", overs: "10.0", batting: [["Yashasvi Jaiswal",82,35,5,6],["Vaibhav Suryavanshi",29,15,1,4],["Riyan Parag",8,6,2,0],["Dhruv Jurel",8,4,0,1]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "111/2", overs: "10.0", batting: [["Rohit Sharma",46,24,2,6],["Quinton de Kock",49,24,6,3],["Suryakumar Yadav",0,5,0,0],["Hardik Pandya",12,6,1,1]] } },
             "28": { title: "SRH vs CSK", outcome: "SRH won by 11 runs", winner: "SRH", team1: { name: "Sunrisers Hyderabad", abbr: "SRH", score: "138/4", overs: "10.0", batting: [["Abhishek Sharma",4,3,1,0],["Travis Head",23,15,2,2],["Heinrich Klaasen",6,3,0,1],["Ishan Kishan",81,27,9,7],["Liam Livingstone",19,10,3,1],["Nitish Kumar Reddy",0,1,0,0]] }, team2: { name: "Chennai Super Kings", abbr: "CSK", score: "127/4", overs: "10.0", batting: [["Sanju Samson",34,19,2,4],["Ayush Mhatre",48,25,1,6],["Ruturaj Gaikwad",6,7,0,0],["Shivam Dube",18,5,3,1],["Dewald Brevis",12,3,0,2],["MS Dhoni",0,1,0,0]] } },
-            "29": { title: "KKR vs MI", outcome: "MI won by 7 wickets", winner: "MI", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "87/3", overs: "10.0", batting: [["Sunil Narine",46,35,5,4],["Finn Allen",20,11,3,1],["Tim Seifert",0,3,0,0],["Ajinkya Rahane",21,11,2,2]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "88/3", overs: "8.4", batting: [["Rohit Sharma",0,2,0,0],["Quinton de Kock",16,5,1,2],["Suryakumar Yadav",5,10,1,0],["Tilak Varma",50,24,3,5],["Ryan Rickelton",14,11,1,1]] } }
+            "29": { title: "KKR vs MI", outcome: "MI won by 7 wickets", winner: "MI", team1: { name: "Kolkata Knight Riders", abbr: "KKR", score: "87/3", overs: "10.0", batting: [["Sunil Narine",46,35,5,4],["Finn Allen",20,11,3,1],["Tim Seifert",0,3,0,0],["Ajinkya Rahane",21,11,2,2]] }, team2: { name: "Mumbai Indians", abbr: "MI", score: "88/3", overs: "8.4", batting: [["Rohit Sharma",0,2,0,0],["Quinton de Kock",16,5,1,2],["Suryakumar Yadav",5,10,1,0],["Tilak Varma",50,24,3,5],["Ryan Rickelton",14,11,1,1]] } },
+            "30": {
+                title: "RCB vs RR",
+                outcome: "RCB won by 9 Wickets (3 balls left)",
+                winner: "RCB",
+                team1: {
+                    name: "Rajasthan Royals", abbr: "RR", score: "90/8", overs: "10.0",
+                    batting: [
+                        ["Yashasvi Jaiswal", 0, 2, 0, 0, "0.00"],
+                        ["Vaibhav Suryavanshi", 60, 31, 6, 5, "193.55"],
+                        ["Riyan Parag", 1, 3, 0, 0, "33.33"],
+                        ["Dhruv Jurel", 11, 6, 1, 1, "183.33"],
+                        ["Shimron Hetmyer", 4, 3, 1, 0, "133.33"],
+                        ["Donnovan Ferrera", 0, 5, 0, 0, "0.00"],
+                        ["Sam Curran", 4, 4, 1, 0, "100.00"],
+                        ["Ravindra Jadeja", 6, 3, 0, 1, "200.00"],
+                        ["Jofra Archer", 4, 3, 1, 0, "133.33"]
+                    ]
+                },
+                team2: {
+                    name: "Royal Challengers Bengaluru", abbr: "RCB", score: "91/1", overs: "9.3",
+                    batting: [
+                        ["Phil Salt", 9, 10, 0, 1, "90.00"],
+                        ["Virat Kohli", 54, 28, 3, 4, "192.86"],
+                        ["Jacob Bethell", 25, 17, 3, 1, "147.06"]
+                    ]
+                }
+            }
         };
 
         function getFullBattingTable(teamAbbr, battingStats) {

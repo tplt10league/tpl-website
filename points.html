@@ -15,6 +15,7 @@
             --pos-green: #008c4a;
             --neg-red: #d93025;
             --tpl-blue: #0f172a;
+            --tpl-gold: #fdb913;
         }
 
         body { 
@@ -40,6 +41,7 @@
             text-transform: uppercase; 
             letter-spacing: -0.05em; 
             color: var(--text-main);
+            text-shadow: 0.5px 0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold), 0.5px -0.5px 0 var(--tpl-gold), -0.5px 0.5px 0 var(--tpl-gold);
         }
 
         .table-wrapper {
@@ -60,7 +62,7 @@
         }
 
         thead {
-            background-color: var(--tpl-blue);
+            background-color: var(--text-main);
             color: white;
         }
 
@@ -156,20 +158,20 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- 1: RR -->
+                <!-- 1: RR (League Toppers) -->
                 <tr>
                     <td><span class="font-bold">01</span></td>
                     <td>
                         <div class="team-cell">
-                            <img src="assets/logos/teams/rr.png" class="team-logo" alt="RR" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <img src="assets/logos/teams/rr.png" class="team-logo" alt="RR">
                             <span class="team-name">RR</span>
                         </div>
                     </td>
-                    <td>9</td>
+                    <td>10</td>
                     <td>7</td>
-                    <td>2</td>
+                    <td>3</td>
                     <td class="font-black text-lg">14</td>
-                    <td class="nrr-pos">+0.75</td>
+                    <td class="nrr-pos">+0.68</td>
                     <td><span class="status-badge status-q">Q</span></td>
                 </tr>
 
@@ -178,7 +180,7 @@
                     <td><span class="font-bold">02</span></td>
                     <td>
                         <div class="team-cell">
-                            <img src="assets/logos/teams/mi.png" class="team-logo" alt="MI" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <img src="assets/logos/teams/mi.png" class="team-logo" alt="MI">
                             <span class="team-name">MI</span>
                         </div>
                     </td>
@@ -195,7 +197,7 @@
                     <td><span class="font-bold">03</span></td>
                     <td>
                         <div class="team-cell">
-                            <img src="assets/logos/teams/csk.png" class="team-logo" alt="CSK" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <img src="assets/logos/teams/csk.png" class="team-logo" alt="CSK">
                             <span class="team-name">CSK</span>
                         </div>
                     </td>
@@ -212,7 +214,7 @@
                     <td><span class="font-bold">04</span></td>
                     <td>
                         <div class="team-cell">
-                            <img src="assets/logos/teams/kkr.png" class="team-logo" alt="KKR" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <img src="assets/logos/teams/kkr.png" class="team-logo" alt="KKR">
                             <span class="team-name">KKR</span>
                         </div>
                     </td>
@@ -224,12 +226,29 @@
                     <td><span class="status-badge status-q">Q</span></td>
                 </tr>
 
-                <!-- 5: SRH -->
+                <!-- 5: RCB (Jumped to 5th after M30) -->
                 <tr>
                     <td><span class="font-bold">05</span></td>
                     <td>
                         <div class="team-cell">
-                            <img src="assets/logos/teams/srh.png" class="team-logo" alt="SRH" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
+                            <img src="assets/logos/teams/rcb.png" class="team-logo" alt="RCB">
+                            <span class="team-name">RCB</span>
+                        </div>
+                    </td>
+                    <td>10</td>
+                    <td>4</td>
+                    <td>6</td>
+                    <td class="font-black text-lg text-gray-500">8</td>
+                    <td class="nrr-neg">-0.32</td>
+                    <td><span class="status-badge status-e">E</span></td>
+                </tr>
+
+                <!-- 6: SRH -->
+                <tr>
+                    <td><span class="font-bold">06</span></td>
+                    <td>
+                        <div class="team-cell">
+                            <img src="assets/logos/teams/srh.png" class="team-logo" alt="SRH">
                             <span class="team-name">SRH</span>
                         </div>
                     </td>
@@ -240,30 +259,13 @@
                     <td class="nrr-neg">-0.60</td>
                     <td><span class="status-badge status-e">E</span></td>
                 </tr>
-
-                <!-- 6: RCB -->
-                <tr>
-                    <td><span class="font-bold">06</span></td>
-                    <td>
-                        <div class="team-cell">
-                            <img src="assets/logos/teams/rcb.png" class="team-logo" alt="RCB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'none\' stroke=\'%23ccc\' stroke-width=\'1\'/%3E%3C/svg%3E'">
-                            <span class="team-name">RCB</span>
-                        </div>
-                    </td>
-                    <td>9</td>
-                    <td>3</td>
-                    <td>6</td>
-                    <td class="font-black text-lg text-gray-500">6</td>
-                    <td class="nrr-neg">-0.45</td>
-                    <td><span class="status-badge status-e">E</span></td>
-                </tr>
             </tbody>
         </table>
     </div>
 
     <footer class="relative z-10 border-t border-black mt-16 py-8 flex flex-col md:flex-row justify-between items-start gap-4">
         <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Archive / 2026 Season</div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Standings Data<br>Updated After Match 29</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-right">TPL Final League Standings<br>Updated After Match 30</div>
     </footer>
 </body>
 </html>

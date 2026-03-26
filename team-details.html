@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile — TPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        :root { 
+            --bg-color: #f2f2f2; 
+            --text-main: #1a1a1a; 
+            --grid-line: rgba(0,0,0,0.08); 
+            --tpl-gold: #fdb913;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        .grid-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 1; display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            border-left: 1px solid var(--grid-line); 
+            border-right: 1px solid var(--grid-line); 
+        }
+        .grid-line { border-right: 1px solid var(--grid-line); height: 100%; }
+
+        /* -----------------------------------------
+           STICKY NAV
+           ----------------------------------------- */
+        .sticky-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            max-width: 95%;
+            background: #ffffff;
+            border: 1px solid var(--tpl-gold);
+            border-radius: 100px;
+            padding: 0.7rem 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.2rem;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .nav-btn { color: #000; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
+
+        .hero-title { 
+            font-weight: 900; 
+            font-size: clamp(2.5rem, 8vw, 6rem); 
+            line-height: 0.85; 
+            letter-spacing: -0.05em; 
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-shadow: 0.5px 0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold), 0.5px -0.5px 0 var(--tpl-gold), -0.5px -0.5px 0 var(--tpl-gold);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: var(--team-color, #000);
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        /* -----------------------------------------
+           STATS GRID - Deep Insights
+           ----------------------------------------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-bottom: 4px solid var(--team-color, #000);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-val { 
+            font-size: clamp(1.8rem, 4vw, 3rem); 
+            font-weight: 900; 
+            font-style: italic; 
+            line-height: 1; 
+            margin-bottom: 0.75rem; 
+            letter-spacing: -0.02em;
+        }
+        .stat-label { font-size: 0.7rem; font-weight: 800; color: #999; text-transform: uppercase; letter-spacing: 0.15em; }
+
+        .record-marker {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 2px 6px;
+            background: var(--tpl-gold);
+            color: black;
+            text-transform: uppercase;
+        }
+
+        /* -----------------------------------------
+           SQUAD & NAVIGATION
+           ----------------------------------------- */
+        .squad-section {
+            margin-top: 5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .player-card {
+            background: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-left: 6px solid var(--team-color, #000);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .role-tag { font-size: 10px; background: #eee; padding: 3px 8px; border-radius: 4px; font-weight: 900; }
+
+        .nav-link { position: relative; overflow: hidden; font-weight: 500; text-decoration: none; color: inherit; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: currentColor; transform: translateX(-101%); transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        @media (max-width: 992px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2.8rem; }
+            .stat-box { padding: 1.5rem 1rem; }
+            .stat-val { font-size: 1.6rem; }
+            .sticky-nav { gap: 0.8rem; padding: 0.5rem 1rem; width: 95%; max-width: 400px; overflow-x: auto; justify-content: flex-start; }
+            .nav-btn { font-size: 8px; }
+            .rank-badge { font-size: 10px; padding: 0.4rem 0.8rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="grid-overlay"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+    
+    <nav class="sticky-nav">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="news.html" class="nav-btn">News</a>
+        <a href="teams.html" class="nav-btn" style="color: var(--tpl-gold);">Teams</a>
+        <a href="fixtures.html" class="nav-btn">Fixtures/Results</a>
+        <a href="points.html" class="nav-btn">Standings</a>
+        <a href="stats.html" class="nav-btn">Stats</a>
+    </nav>
+
+    <header class="relative z-10 mb-16 pt-24 md:pt-12 flex flex-col items-center text-center">
+        <img id="teamLogo" src="" class="w-24 h-24 md:w-32 md:h-32 object-contain mb-8" alt="">
+        <h1 id="teamName" class="hero-title">Loading...</h1>
+        <div id="teamRank" class="rank-badge">---</div>
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+        <!-- TEAM PERFORMANCE DATA -->
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div id="statWins" class="stat-val">---</div>
+                <div class="stat-label">Season Record (W-L)</div>
+            </div>
+            <div class="stat-box">
+                <div id="statRuns" class="stat-val">---</div>
+                <div class="stat-label">Total Runs Aggregated</div>
+                <div id="runsRecord" class="record-marker hidden">Highest in League</div>
+            </div>
+            <div class="stat-box">
+                <div id="statStanding" class="stat-val">---</div>
+                <div class="stat-label">League Rank</div>
+                <div id="rankRecord" class="record-marker hidden">Table Toppers</div>
+            </div>
+            <div class="stat-box">
+                <div id="statHS" class="stat-val">---</div>
+                <div class="stat-label">Highest Innings Score</div>
+                <div id="hsRecord" class="record-marker hidden">League Record</div>
+            </div>
+            <div class="stat-box">
+                <div id="statLS" class="stat-val">---</div>
+                <div class="stat-label">Lowest Innings Score</div>
+                <div id="lsRecord" class="record-marker hidden" style="background: var(--neg-red); color: white;">League Low</div>
+            </div>
+            <div class="stat-box">
+                <div id="statTop" class="stat-val">---</div>
+                <div class="stat-label">Top Individual Scorer</div>
+            </div>
+        </div>
+
+        <!-- FULL SQUAD LIST -->
+        <section class="squad-section">
+            <h3 class="text-xl md:text-3xl font-black italic tracking-tighter uppercase border-b-4 border-black pb-4 mb-8">Official Squad / Season 01</h3>
+            <div id="playerGrid" class="player-grid">
+                <!-- Players will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="relative z-10 border-t border-black mt-32 py-12">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500 text-center w-full">© 2026 T10 Premier League / Performance Analytics Division</div>
+    </footer>
+
+    <script>
+        const teamDatabase = {
+            rr: {
+                name: "Rajasthan Royals", color: "#ea1a85", rankText: "League Toppers (Qualified)",
+                wins: "7 - 3", runs: "1,109", standing: "01", hs: "129/7", ls: "84/3", top: "V. Suryavanshi",
+                squad: [["Riyan Parag", "C"], ["Dhruv Jurel", "WK"], ["Yashasvi Jaiswal", ""], ["Vaibhav Suryavanshi", ""], ["Shimron Hetmyer", ""], ["Ravindra Jadeja", ""], ["Sam Curran", ""], ["Jofra Archer", ""], ["Ravi Bishnoi", ""], ["Sandeep Sharma", ""], ["Donnovan Ferrera", ""]]
+            },
+            mi: {
+                name: "Mumbai Indians", color: "#004ba0", rankText: "Qualified (Qualifier 1)",
+                wins: "5 - 5", runs: "1,090", standing: "02", hs: "127/4", ls: "88/3", top: "Rohit Sharma",
+                squad: [["Hardik Pandya", "C"], ["Quinton de Kock", "WK"], ["Ryan Rickelton", ""], ["Rohit Sharma", ""], ["Suryakumar Yadav", ""], ["Tilak Varma", ""], ["Mitchell Santner", ""], ["Will Jacks", ""], ["Deepak Chahar", ""], ["Trent Boult", ""], ["Jasprit Bumrah", ""]]
+            },
+            csk: {
+                name: "Chennai Super Kings", color: "#fdb913", rankText: "Qualified (Eliminator)",
+                wins: "5 - 5", runs: "1,110", standing: "03", hs: "139/2", ls: "84/3", top: "Sanju Samson",
+                squad: [["Ruturaj Gaikwad", "C"], ["MS Dhoni", "WK"], ["Sanju Samson", ""], ["Ayush Mhatre", ""], ["Dewald Brevis", ""], ["Shivam Dube", ""], ["Sarfaraz Khan", ""], ["Nathan Ellis", ""], ["Noor Ahmad", ""], ["Khaleel Ahmed", ""], ["Akeel Hosein", ""], ["Rahul Chahar", ""]]
+            },
+            kkr: {
+                name: "Kolkata Knight Riders", color: "#3a225d", rankText: "Qualified (Eliminator)",
+                wins: "5 - 5", runs: "990", standing: "04", hs: "138/3", ls: "61/9", top: "Sunil Narine",
+                squad: [["Ajinkya Rahane", "C"], ["Finn Allen", "WK"], ["Cameron Green", ""], ["Tim Seifert", ""], ["Angkrish Raghuvanshi", ""], ["Manish Pandey", ""], ["Rinku Singh", ""], ["Rovman Powell", ""], ["Rachin Ravindra", ""], ["Matheesha Pathirana", ""], ["Harshit Rana", ""], ["Sunil Narine", ""], ["Varun Chakravarthy", ""], ["Umran Malik", ""]]
+            },
+            rcb: {
+                name: "Royal Challengers", color: "#ec1c24", rankText: "Eliminated",
+                wins: "4 - 6", runs: "1,060", standing: "05", hs: "133/2", ls: "74/3", top: "Phil Salt",
+                squad: [["Rajat Patidar", "C"], ["Jitesh Sharma", "WK"], ["Virat Kohli", ""], ["Phil Salt", ""], ["Devdutt Padikkal", ""], ["Romario Shepherd", ""], ["Tim David", ""], ["Jacob Bethell", ""], ["Krunal Pandya", ""], ["Venkatesh Iyer", ""], ["Bhuvaneshwar Kumar", ""], ["Josh Hazlewood", ""], ["Sandeep Sharma", ""], ["Nuwan Thushara", ""]]
+            },
+            srh: {
+                name: "Sunrisers Hyderabad", color: "#f26522", rankText: "Relegated",
+                wins: "4 - 6", runs: "1,120", standing: "06", hs: "138/4", ls: "97/5", top: "Ishan Kishan",
+                squad: [["Pat Cummins", "C"], ["Ishan Kishan", "WK"], ["Abhishek Sharma", ""], ["Travis Head", ""], ["Heinrich Klaasen", ""], ["Nitish Kumar Reddy", ""], ["Liam Livingstone", ""], ["Jaydev Unadkat", ""], ["Kusal Mendis", ""], ["Harshal Patel", ""]]
+            }
+        };
+
+        function renderTeamDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const teamId = params.get('id') || "rr";
+            const data = teamDatabase[teamId];
+
+            if (!data) return;
+
+            // Brand Colors
+            document.body.style.setProperty('--team-color', data.color);
+
+            // Header Content
+            document.getElementById('teamName').innerText = data.name;
+            document.getElementById('teamRank').innerText = data.rankText;
+            document.getElementById('teamLogo').src = `assets/logos/teams/${teamId}.png`;
+
+            // Statistics Hub
+            document.getElementById('statWins').innerText = data.wins;
+            document.getElementById('statRuns').innerText = data.runs;
+            document.getElementById('statStanding').innerText = data.standing;
+            document.getElementById('statHS').innerText = data.hs;
+            document.getElementById('statLS').innerText = data.ls;
+            document.getElementById('statTop').innerText = data.top;
+
+            // Deep Insights Logic (Records)
+            if (teamId === 'srh') document.getElementById('runsRecord').classList.remove('hidden');
+            if (teamId === 'rr') document.getElementById('rankRecord').classList.remove('hidden');
+            if (teamId === 'csk') document.getElementById('hsRecord').classList.remove('hidden');
+            if (teamId === 'kkr') document.getElementById('lsRecord').classList.remove('hidden');
+
+            // Squad Rendering
+            const grid = document.getElementById('playerGrid');
+            grid.innerHTML = data.squad.map(p => `
+                <div class="player-card">
+                    <span>${p[0]}</span>
+                    ${p[1] ? `<span class="role-tag">${p[1]}</span>` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.onload = renderTeamDetails;
+    </script>
+</body>
+</html>
